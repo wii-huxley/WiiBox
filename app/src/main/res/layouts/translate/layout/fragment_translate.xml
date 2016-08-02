@@ -1,0 +1,67 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment">
+
+    <EditText
+        android:id="@+id/et_translate_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10_p"
+        android:background="@drawable/sp_corners_tblr3_bg_500"
+        android:gravity="top"
+        android:lines="5"
+        android:maxLines="5"
+        android:padding="@dimen/dp_5_p"
+        android:textSize="@dimen/size_16"
+        android:hint="@string/hint_input_translate_content"
+        android:textColorHint="@color/wii_color_300"
+        android:textCursorDrawable="@color/wii_color_700"
+        android:textColor="@color/wii_color_700"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10_p"
+        android:paddingRight="@dimen/dp_10_p">
+
+        <Button
+            android:id="@+id/btn_baidu_translate"
+            android:layout_width="@dimen/dp_0_p"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="百度翻译"/>
+
+        <Button
+            android:id="@+id/btn_youdao_translate"
+            android:layout_width="@dimen/dp_0_p"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="有道翻译"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10_p">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_15_p"
+            android:paddingRight="@dimen/dp_15_p"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvTranslateContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_16"
+                android:textColor="@color/wii_color_700"
+                android:lineSpacingExtra="10dp"
+                tools:text="\t・\t%s\t:\n\t\t\t\t%s\n\t・\t基本解释\t:\n\t\t\t\t-\t拼音\t:\n\t\t\t\t\t\t\t%s\n\t\t\t\t-\t翻译\t:\n\t\t\t\t\t\t\t%s\n\t・\t网络解释\t:\n\t\t\t\t-\t%s\t:\n\t\t\t\t\t\t\t%s\n"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

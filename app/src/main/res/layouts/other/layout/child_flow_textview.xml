@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/color_indigo_700"
+    android:background="@drawable/sp_cr_tblr3_bg_ff"
+    android:paddingTop="@dimen/wiidp_5"
+    android:paddingBottom="@dimen/wiidp_5"
+    android:paddingLeft="@dimen/wiidp_10"
+    android:paddingRight="@dimen/wiidp_10"
+    android:textSize="@dimen/wiisp_16"
+    android:layout_margin="@dimen/wiidp_5"
+    tools:text="唯一很无敌"/>

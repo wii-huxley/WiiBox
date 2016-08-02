@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary"      >#3F51B5    </color>
+    <color name="colorPrimaryDark"  >#303F9F    </color>
+    <color name="colorAccent"       >#FF4081    </color>
+
+    <color name="primaryColor"      >#ffeb3b    </color>
+    <color name="primaryColorDark"  >#fbc02d    </color>
+    <color name="accentColor"       >#50514f    </color>
+    <color name="textColorPrimary"  >#33b5e5    </color>
+    <color name="textColorSecondary">#aa66cc    </color>
+
+
+    <color name="bckg"              >#FF5722    </color>
+    <color name="filn"              >#607D8B    </color>
+
+    <color name="color_fff"         >#fff       </color>
+    <color name="color_333"         >#333       </color>
+    <color name="color_757575"      >#757575    </color>
+    <color name="color_272636"      >#272636    </color>
+    <color name="color_eb4f38"      >#eb4f38    </color>
+
+    <color name="color_00bfaf"      >#00bfab    </color>
+    <color name="color_fafafa"      >#fafafa    </color>
+    <color name="transparent"       >#0000      </color>
+    <color name="color_8000"        >#8000      </color>
+    <color name="color_a000"        >#a000      </color>
+    <color name="color_e000"        >#e000      </color>
+    <color name="color_7000"        >#7000      </color>
+    <color name="color_eee3d9"      >#eee3d9    </color>
+    <color name="color_000"         >#000       </color>
+
+</resources>

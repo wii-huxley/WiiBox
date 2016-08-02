@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportHeight="200.0"
+        android:viewportWidth="200.0">
+    <path
+        android:fillColor="@color/wii_color_100"
+        android:pathData="M80,30l-20,0c-5.5,0 -10,4.5 -10,10l0,120c0,5.5 4.5,10 10,10l20,0c5.5,0 10,-4.5 10,-10L90,40C90,34.5 85.5,30 80,30zM140,30l-20,0c-5.5,0 -10,4.5 -10,10l0,120c0,5.5 4.5,10 10,10l20,0c5.5,0 10,-4.5 10,-10L150,40C150,34.5 145.5,30 140,30z"/>
+</vector>

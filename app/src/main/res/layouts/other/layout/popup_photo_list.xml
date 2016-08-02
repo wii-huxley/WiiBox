@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fff">
+
+    <ListView
+        android:id="@+id/lvDir"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_eee3d9"
+        android:dividerHeight="@dimen/wiipx_1"/>
+
+</RelativeLayout>

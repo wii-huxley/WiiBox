@@ -1,0 +1,22 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_fff">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56_p"
+        android:background="@color/wii_color_700"
+        app:titleTextColor="@color/wii_color_50"/>
+
+    <com.huxley.wii.wiibox.common.widget.flowlayout.TagFlowLayout
+        android:id="@id/flowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/wii_color_500"
+        android:padding="10dp"
+        android:layout_marginTop="@dimen/dp_56_p"/>
+</FrameLayout>

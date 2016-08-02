@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@android:id/background">
+        <shape>
+            <gradient android:startColor="@color/wii_color_300"
+                android:endColor="@color/wii_color_50"
+                android:angle="270.0" 
+                android:centerY="0.75" 
+                android:centerColor="@color/wii_color_100" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <gradient android:startColor="@color/color_red_700"
+                    android:endColor="@color/color_red_300"
+                    android:angle="270.0" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

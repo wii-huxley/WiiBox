@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.main.androidtools.child.gobang.GobangActivity">
+
+    <com.huxley.wii.wiibox.common.widget.gobang.GobangPanel
+        android:id="@id/gobangPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/color_indigo_100"/>
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_5_p"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/dp_10_p">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_10_p">
+
+            <TextView
+                android:id="@id/tvArticleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/wiidp_15"
+                android:layout_marginRight="@dimen/wiidp_15"
+                android:layout_marginTop="@dimen/wiidp_10"
+                android:layout_toLeftOf="@id/tvSource"
+                android:maxLines="2"
+                android:textColor="@color/wii_color_900"
+                android:textSize="@dimen/wiisp_16"
+                tools:text="Android drawable微技巧，你所不知道的drawable的那些细节"/>
+
+            <TextView
+                android:id="@id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/tvArticleName"
+                android:layout_marginLeft="@dimen/wiidp_15"
+                android:layout_marginRight="@dimen/wiidp_15"
+                android:layout_marginTop="@dimen/wiidp_5"
+                android:layout_toLeftOf="@id/tvDate"
+                android:textColor="@color/wii_color_300"
+                tools:text="雷锋"/>
+
+            <TextView
+                android:id="@id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tvName"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/wiidp_15"
+                android:textColor="@color/wii_color_300"
+                android:textSize="@dimen/wiisp_12"
+                tools:text="2015-6-5"/>
+
+            <TextView
+                android:id="@id/tvSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/wiidp_15"
+                android:layout_marginTop="@dimen/wiidp_10"
+                android:textColor="@color/wii_color_300"
+                android:textSize="@dimen/wiisp_12"
+                tools:text="web"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

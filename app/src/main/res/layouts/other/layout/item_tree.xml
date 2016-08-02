@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/wiidp_40">
+
+    <ImageView
+        android:id="@id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/wiidp_5"
+        android:layout_marginRight="@dimen/wiidp_5"
+        android:src="@drawable/tree_ec"/>
+
+    <TextView
+        android:id="@id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_grey_900"
+        android:layout_toRightOf="@id/ivIcon"
+        android:textSize="@dimen/wiisp_18"
+        tools:text="weii"/>
+
+    <View style="@style/line_horizontal"
+        android:layout_alignParentBottom="true"
+          android:layout_toRightOf="@id/ivIcon"
+        />
+</RelativeLayout>

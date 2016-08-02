@@ -1,0 +1,23 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56_p"
+        android:background="@color/wii_color_700"
+        app:titleTextColor="@color/wii_color_50"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_5_p"
+        android:paddingRight="@dimen/dp_5_p"
+        tools:listitem="@layout/item_book"
+        android:layout_marginTop="@dimen/dp_56_p"/>
+</RelativeLayout>
