@@ -13,8 +13,8 @@ import com.huxley.wii.wiibox.common.ui.photoAlbum.PhotoAlbumActivity;
 import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
 import com.huxley.wii.wiibox.mvp.dytt.DyttActivity;
-import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
+import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.main.MainActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.alignedtext.AlignedTextActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity;
@@ -90,8 +90,11 @@ public class UIHelper {
         WiiLog.i(" --- setSwipeRefreshStyles --- " + layout);
     }
 
-    public static void openWebView(int type, String url, String title, Context context) {
+    public static void openWebView(String url, String title, Context context) {
         new FinestWebView.Builder(context)
+                .urlColor(ResHelper.getColor(R.color.wii_color_50))
+                .setCustomAnimations(R.anim.activity_fade_in, R.anim.activity_fade_out, R.anim.activity_fade_in, R.anim.activity_fade_out)
+                .titleColor(ResHelper.getColor(R.color.wii_color_50))
                 .titleDefault(title)
                 .show(url);
     }

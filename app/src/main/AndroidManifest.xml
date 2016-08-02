@@ -56,7 +56,7 @@
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="portrait"/>
         <activity android:name=".common.ui.photoAlbum.PhotoAlbumActivity"/>
         <activity android:name=".mvp.main.androidtools.child.gobang.GobangActivity"/>
         <activity android:name=".mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity"/>

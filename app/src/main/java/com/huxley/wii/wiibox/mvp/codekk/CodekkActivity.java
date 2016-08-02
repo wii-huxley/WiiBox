@@ -54,6 +54,7 @@ public class CodekkActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                mPresenter.search(query, true);
                 return true;
             }
 
@@ -65,6 +66,7 @@ public class CodekkActivity extends BaseActivity {
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                mPresenter.setFirstContent();
                 return true;
             }
 

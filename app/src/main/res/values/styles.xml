@@ -18,7 +18,11 @@
         <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 
-    <style name="line_vertical"></style>
+    <style name="line_vertical">
+        <item name="android:background">@color/color_grey_400</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/wiipx_1</item>
+    </style>
 
     <style name="line_horizontal">
         <item name="android:background">@color/color_grey_400</item>

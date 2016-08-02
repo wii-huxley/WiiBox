@@ -29,5 +29,9 @@ public interface CodekkContract {
         void loadMore();
 
         void refresh();
+
+        void search(String content, boolean isFirst);
+
+        void setFirstContent();
     }
 }

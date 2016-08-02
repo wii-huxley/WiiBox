@@ -152,4 +152,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0'
     androidTestCompile 'org.testng:testng:6.9.6'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
 }

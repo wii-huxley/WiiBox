@@ -15,7 +15,7 @@ public class RecyclerViewScrollListener {
 
     private static int lastVisibleItem;
     private static boolean mIsFirstTimeTouchBottom = true;
-    private static final int PRELOAD_SIZE = 2;
+    private static final int PRELOAD_SIZE = 6;
 
     public static RecyclerView.OnScrollListener getLoadMoreListener(final LinearLayoutManager layoutManager,
                                                                     final SwipeRefreshLayout swipeRefreshLayout,
@@ -41,12 +41,12 @@ public class RecyclerViewScrollListener {
                                                                     final SwipeRefreshLayout swipeRefreshLayout,
                                                                     final CommonAdapter adapter,
                                                                     final OnLoadMoreListener loadMoreListener){
+        mIsFirstTimeTouchBottom = true;
         lastVisibleItem = 0;
         return new RecyclerView.OnScrollListener(){
             @Override public void onScrolled(RecyclerView rv, int dx, int dy) {
                 if (!swipeRefreshLayout.isRefreshing() && layoutManager.findLastCompletelyVisibleItemPositions(new int[2])[1] >= adapter.getItemCount() - PRELOAD_SIZE) {
                     if (!mIsFirstTimeTouchBottom) {
-                        swipeRefreshLayout.setRefreshing(true);
                         loadMoreListener.loadMore();
                     } else {
                         mIsFirstTimeTouchBottom = false;

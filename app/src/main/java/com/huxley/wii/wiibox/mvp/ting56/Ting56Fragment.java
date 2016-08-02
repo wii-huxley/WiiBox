@@ -10,7 +10,6 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
-import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Bean;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
 import com.huxley.wii.wiitools.base.BaseListFragment;
@@ -42,7 +41,7 @@ public class Ting56Fragment extends BaseListFragment<Ting56Bean> implements Ting
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                UIHelper.startDyttDetailActivity(getActivity(), (DyttListBean.MovieInfo)o);
+                UIHelper.startChapterListActivity(getContext(), ((Ting56Bean)o).url, ((Ting56Bean)o).name);
             }
             @Override
             public boolean onItemLongClick(ViewGroup parent, View view, Object o, int position) {

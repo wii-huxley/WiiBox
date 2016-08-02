@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
+import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.codekk.model.CodekkProjectBean;
 import com.huxley.wii.wiitools.base.BaseListFragment;
 import com.huxley.wii.wiitools.common.Utils.DateUtils;
 import com.huxley.wii.wiitools.listener.RecyclerViewScrollListener;
-import com.thefinestartist.finestwebview.FinestWebView;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.CommonAdapter;
 import com.zhy.base.adapter.recyclerview.OnItemClickListener;
@@ -34,12 +34,12 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
         super.created(savedInstanceState);
 
         mRecyclerView.addOnScrollListener(RecyclerViewScrollListener.getLoadMoreListener((StaggeredGridLayoutManager) mLinearLayoutManager,
-                mSwipeRefreshLayout, mAdapter, () -> mPresenter.loadMore()));
+                mSwipeRefreshLayout, mAdapter, this::loadMore));
 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                new FinestWebView.Builder(getContext()).show(((CodekkProjectBean) o).codeKKUrl);
+                UIHelper.openWebView(((CodekkProjectBean) o).codeKKUrl, ((CodekkProjectBean) o).projectName, getContext());
             }
 
             @Override
@@ -73,6 +73,15 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
     }
 
     @Override
+    protected void loadMore() {
+        if (!((CodekkPresenter)mPresenter).hasMore) {
+            return;
+        }
+        super.loadMore();
+        mPresenter.loadMore();
+    }
+
+    @Override
     public void onRefresh() {
         mPresenter.refresh();
     }
@@ -90,6 +99,7 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
     public void isEmptyView(boolean isFirst) {
         super.showEmptyView(isFirst);
         if (!isFirst) {
+            
             ToastHelper.showInfo("没有内容");
         }
     }

@@ -31,4 +31,9 @@ public class CodekkModel {
         return HttpClient.getCodekkApi().getHomeList(page)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<ResultBean<CodekkSearchListBean>> getSearchList(String content, int page){
+        return HttpClient.getCodekkApi().getSearchList(content, page)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }

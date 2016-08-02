@@ -33,6 +33,6 @@ public interface CodekkApi {
     @GET("search")
     Observable<ResultBean<CodekkSearchListBean>> getSearchList(
             @Query("text") String text,
-            @Query("page") String page
+            @Query("page") int page
     );
 }

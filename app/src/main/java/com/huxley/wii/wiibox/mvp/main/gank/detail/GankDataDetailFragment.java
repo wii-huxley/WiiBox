@@ -134,7 +134,7 @@ public class GankDataDetailFragment extends BaseNetFragment implements GankDataD
                 WiiLog.i(position);
                 if (mAdapter.getItemViewType(position) == 1) {
                     GankInfo.ResultsBean.ItemBean item = (GankInfo.ResultsBean.ItemBean) o;
-                    UIHelper.openWebView(0, item.url, item.desc, getContext());
+                    UIHelper.openWebView(item.url, item.desc, getContext());
                 }
             }
             @Override

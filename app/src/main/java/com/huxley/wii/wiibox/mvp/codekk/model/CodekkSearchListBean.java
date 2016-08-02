@@ -17,4 +17,8 @@ public class CodekkSearchListBean {
     public String toString() {
         return GsonUtils.get().toJson(this);
     }
+
+    public boolean isEmpty() {
+        return projectArray == null || projectArray.size() <= 0;
+    }
 }

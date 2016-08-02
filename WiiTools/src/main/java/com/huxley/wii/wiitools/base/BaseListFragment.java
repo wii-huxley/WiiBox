@@ -55,33 +55,29 @@ public abstract class BaseListFragment<T> extends BaseNetFragment implements Swi
     protected void showContentView(boolean isFirst) {
         if (isFirst) {
             super.showContentView();
-        } else {
-            dismissRefresh();
         }
+        dismissRefresh();
     }
 
     protected void showEmptyView(boolean isFirst) {
         if (isFirst) {
             super.showEmptyView();
-        } else {
-            dismissRefresh();
         }
+        dismissRefresh();
     }
 
     protected void showErrorView(boolean isFirst) {
         if (isFirst) {
             super.showErrorView();
-        } else {
-            dismissRefresh();
         }
+        dismissRefresh();
     }
 
     protected void showNoNetView(boolean isFirst) {
         if (isFirst) {
             super.showNoNetView();
-        } else {
-            dismissRefresh();
         }
+        dismissRefresh();
     }
 
     public void dismissRefresh(){
