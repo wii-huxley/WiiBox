@@ -71,6 +71,7 @@ android {
             buildConfigField "boolean", "HTTP_DEBUG", "false"
             minifyEnabled false
             zipAlignEnabled false
+            signingConfig signingConfigs.wii
         }
     }
 
@@ -148,7 +149,6 @@ dependencies {
     compile 'hanks.xyz:htextview-library:0.1.5'
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.cleveroad:audiowidget:0.9.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0'
     androidTestCompile 'org.testng:testng:6.9.6'
