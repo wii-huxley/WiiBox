@@ -15,6 +15,10 @@ import com.huxley.wii.wiitools.R;
 
 public class SnackbarHelper {
 
+    public static void showInfo(View rltView, String title) {
+        showInfo(rltView, title, R.color.color_teal_50, R.color.color_teal_700, 0, null, null, 0, null);
+    }
+
     public static void showInfo(View rltView, String title, @ColorRes int textColor, @ColorRes int backgroundColor, @ColorRes int actionTextColor,
                                 String content, View.OnClickListener listener, int gravity, View iconView) {
         Snackbar snackbar = Snackbar.make(rltView, title, Snackbar.LENGTH_SHORT);

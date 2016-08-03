@@ -21,7 +21,7 @@ import com.huxley.wii.wiitools.base.BaseFragment;
  */
 public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.OnTagClickListener {
 
-    private String[] mVals = {"相册", "五子棋", "扫雷", "ExpandingPager", "TagFlowLayout", "treeview", "索引", "NavigationTabBar", "stepView", "alignedText"};
+    private String[] mVals = {"相册", "五子棋", "扫雷", "ExpandingPager", "TagFlowLayout", "treeview", "索引", "NavigationTabBar", "stepView", "alignedText", "BlurView"};
     private TagFlowLayout mFlowLayout;
 
     public AndroidToolsFragment() {
@@ -92,7 +92,7 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
                 UIHelper.startCategoryActivity(getActivity());
                 break;
             case 6:
-                UIHelper.startIndexableListViewActivity(getActivity());
+//                UIHelper.startIndexableListViewActivity(getActivity());
                 break;
             case 7:
                 UIHelper.setNavigationTabBarActivity(getActivity());
@@ -102,6 +102,10 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
                 break;
             case 9://alignedText
                 UIHelper.setAlignedTextActivity(getActivity());
+                break;
+            case 10: //BlurView
+                UIHelper.startBlurViewActivity(getActivity());
+                break;
         }
         return false;
     }

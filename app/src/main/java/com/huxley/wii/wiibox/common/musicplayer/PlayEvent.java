@@ -52,6 +52,8 @@ public class PlayEvent<M> {
 
     public int seekTo;
 
+    public String tag;
+
     public PlayEvent(Action action) {
         this.action = action;
         this.position = -1;

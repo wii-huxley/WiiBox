@@ -17,6 +17,7 @@ import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.main.MainActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.alignedtext.AlignedTextActivity;
+import com.huxley.wii.wiibox.mvp.main.androidtools.child.blurview.BlurViewActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.gobang.GobangActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.navigationTabBar.NavigationTabBarActivity;
@@ -186,6 +187,12 @@ public class UIHelper {
     public static void startCodekkActivity(Context context) {
         if (context != null) {
             context.startActivity(new Intent(context, CodekkActivity.class));
+        }
+    }
+
+    public static void startBlurViewActivity(Context context) {
+        if (context != null) {
+            context.startActivity(new Intent(context, BlurViewActivity.class));
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.huxley.wii.wiibox.mvp.main.gank;
 
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
 import com.huxley.wii.wiitools.exception.EmptyException;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
 

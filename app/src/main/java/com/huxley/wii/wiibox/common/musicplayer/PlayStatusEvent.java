@@ -25,6 +25,8 @@ public class PlayStatusEvent {
 
     public int position;
 
+    public String tag;
+
     @Override
     public String toString() {
         return GsonUtils.get().toJson(this);

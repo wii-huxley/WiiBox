@@ -1,8 +1,8 @@
 package com.huxley.wii.wiibox.http.api;
 
 
-import com.huxley.wii.wiibox.mvp.main.gank.DataInfo;
-import com.huxley.wii.wiibox.mvp.main.gank.GankInfo;
+import com.huxley.wii.wiibox.mvp.main.gank.model.DataInfo;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

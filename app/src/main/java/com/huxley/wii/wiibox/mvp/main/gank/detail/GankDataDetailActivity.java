@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import android.view.Window;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.mvp.main.gank.GankInfo;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.common.helper.FragmentHelper;
 

@@ -21,6 +21,9 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         vectorDrawables.useSupportLibrary = true
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
 
     signingConfigs {
@@ -105,6 +108,7 @@ android {
                     'src/main/res/layouts/dytt',
                     'src/main/res/layouts/codekk',
                     'src/main/res/layouts/other',
+                    'src/main/res/layouts/blurview',
                     'src/main/res/layouts',
                     'src/main/res/drawables/icon',
                     'src/main/res/drawables/layerlist',

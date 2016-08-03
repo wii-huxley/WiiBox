@@ -7,6 +7,7 @@ import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Bean;
 import java.util.List;
 
 /**
+ *
  * Created by huxley on 16/7/5.
  */
 public interface Ting56Contract {

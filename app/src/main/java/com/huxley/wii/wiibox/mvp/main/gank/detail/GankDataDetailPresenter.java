@@ -2,7 +2,7 @@ package com.huxley.wii.wiibox.mvp.main.gank.detail;
 
 import android.support.annotation.NonNull;
 
-import com.huxley.wii.wiibox.mvp.main.gank.GankModel;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
 import com.huxley.wii.wiitools.exception.EmptyException;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
 

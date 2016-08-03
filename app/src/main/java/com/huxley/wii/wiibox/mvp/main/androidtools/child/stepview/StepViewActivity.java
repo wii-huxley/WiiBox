@@ -23,7 +23,7 @@ public class StepViewActivity extends BaseTitleActivity {
         addView(R.layout.activity_step_view);
         VerticalStepViewFragment mVerticalStepViewFragment = new VerticalStepViewFragment();
         getFragmentManager().beginTransaction().replace(R.id.container, mVerticalStepViewFragment).commit();
-        toolbar.setTitle("StepView");
+        titleFragment.setTitle("StepView");
     }
 
     @Override

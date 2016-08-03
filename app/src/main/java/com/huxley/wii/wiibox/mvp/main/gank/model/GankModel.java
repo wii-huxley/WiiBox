@@ -1,4 +1,4 @@
-package com.huxley.wii.wiibox.mvp.main.gank;
+package com.huxley.wii.wiibox.mvp.main.gank.model;
 
 import com.google.gson.Gson;
 import com.huxley.wii.wiibox.common.Constant;

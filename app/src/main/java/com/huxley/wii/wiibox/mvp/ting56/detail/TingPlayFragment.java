@@ -120,12 +120,14 @@ public class TingPlayFragment extends BaseNetFragment implements TingPlayContrac
     }
 
     private void pause() {
-        EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.STOP));
+        EventBus.getDefault().post(new PlayEvent(PlayEvent.Action.PAUSED));
     }
 
     private void play(int position) {
         PlayEvent playEvent = new PlayEvent(PlayEvent.Action.PLAY);
+        playEvent.musics = mTing56DetailBeen;
         playEvent.position = position;
+        playEvent.tag = mUrl;
         EventBus.getDefault().post(playEvent);
     }
 
@@ -171,6 +173,7 @@ public class TingPlayFragment extends BaseNetFragment implements TingPlayContrac
         getActivity().startService(new Intent(getActivity(), PlayerService.class));
         PlayEvent<Ting56Bean.Ting56DetailBean> prepareEvent = new PlayEvent<>(PlayEvent.Action.PREPARE);
         prepareEvent.musics = mTing56DetailBeen;
+        prepareEvent.tag = mUrl;
         prepareEvent.position = (int) SP.Ting56.read(mUrl, 0);
         EventBus.getDefault().post(prepareEvent);
     }
@@ -183,8 +186,10 @@ public class TingPlayFragment extends BaseNetFragment implements TingPlayContrac
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PlayStatusEvent event) {
         L.i(event.toString());
-        isPlaying = (event.action == PlayStatusEvent.Action.PLAY);
-        currentPosition = event.position;
-        mAdapter.notifyDataSetChanged();
+        if (mUrl.equals(event.tag)) {
+            isPlaying = (event.action == PlayStatusEvent.Action.PLAY);
+            currentPosition = event.position;
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

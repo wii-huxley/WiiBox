@@ -1,7 +1,6 @@
 package com.huxley.wii.wiitools.common.manager;
 
 import android.app.Activity;
-import android.content.Context;
 
 import java.util.Iterator;
 import java.util.Stack;
@@ -113,10 +112,11 @@ public class ActivityManager {
     /**
      * 退出应用程序
      */
-    public void appExit(Context context) {
+    public void appExit(Activity activity) {
         try {
-            finishAllActivity();
+            activity.finish();
             android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
         } catch (Exception e) {
 
         }

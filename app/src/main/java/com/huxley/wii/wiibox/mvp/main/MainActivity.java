@@ -20,16 +20,16 @@ import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
+import com.huxley.wii.wiitools.common.manager.ActivityManager;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
 
-
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
-
+    private DrawerLayout     mDrawerLayout;
+    private NavigationView   navigationView;
     private BaseFragment[][] fragments;
 
     /**
@@ -116,10 +116,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
 
             case R.id.navSetting:
-
+                SnackbarHelper.showInfo(mDrawerLayout, "暂无");
                 break;
             case R.id.navExit:
-
+                ActivityManager.getInstance().appExit(this);
                 break;
         }
         menuItem.setChecked(true);

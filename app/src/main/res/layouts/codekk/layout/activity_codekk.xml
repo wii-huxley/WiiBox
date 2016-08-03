@@ -18,13 +18,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56_p"
-                android:background="@color/wii_color_700"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            <include layout="@layout/wii_layout_toolbar"/>
         </android.support.design.widget.AppBarLayout>
 
         <fragment

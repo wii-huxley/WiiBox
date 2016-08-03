@@ -79,6 +79,9 @@
         <activity android:name=".mvp.dytt.detail.DyttDetailActivity"/>
         <activity android:name=".mvp.ting56.Ting56Activity"/>
         <activity android:name=".mvp.codekk.CodekkActivity"/>
+        <activity android:name=".mvp.main.androidtools.child.blurview.BlurredViewBasicActivity"/>
+        <activity android:name=".mvp.main.androidtools.child.blurview.BlurViewActivity"/>
+        <activity android:name=".mvp.main.androidtools.child.blurview.WeatherActivity"/>
     </application>
 
 </manifest>

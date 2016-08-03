@@ -19,6 +19,8 @@ import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
 import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
 import com.huxley.wii.wiitools.base.BaseNetFragment;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.CommonAdapter;
@@ -37,6 +39,7 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
     private CommonAdapter<GankInfo> mAdapter;
     private GankContract.Presenter mGankPresenter;
     private List<GankInfo> mGankInfos;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static GankFragment newInstance() {
         return new GankFragment();
@@ -74,7 +77,7 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
             }
         });
 
-        SwipeRefreshLayout swipeRefreshLayout = $1(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = $1(R.id.swipeRefreshLayout);
         UIHelper.setSwipeRefreshStyles(swipeRefreshLayout, this);
     }
 
@@ -128,11 +131,13 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
 
     @Override
     public void isEmptyView() {
+        swipeRefreshLayout.setRefreshing(false);
         super.showEmptyView();
     }
 
     @Override
     public void isContentView(List<GankInfo> gankList, boolean isFirst) {
+        swipeRefreshLayout.setRefreshing(false);
         super.showContentView();
         if (isFirst) {
             mGankInfos.clear();
@@ -144,16 +149,17 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
     @Override
     public void isErrorView() {
         super.showErrorView();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void isNoNetView() {
         super.showNoNetView();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void update(int position) {
         GankInfo gankInfo = GankModel.getInstance().getGankInfo(mGankInfos.get(position).date);
-        WiiLog.i(" -- "+position+" -- "+gankInfo.toString());
         mGankInfos.remove(position);
         mGankInfos.add(position, gankInfo);
         mAdapter.notifyItemChanged(position);

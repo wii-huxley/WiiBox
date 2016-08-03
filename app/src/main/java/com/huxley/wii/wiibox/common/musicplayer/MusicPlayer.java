@@ -115,8 +115,38 @@ public class MusicPlayer<M> implements MediaPlayer.OnCompletionListener {
         return player;
     }
 
-    public void prepare(List<M> musics, int position){
+    public void setMusics(String tag, List<M> musics) {
+        if (tag.equals(playStatusEvent.tag)) {
+            return;
+        }
+        this.mMusics.clear();
+        playStatusEvent.tag = tag;
+        try {
+            for (M music : musics) {
+                String path = null;
+                Class<?> clazz = music.getClass();
+                Field[] declaredFields = clazz.getDeclaredFields();
+                for (Field field : declaredFields) {
+                    if (field.getAnnotation(MusicPath.class) != null) {
+                        field.setAccessible(true);
+                        path = (String) field.get(music);
+                    }
+                    if (path != null) {
+                        break;
+                    }
+                }
+                this.mMusics.add(path);
+            }
+        } catch (Exception e) {
+            //出错
+        }
+    }
+
+    public void prepare(List<M> musics, int position, String tag){
         L.json(musics.toString());
+        if (this.mMusics.size() > 0) {
+            return;
+        }
         try {
             for (M music : musics) {
                 String path = null;
@@ -134,6 +164,7 @@ public class MusicPlayer<M> implements MediaPlayer.OnCompletionListener {
                 this.mMusics.add(path);
             }
             playStatusEvent.position = position;
+            playStatusEvent.tag = tag;
             if (!audioWidget.isShown()) {
                 audioWidget.show((int)SP.Config.read(POSITION_X, 100), (int)SP.Config.read(POSITION_Y, 100));
             }
@@ -188,7 +219,7 @@ public class MusicPlayer<M> implements MediaPlayer.OnCompletionListener {
     public void pause() {
         playStatusEvent.action = PlayStatusEvent.Action.PAUSED;
         mMediaPlayer.pause();
-        audioWidget.controller().start();
+        audioWidget.controller().pause();
         stopTrackingPosition();
         EventBus.getDefault().post(playStatusEvent);
     }
@@ -196,14 +227,14 @@ public class MusicPlayer<M> implements MediaPlayer.OnCompletionListener {
     public void stop() {
         playStatusEvent.action = PlayStatusEvent.Action.PAUSED;
         mMediaPlayer.stop();
-        audioWidget.controller().start();
+        audioWidget.controller().pause();
         stopTrackingPosition();
     }
 
     public void resume() {
         playStatusEvent.action = PlayStatusEvent.Action.PLAY;
         mMediaPlayer.start();
-        audioWidget.controller().pause();
+        audioWidget.controller().start();
         startTrackingPosition();
         EventBus.getDefault().post(playStatusEvent);
     }

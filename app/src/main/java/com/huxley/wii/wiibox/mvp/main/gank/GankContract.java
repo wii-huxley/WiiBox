@@ -2,6 +2,7 @@ package com.huxley.wii.wiibox.mvp.main.gank;
 
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 
 import java.util.List;
 

@@ -37,7 +37,7 @@ public class Ting56Fragment extends BaseListFragment<Ting56Bean> implements Ting
 
         mPresenter.start();
         mRecyclerView.addOnScrollListener(RecyclerViewScrollListener.getLoadMoreListener((LinearLayoutManager) mLinearLayoutManager,
-                mSwipeRefreshLayout, mAdapter, () -> mPresenter.loadMore()));
+                mSwipeRefreshLayout, mAdapter, mPresenter::loadMore));
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {

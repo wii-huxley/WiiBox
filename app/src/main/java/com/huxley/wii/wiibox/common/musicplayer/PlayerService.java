@@ -39,10 +39,11 @@ public class PlayerService extends Service {
         }
         switch (playEvent.action) {
             case PREPARE: // 设置资源
-                MusicPlayer.getPlayer(this).prepare(playEvent.musics, playEvent.position);
+                MusicPlayer.getPlayer(this).prepare(playEvent.musics, playEvent.position, playEvent.tag);
                 break;
             case PLAY: //开始播放
                 if (playEvent.position >= 0) {
+                    MusicPlayer.getPlayer(this).setMusics(playEvent.tag, playEvent.musics);
                     MusicPlayer.getPlayer(this).play(playEvent.position);
                 } else {
                     MusicPlayer.getPlayer(this).play();
