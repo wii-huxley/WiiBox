@@ -21,7 +21,8 @@ import com.huxley.wii.wiitools.base.BaseFragment;
  */
 public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.OnTagClickListener {
 
-    private String[] mVals = {"相册", "五子棋", "扫雷", "ExpandingPager", "TagFlowLayout", "treeview", "索引", "NavigationTabBar", "stepView", "alignedText", "BlurView"};
+    private String[] mVals = {"相册", "五子棋", "扫雷", "ExpandingPager", "TagFlowLayout", "treeview",
+            "索引", "NavigationTabBar", "stepView", "alignedText", "BlurView", "html-image-switch"};
     private TagFlowLayout mFlowLayout;
 
     public AndroidToolsFragment() {
@@ -88,7 +89,7 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
             case 4://ExpandingPager
                 UIHelper.startExpandingPagerActivity(getActivity());
                 break;
-            case 5://TagFlowLayout
+            case 5://TagFlowLayou
                 UIHelper.startCategoryActivity(getActivity());
                 break;
             case 6:
@@ -105,6 +106,9 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
                 break;
             case 10: //BlurView
                 UIHelper.startBlurViewActivity(getActivity());
+                break;
+            case 11:
+                UIHelper.openWebView("file:///android_asset/image-switch/index.html", "html-image-switch", getContext());
                 break;
         }
         return false;
