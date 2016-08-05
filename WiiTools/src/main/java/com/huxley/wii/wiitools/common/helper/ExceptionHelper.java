@@ -18,4 +18,8 @@ public class ExceptionHelper {
     public static boolean isEmptyException(Throwable e) {
         return e instanceof EmptyException;
     }
+
+    public static boolean isNullPointerException(Throwable e) {
+        return e instanceof NullPointerException;
+    }
 }

@@ -4,13 +4,12 @@ import com.google.gson.Gson;
 import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.utils.SP;
 import com.huxley.wii.wiibox.http.HttpClient;
+import com.huxley.wii.wiitools.common.Utils.GsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.finalteam.toolsfinal.StringUtils;
 import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * Created by huxley on 16/3/26.
@@ -36,39 +35,26 @@ public class GankModel {
         return HttpClient.getGankApi().getDatas();
     }
 
-    public Observable<DataInfo> getLocalGankDatas() {
+    public Observable<List<GankInfo>> getLocalGankDatas() {
         String read = null;
         if (SP.Gank.hasHistory()) {
             read = (String) SP.Gank.read(Constant.Extra.HISTORY_LIST, "");
         }
-        if (StringUtils.isEmpty(read)) {
-            return getGankDatas();
-        } else {
-            return Observable.just(new Gson().fromJson(read, DataInfo.class));
-        }
+        return Observable.just(GsonUtils.get().fromJson(read, DataInfo.class))
+                .flatMap(dataInfo -> {
+                    setDataInfo(dataInfo);
+                    return Observable.from(dataInfo.datas);
+                })
+                .map(this::getGankInfo).toList();
     }
 
-    public Observable<List<GankInfo>> getGankInfos(boolean isRrefresh) {
-        Observable<DataInfo> dataInfoObservable;
-        if (isRrefresh) {
-            dataInfoObservable = getGankDatas();
-        } else {
-            dataInfoObservable = getLocalGankDatas();
-        }
-        return dataInfoObservable
-                .flatMap(new Func1<DataInfo, Observable<String>>() {
-                    @Override
-                    public Observable<String> call(DataInfo dataInfo) {
-                        setDataInfo(dataInfo);
-                        return Observable.from(dataInfo.datas);
-                    }
+    public Observable<List<GankInfo>> getGankInfos() {
+        return getGankDatas()
+                .flatMap(dataInfo -> {
+                    setDataInfo(dataInfo);
+                    return Observable.from(dataInfo.datas);
                 })
-                .map(new Func1<String, GankInfo>() {
-                    @Override
-                    public GankInfo call(String date) {
-                        return getGankInfo(date);
-                    }
-                }).toList();
+                .map(this::getGankInfo).toList();
     }
 
     public GankInfo getGankInfo(String date) {
@@ -84,21 +70,10 @@ public class GankModel {
     public Observable<List<Object>> getGankDetailInfo(final String date) {
         final String finalDate = date.replaceAll("-", "/");
         return HttpClient.getGankApi().getGankDetailInfo(finalDate)
-                .flatMap(new Func1<GankInfo, Observable<?>>() {
-                    @Override
-                    public Observable<Object> call(GankInfo gankInfo) {
-                        setGankInfo(date, gankInfo);
-                        return Observable.from(getGankList(gankInfo));
-                    }
+                .flatMap(gankInfo -> {
+                    setGankInfo(date, gankInfo);
+                    return Observable.from(getGankList(gankInfo));
                 }).toList();
-    }
-
-    public void setDataInfo(DataInfo dataInfo) {
-        SP.Gank.save(Constant.Extra.HISTORY_LIST, new Gson().toJson(dataInfo));
-    }
-
-    public void setGankInfo(String date, GankInfo gankInfo) {
-        SP.Gank.save(date, new Gson().toJson(gankInfo));
     }
 
     public List<Object> getGankList(GankInfo gankInfo) {
@@ -142,5 +117,13 @@ public class GankModel {
             }
         }
         return objs;
+    }
+
+    public void setDataInfo(DataInfo dataInfo) {
+        SP.Gank.save(Constant.Extra.HISTORY_LIST, new Gson().toJson(dataInfo));
+    }
+
+    public void setGankInfo(String date, GankInfo gankInfo) {
+        SP.Gank.save(date, new Gson().toJson(gankInfo));
     }
 }

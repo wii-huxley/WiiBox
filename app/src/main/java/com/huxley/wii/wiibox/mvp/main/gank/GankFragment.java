@@ -1,8 +1,6 @@
 package com.huxley.wii.wiibox.mvp.main.gank;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,19 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
-import com.huxley.wii.wiibox.common.utils.WiiLog;
-import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
-import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.CommonAdapter;
 import com.zhy.base.adapter.recyclerview.OnItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
@@ -34,35 +29,36 @@ import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 /**
  * create an instance of this fragment.
  */
-public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.OnRefreshListener, GankContract.View {
+public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements SwipeRefreshLayout.OnRefreshListener, GankContract.View {
 
-    private CommonAdapter<GankInfo> mAdapter;
     private GankContract.Presenter mGankPresenter;
-    private List<GankInfo> mGankInfos;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static GankFragment newInstance() {
         return new GankFragment();
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_gank;
+    }
+
+    @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        addView(R.layout.fragment_gank);
         initView();
         initListener();
         mGankPresenter.start();
     }
 
-    private void initView() {
-        Toolbar toolbar = $(R.id.toolbar);
-        toolbar.setTitle("Gank");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+    @Override
+    public RecyclerView getRecyclerView() {
+        return $(R.id.recyclerView);
+    }
 
-        RecyclerView recyclerView = $1(R.id.recyclerView);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(mAdapter = new CommonAdapter<GankInfo>(getContext(), R.layout.item_gank, mGankInfos = new ArrayList<>()) {
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return  new CommonAdapter<GankInfo>(getContext(), R.layout.item_gank, mData) {
             @Override
             public void convert(ViewHolder holder, GankInfo gankBean) {
                 holder.setText(R.id.tvDate, gankBean.date);
@@ -75,23 +71,34 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
                 ImageLoaderUtils.setGankImage(holder.getView(R.id.ivPhoto), url);
                 holder.setVisible(R.id.spacer, holder.getItemPosition() == (getItemCount() - 1));
             }
-        });
+        };
+    }
 
-        swipeRefreshLayout = $1(R.id.swipeRefreshLayout);
-        UIHelper.setSwipeRefreshStyles(swipeRefreshLayout, this);
+    @Override
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return $(R.id.swipeRefreshLayout);
+    }
+
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+    }
+
+    private void initView() {
+        Toolbar toolbar = $(R.id.toolbar);
+        toolbar.setTitle("Gank");
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
     }
 
     private void initListener() {
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+        ((CommonAdapter)mAdapter).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                Intent intent = GankDataDetailActivity.newIntent(getActivity(), (GankInfo) o, position);
                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),
                         Pair.create(view.findViewById(R.id.ivPhoto), getString(R.string.transition_pic))
                 );
-                ActivityCompat.startActivityForResult(getActivity(), intent,
-                        Constant.RequestCode.GANK_DETAIL_DATA, optionsCompat.toBundle());
+                UIHelper.startGankDataDetailActivity(getActivity(), (GankInfo) o, position, optionsCompat);
             }
 
             @Override
@@ -99,20 +106,12 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
                 return true;
             }
         });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
     public void onRefresh() {
-        WiiLog.i("---- GankFragment : onRefresh ----");
         mGankPresenter.loadGank(true);
-    }
-
-    @Override
-    protected void isErrorToLoad() {
-        super.isErrorToLoad();
-
-        mGankPresenter.loadGank(false);
-
     }
 
     @Override
@@ -120,48 +119,42 @@ public class GankFragment extends BaseNetFragment implements SwipeRefreshLayout.
         this.mGankPresenter = checkNotNull(presenter);
     }
 
-    @Override
-    public void setProgress(boolean isShow){
-        if (isShow) {
-            super.showProgress();
-        } else {
-            super.dismissProgress();
-        }
-    }
-
-    @Override
-    public void isEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        super.showEmptyView();
-    }
-
-    @Override
-    public void isContentView(List<GankInfo> gankList, boolean isFirst) {
-        swipeRefreshLayout.setRefreshing(false);
-        super.showContentView();
-        if (isFirst) {
-            mGankInfos.clear();
-        }
-        mGankInfos.addAll(0, gankList);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void isErrorView() {
-        super.showErrorView();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void isNoNetView() {
-        super.showNoNetView();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     public void update(int position) {
-        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mGankInfos.get(position).date);
-        mGankInfos.remove(position);
-        mGankInfos.add(position, gankInfo);
+        if (mData.get(position).results != null) {
+            return;
+        }
+        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mData.get(position).date);
+        mData.remove(position);
+        mData.add(position, gankInfo);
         mAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void showLoading() {
+        setRefreshing(true);
+    }
+
+    @Override
+    public void dismissLoading() {
+        setRefreshing(false);
+    }
+
+    @Override
+    public void showNotNet() {
+        SnackbarHelper.showNoNetInfo(mRecyclerView);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        SnackbarHelper.showLoadErrorInfo(mRecyclerView, () -> mGankPresenter.loadGank(true));
+    }
+
+    @Override
+    public void showContent(List<GankInfo> data, boolean isRefresh) {
+        if (isRefresh) {
+            mData.clear();
+        }
+        mData.addAll(data);
+        mAdapter.notifyDataSetChanged();
     }
 }

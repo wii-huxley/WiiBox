@@ -2,6 +2,8 @@ package com.huxley.wii.wiibox.mvp.main.translate;
 
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,15 +13,16 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.mvp.main.translate.model.BaiduTranslateInfo;
 import com.huxley.wii.wiibox.mvp.main.translate.model.YouDaoTranslateInfo;
+import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.Utils.StringUtil;
-import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 
 import java.util.List;
 
 /**
  *
  */
-public class TranslateFragment extends BaseNetFragment implements TranslateContract.View{
+public class TranslateFragment extends BaseFragment implements TranslateContract.View{
 
     private TranslateContract.Presenter mTranslatePresenter;
     private EditText et_translate_content;
@@ -32,38 +35,45 @@ public class TranslateFragment extends BaseNetFragment implements TranslateContr
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_translate;
+    }
+
+    @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        addView(R.layout.fragment_translate);
         initView();
         initListener();
     }
 
     private void initView() {
-        et_translate_content = $1(R.id.et_translate_content);
-        btn_baidu_translate = $1(R.id.btn_baidu_translate);
-        btn_youdao_translate = $1(R.id.btn_youdao_translate);
-        tvTranslateContent = $1(R.id.tvTranslateContent);
+        Toolbar toolbar = $(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle("在线翻译");
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        }
+
+        et_translate_content = $(R.id.et_translate_content);
+        btn_baidu_translate = $(R.id.btn_baidu_translate);
+        btn_youdao_translate = $(R.id.btn_youdao_translate);
+        tvTranslateContent = $(R.id.tvTranslateContent);
     }
 
     private void initListener() {
-        View.OnClickListener mClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String content = et_translate_content.getText().toString();
-                if (StringUtil.isEmpty(content)) {
-                    ToastHelper.showInfo(R.string.str_translate_content_is_empty);
-                    return;
-                }
-                switch (v.getId()) {
-                    case R.id.btn_baidu_translate: // 百度翻译
-                        mTranslatePresenter.baiduTranslate(content);
-                        break;
-                    case R.id.btn_youdao_translate: // 有道翻译
-                        mTranslatePresenter.youdaoTranslate(content);
-                        break;
-                }
+        View.OnClickListener mClickListener = v -> {
+            String content = et_translate_content.getText().toString();
+            if (StringUtil.isEmpty(content)) {
+                ToastHelper.showInfo(R.string.str_translate_content_is_empty);
+                return;
+            }
+            switch (v.getId()) {
+                case R.id.btn_baidu_translate: // 百度翻译
+                    mTranslatePresenter.baiduTranslate(content);
+                    break;
+                case R.id.btn_youdao_translate: // 有道翻译
+                    mTranslatePresenter.youdaoTranslate(content);
+                    break;
             }
         };
         btn_baidu_translate.setOnClickListener(mClickListener);
@@ -77,8 +87,7 @@ public class TranslateFragment extends BaseNetFragment implements TranslateContr
     }
 
 
-    @Override
-    public void setYoudaoTranslateContent(YouDaoTranslateInfo youDaoTranslateInfo) {
+    private void setYoudaoTranslateContent(YouDaoTranslateInfo youDaoTranslateInfo) {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("\t・\t%s\t:\n", youDaoTranslateInfo.query));
         List<String> translation = youDaoTranslateInfo.translation;
@@ -119,8 +128,7 @@ public class TranslateFragment extends BaseNetFragment implements TranslateContr
         tvTranslateContent.setText(builder.toString());
     }
 
-    @Override
-    public void setBaiduTranslateContent(BaiduTranslateInfo baiduTranslateInfo) {
+    private void setBaiduTranslateContent(BaiduTranslateInfo baiduTranslateInfo) {
         List<BaiduTranslateInfo.TransResultBean> trans_result = baiduTranslateInfo.trans_result;
         StringBuilder builder = new StringBuilder();
         if (trans_result != null && trans_result.size() > 0) {
@@ -129,5 +137,34 @@ public class TranslateFragment extends BaseNetFragment implements TranslateContr
             }
         }
         tvTranslateContent.setText(builder.toString());
+    }
+
+    @Override
+    public void showLoading() {
+        isLoading(true);
+    }
+
+    @Override
+    public void dismissLoading() {
+        isLoading(false);
+    }
+
+    @Override
+    public void showNotNet() {
+        SnackbarHelper.showNoNetInfo(rootView);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        SnackbarHelper.showInfo(rootView, R.string.str_error);
+    }
+
+    @Override
+    public void showContent(Object data, boolean isRefresh) {
+        if (data instanceof BaiduTranslateInfo) {
+            setBaiduTranslateContent((BaiduTranslateInfo) data);
+        } else {
+            setYoudaoTranslateContent((YouDaoTranslateInfo) data);
+        }
     }
 }

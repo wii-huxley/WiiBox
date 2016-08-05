@@ -7,14 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 /**
  * fragment 基类
  * Created by huxley on 16/3/1.
  */
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
 
-    protected View rootView;
+    protected View           rootView;
     protected LayoutInflater mInflater;
+    private   KProgressHUD   hud;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class BaseFragment extends Fragment{
         return rootView;
     }
 
-    protected int getLayoutId(){
+    protected int getLayoutId() {
         return 0;
     }
 
@@ -46,6 +49,20 @@ public class BaseFragment extends Fragment{
     }
 
     public <V extends View> V $(int id) {
-        return (V)rootView.findViewById(id);
+        return (V) rootView.findViewById(id);
+    }
+
+    protected void isLoading(boolean loading) {
+        if (loading) {
+            if (hud == null) {
+                hud = KProgressHUD.create(getContext()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+            }
+            hud.show();
+        } else {
+            if (hud == null) {
+                return;
+            }
+            hud.dismiss();
+        }
     }
 }

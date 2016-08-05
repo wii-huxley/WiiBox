@@ -2,9 +2,10 @@ package com.huxley.wii.wiibox.mvp.main.gank.detail;
 
 import android.support.annotation.NonNull;
 
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
-import com.huxley.wii.wiitools.exception.EmptyException;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
+import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
 import java.util.List;
 
@@ -20,46 +21,51 @@ import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 public class GankDataDetailPresenter implements GankDataDetailContract.Presenter {
 
     private final GankDataDetailContract.View mGankDataDetailView;
+    private GankInfo mGankInfo;
 
-    public GankDataDetailPresenter(@NonNull GankDataDetailContract.View gankDataDetailView) {
+    public GankDataDetailPresenter(@NonNull GankDataDetailContract.View gankDataDetailView, GankInfo gankInfo) {
         this.mGankDataDetailView = checkNotNull(gankDataDetailView);
         this.mGankDataDetailView.setPresenter(this);
+        this.mGankInfo = checkNotNull(gankInfo);
     }
 
     @Override
     public void start() {
+        mGankDataDetailView.showTitle(mGankInfo.date);
 
+        if (mGankInfo.results != null) {
+            mGankDataDetailView.showContent(GankModel.getInstance().getGankList(mGankInfo), true);
+            return;
+        }
+        loadData();
     }
 
     @Override
-    public void loadData(String date) {
-
-        GankModel.getInstance().getGankDetailInfo(date)
+    public void loadData() {
+        GankModel.getInstance().getGankDetailInfo(mGankInfo.date)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Object>>() {
                     @Override
-                    public void onCompleted() {
+                    public void onStart() {
+                        mGankDataDetailView.showLoading();
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        if (ExceptionHelper.isNoNetException(e)) {
-                            mGankDataDetailView.isNoNetView();
-                        } else if (ExceptionHelper.isEmptyException(e)) {
-                            mGankDataDetailView.isEmptyView();
-                        }else {
-                            mGankDataDetailView.isErrorView();
-                        }
-                    }
-
                     @Override
                     public void onNext(List<Object> objects) {
-                        if (objects == null || objects.size() <= 0) {
-                            throw new EmptyException();
+                        mGankDataDetailView.showContent(objects, true);
+                    }
+                    @Override
+                    public void onCompleted() {
+                        mGankDataDetailView.dismissLoading();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        mGankDataDetailView.dismissLoading();
+                        if (ExceptionHelper.isNoNetException(e) && !NetWorkHelper.isConnected()) {
+                            mGankDataDetailView.showNotNet();
+                        }else {
+                            mGankDataDetailView.showError(e);
                         }
-                        mGankDataDetailView.isContentView(objects);
                     }
                 });
     }

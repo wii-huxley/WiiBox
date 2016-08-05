@@ -78,7 +78,7 @@ public class NetworkStatusManager {
     }
 
     /**
-     * {@link TelephonyManager#getNetworkClass}
+     * {@link TelephonyManager}
      */
     private static int getMobileNetworkClass(int networkType) {
         switch (networkType) {

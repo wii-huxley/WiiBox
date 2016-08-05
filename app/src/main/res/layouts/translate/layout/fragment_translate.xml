@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context="com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment">
 
+    <include layout="@layout/wii_layout_toolbar"/>
+
     <EditText
         android:id="@+id/et_translate_content"
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.huxley.wii.wiibox.mvp.main.gank.detail;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,80 +12,55 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
 import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
-import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
-import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.MultiItemCommonAdapter;
 import com.zhy.base.adapter.recyclerview.MultiItemTypeSupport;
 import com.zhy.base.adapter.recyclerview.OnItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by huxley on 16/7/15.
  */
-public class GankDataDetailFragment extends BaseNetFragment implements GankDataDetailContract.View{
+public class GankDataDetailFragment extends BaseRecyclerViewFragment<Object> implements GankDataDetailContract.View {
 
-    private GankInfo mGankInfo;
-    private ImageView ivPhoto;
+    private ImageView                        ivPhoto;
     private GankDataDetailContract.Presenter mPresenter;
-    private MultiItemCommonAdapter<Object> mAdapter;
-    private List<Object> mGankInfos;
+    private CollapsingToolbarLayout          collapsingToolbar;
 
-    public static GankDataDetailFragment newInstance(GankInfo gankInfo) {
-        GankDataDetailFragment fragment = new GankDataDetailFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(Constant.Extra.DATE, gankInfo);
-        fragment.setArguments(args);
-        return fragment;
+    public static GankDataDetailFragment newInstance() {
+        return new GankDataDetailFragment();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_gank_data_detail;
     }
 
     @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        mGankInfos = new ArrayList<>();
-        addView(R.layout.fragment_gank_data_detail);
-        getData();
         initView();
         initListener();
-        initData();
+        mPresenter.start();
     }
 
-    private void getData() {
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            mGankInfo = (GankInfo) arguments.getSerializable(Constant.Extra.DATE);
-        }
+    @Override
+    public RecyclerView getRecyclerView() {
+        return $(R.id.recyclerView);
     }
 
-    private void initView() {
-        ivPhoto = $1(R.id.ivPhoto);
-
-        Toolbar toolbar = $1(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finishAfterTransition();
-            }
-        });
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        CollapsingToolbarLayout collapsingToolbar = $1(R.id.collapsingToolbar);
-        collapsingToolbar.setTitle(mGankInfo.date);
-
-        RecyclerView recyclerView = $1(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(mAdapter = new MultiItemCommonAdapter<Object>(getContext(), mGankInfos, new MultiItemTypeSupport<Object>() {
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return new MultiItemCommonAdapter<Object>(getContext(), mData, new MultiItemTypeSupport<Object>() {
             @Override
             public int getLayoutId(int itemType) {
                 switch (itemType) {
@@ -123,12 +99,39 @@ public class GankDataDetailFragment extends BaseNetFragment implements GankDataD
                         break;
                 }
             }
-        });
+        };
+    }
+
+    @Override
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return null;
+    }
+
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(getContext());
+    }
+
+    private void initView() {
+        ivPhoto = $(R.id.ivPhoto);
+
+        Toolbar toolbar = $(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        collapsingToolbar = $(R.id.collapsingToolbar);
+    }
+
+    @Override
+    public void showTitle(String date) {
+        collapsingToolbar.setTitle(date);
     }
 
     private void initListener() {
         UIHelper.setOnClickListener(this, ivPhoto);
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+        ((MultiItemCommonAdapter) mAdapter).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
                 WiiLog.i(position);
@@ -137,6 +140,7 @@ public class GankDataDetailFragment extends BaseNetFragment implements GankDataD
                     UIHelper.openWebView(item.url, item.desc, getContext());
                 }
             }
+
             @Override
             public boolean onItemLongClick(ViewGroup parent, View view, Object o, int position) {
                 return true;
@@ -144,54 +148,35 @@ public class GankDataDetailFragment extends BaseNetFragment implements GankDataD
         });
     }
 
-    private void initData() {
-        if (mGankInfo.results != null) {
-            isContentView(GankModel.getInstance().getGankList(mGankInfo));
-        }
-        mPresenter.loadData(mGankInfo.date);
-    }
-
-
-    @Override
-    public void isContentView(List<Object> gankInfos) {
-        ImageLoaderUtils.setGankBigImage(ivPhoto, (String) gankInfos.remove(0));
-        mGankInfos.addAll(gankInfos);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void isErrorToLoad() {
-        super.isErrorToLoad();
-
-        mPresenter.loadData(mGankInfo.date);
-    }
-
-    @Override
-    public void isEmptyView() {
-        super.showEmptyView();
-    }
-
-    @Override
-    public void isErrorView() {
-        super.showErrorView();
-    }
-
-    @Override
-    public void isNoNetView() {
-        super.showNoNetView();
-    }
-
-    @Override
-    public void setProgress(boolean isShow) {
-        if (isShow) {
-            super.showProgress();
-        } else {
-            super.dismissProgress();
-        }
-    }
-
     @Override
     public void setPresenter(GankDataDetailContract.Presenter presenter) {
         this.mPresenter = presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        isLoading(true);
+    }
+
+    @Override
+    public void dismissLoading() {
+        isLoading(false);
+    }
+
+    @Override
+    public void showNotNet() {
+        SnackbarHelper.showNoNetInfo(mRecyclerView);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        SnackbarHelper.showLoadErrorInfo(mRecyclerView, mPresenter::loadData);
+    }
+
+    @Override
+    public void showContent(List<Object> gankInfos, boolean isRefresh) {
+        ImageLoaderUtils.setGankBigImage(ivPhoto, (String) gankInfos.remove(0));
+        mData.addAll(gankInfos);
+        mAdapter.notifyDataSetChanged();
     }
 }

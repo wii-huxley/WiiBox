@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
@@ -24,6 +26,8 @@ import com.huxley.wii.wiibox.mvp.main.androidtools.child.navigationTabBar.Naviga
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.stepview.StepViewActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.tagFlowLayout.CategoryActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.treeview.TreeViewActivity;
+import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.ting56.Ting56Activity;
 import com.huxley.wii.wiibox.mvp.ting56.detail.TingPlayActivity;
 import com.nineoldandroids.view.ViewHelper;
@@ -194,5 +198,13 @@ public class UIHelper {
         if (context != null) {
             context.startActivity(new Intent(context, BlurViewActivity.class));
         }
+    }
+
+    public static void startGankDataDetailActivity(Activity activity, GankInfo gankInfo, int position, ActivityOptionsCompat optionsCompat) {
+        Intent intent = new Intent(activity, GankDataDetailActivity.class);
+        intent.putExtra(Constant.Key.DATA, gankInfo);
+        intent.putExtra(Constant.Key.POSITION, position);
+        ActivityCompat.startActivityForResult(activity, intent,
+                Constant.RequestCode.GANK_DETAIL_DATA, optionsCompat.toBundle());
     }
 }

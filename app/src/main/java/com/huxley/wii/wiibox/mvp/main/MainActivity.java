@@ -15,7 +15,6 @@ import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankPresenter;
-import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
@@ -143,7 +142,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         switch (requestCode) {
             case Constant.RequestCode.GANK_DETAIL_DATA:
-                int position = data.getIntExtra(GankDataDetailActivity.EXTRA_POSITION, -1);
+                int position = data.getIntExtra(Constant.Key.POSITION, -1);
                 ((GankFragment) fragments[0][0]).update(position);
                 break;
         }

@@ -1,6 +1,5 @@
 package com.huxley.wii.wiibox.mvp.main.gank.detail;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -8,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.Window;
 
 import com.huxley.wii.wiibox.R;
+import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.common.helper.FragmentHelper;
@@ -15,9 +15,6 @@ import com.huxley.wii.wiitools.common.helper.FragmentHelper;
 public class GankDataDetailActivity extends BaseActivity {
 
 
-    public static final String TRANSIT_PIC = "picture";
-    public static final String EXTRA_GANK_INFO = "gankInfo";
-    public static final String EXTRA_POSITION = "position";
     private int position;
     private GankInfo mGankInfo;
 
@@ -50,29 +47,22 @@ public class GankDataDetailActivity extends BaseActivity {
 
         GankDataDetailFragment gankDataDetailFragment = (GankDataDetailFragment) getSupportFragmentManager().findFragmentById(R.id.flContent);
         if (gankDataDetailFragment == null) {
-            gankDataDetailFragment = GankDataDetailFragment.newInstance(mGankInfo);
+            gankDataDetailFragment = GankDataDetailFragment.newInstance();
             FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), gankDataDetailFragment, R.id.flContent);
         }
 
-        new GankDataDetailPresenter(gankDataDetailFragment);
+        new GankDataDetailPresenter(gankDataDetailFragment, mGankInfo);
     }
 
     @Override
     protected boolean back(int keyCode, KeyEvent event) {
-        setResult(RESULT_OK, new Intent().putExtra(EXTRA_POSITION, position));
+        setResult(RESULT_OK, new Intent().putExtra(Constant.Key.POSITION, position));
         return super.back(keyCode, event);
     }
 
     @Override
     protected void handleIntent(Intent intent) {
-        position = mIntent.getIntExtra(EXTRA_POSITION, -1);
-        mGankInfo = (GankInfo) mIntent.getSerializableExtra(EXTRA_GANK_INFO);
-    }
-
-    public static Intent newIntent(Context context, GankInfo gankInfo, int position) {
-        Intent intent = new Intent(context, GankDataDetailActivity.class);
-        intent.putExtra(EXTRA_GANK_INFO, gankInfo);
-        intent.putExtra(EXTRA_POSITION, position);
-        return intent;
+        position = mIntent.getIntExtra(Constant.Key.POSITION, -1);
+        mGankInfo = (GankInfo) mIntent.getSerializableExtra(Constant.Key.DATA);
     }
 }

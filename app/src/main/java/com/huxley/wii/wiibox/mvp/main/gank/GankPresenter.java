@@ -2,12 +2,14 @@ package com.huxley.wii.wiibox.mvp.main.gank;
 
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
-import com.huxley.wii.wiitools.exception.EmptyException;
+import com.huxley.wii.wiitools.common.Utils.GsonUtils;
+import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
+import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
 import java.util.List;
 
-import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -20,8 +22,6 @@ public class GankPresenter implements GankContract.Presenter {
 
     private GankContract.View mGankView;
 
-    private boolean mFirstLoad = true;
-
     public GankPresenter(GankContract.View gankView) {
         mGankView = checkNotNull(gankView);
         mGankView.setPresenter(this);
@@ -29,45 +29,60 @@ public class GankPresenter implements GankContract.Presenter {
 
     @Override
     public void start() {
-        mFirstLoad = true;
-        loadGank(false);
+        getLocalData();
+    }
+
+    public void getLocalData() {
+        GankModel.getInstance().getLocalGankDatas()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<GankInfo>>() {
+                    @Override
+                    public void onNext(List<GankInfo> gankInfos) {
+                        L.json(GsonUtils.get().toJson(gankInfos));
+                        mGankView.showContent(gankInfos, true);
+                    }
+                    @Override
+                    public void onCompleted() {
+                        loadGank(true);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        if (ExceptionHelper.isNullPointerException(e)) {
+                            loadGank(true);
+                        } else {
+                            mGankView.showError(e);
+                        }
+                    }
+                });
     }
 
     @Override
     public void loadGank(boolean isRrefresh) {
-        if (mFirstLoad) {
-            mGankView.setProgress(true);
-        }
-        GankModel.getInstance().getGankInfos(isRrefresh)
+        GankModel.getInstance().getGankInfos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<GankInfo>>() {
+                .subscribe(new Subscriber<List<GankInfo>>() {
                     @Override
-                    public void onCompleted() {
-                        if (mFirstLoad) {
-                            mFirstLoad = false;
-                            mGankView.setProgress(false);
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        if (mFirstLoad) {
-                            mGankView.setProgress(false);
-                        }
-                        if (ExceptionHelper.isNoNetException(e)) {
-                            mGankView.isNoNetView();
-                        } else if (ExceptionHelper.isEmptyException(e)) {
-                            mGankView.isEmptyView();
-                        }else {
-                            mGankView.isErrorView();
-                        }
+                    public void onStart() {
+                        mGankView.showLoading();
                     }
                     @Override
                     public void onNext(List<GankInfo> gankInfos) {
-                        if (mFirstLoad && (gankInfos == null || gankInfos.size() <= 0)) {
-                            throw new EmptyException();
+                        mGankView.showContent(gankInfos, isRrefresh);
+                    }
+                    @Override
+                    public void onCompleted() {
+                        mGankView.dismissLoading();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        mGankView.dismissLoading();
+                        if (ExceptionHelper.isNoNetException(e) && !NetWorkHelper.isConnected()) {
+                            mGankView.showNotNet();
+                        } else {
+                            mGankView.showError(e);
                         }
-                        mGankView.isContentView(gankInfos, mFirstLoad);
                     }
                 });
     }

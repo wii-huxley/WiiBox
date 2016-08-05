@@ -29,4 +29,11 @@ public class GsonUtils {
     public String toJson(Object obj) {
         return mGson.toJson(obj);
     }
+
+    public<D> D fromJson (String jsonString, Class<D> dataClass) {
+        if (StringUtil.isEmpty(jsonString)) {
+            return null;
+        }
+        return mGson.fromJson(jsonString, dataClass);
+    }
 }

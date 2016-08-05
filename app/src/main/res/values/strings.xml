@@ -36,4 +36,7 @@
 
     <string name="transition_pic">transition:PIC</string>
     <string name="transition_title">transition:TITLE</string>
+
+
+    <string name="str_error">加载失败</string>
 </resources>
