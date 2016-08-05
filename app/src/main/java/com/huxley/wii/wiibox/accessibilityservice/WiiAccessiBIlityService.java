@@ -13,7 +13,7 @@ import java.util.List;
  *
  * Created by LeiJin01 on 2016/8/4.
  */
-public class WiiAccessiBIlityService extends AccessibilityService {
+public class WiiAccessibilityService extends AccessibilityService {
 
     private static final String BUTTON    = "android.widget.Button";
     private static final String TEXT_VIEW = "android.widget.TextView";
