@@ -53,7 +53,7 @@ public class DyttPresenter implements DyttContract.Presenter {
                         if (isFirst) {
                             mView.setProgress(false);
                         }
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             mView.isNoNetView(isFirst);
                         }else if (ExceptionHelper.isEmptyException(e)){
                             mView.isEmptyView(isFirst);

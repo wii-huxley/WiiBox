@@ -61,7 +61,7 @@ public class Ting56SearchPresenter implements Ting56SearchContract.Presenter{
                         if (isFirst) {
                             ting56View.setProgress(false);
                         }
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             ting56View.isNoNetView(isFirst);
                         }else if (ExceptionHelper.isEmptyException(e)){
                             ting56View.isEmptyView(isFirst);
@@ -107,7 +107,7 @@ public class Ting56SearchPresenter implements Ting56SearchContract.Presenter{
                         if (isFirst) {
                             ting56View.setProgress(false);
                         }
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             ting56View.isNoNetView(isFirst);
                         }else if (ExceptionHelper.isEmptyException(e)){
                             ting56View.isEmptyView(isFirst);

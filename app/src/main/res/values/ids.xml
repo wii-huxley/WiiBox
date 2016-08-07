@@ -50,5 +50,6 @@
     <item type="id" name="navExit"/>
     <item type="id" name="navMovie"/>
     <item type="id" name="navCode"/>
+    <item type="id" name="navTieba"/>
     <item type="id" name="xxxx"/>
 </resources>

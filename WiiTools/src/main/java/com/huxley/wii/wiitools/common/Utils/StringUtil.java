@@ -49,7 +49,7 @@ public class StringUtil {
     }
 
     public static String getCenterString (String start, String end, String content){
-        Pattern pattern1 = Pattern.compile(".*?\\" + start + "(.*?)\\" + end + ".*?");
+        Pattern pattern1 = Pattern.compile(String.format(".*?\\%s(.*?)\\%s.*?", start, end));
         Matcher matcher1 = pattern1.matcher(content);
         if (matcher1.matches()) {
             return matcher1.group(1);

@@ -1,62 +1,52 @@
-package com.huxley.wii.wiibox.mvp.codekk;
+package com.huxley.wii.wiibox.mvp.tieba;
 
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiitools.base.BaseActivity;
+import com.huxley.wii.wiitools.base.BaseFragment;
+
 
 /**
- *
- * Created by huxley on 16/7/31.
+ * Created by huxley on 16/8/7.
  */
-public class CodekkActivity extends BaseActivity {
 
-    private CodekkPresenter mPresenter;
+public class TiebaFragment extends BaseFragment implements TiebaContract.View {
+
+    private TiebaContract.Presenter tiebaPresenter;
+
+    public static TiebaFragment newInstance() {
+        return new TiebaFragment();
+    }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_codekk;
+        return R.layout.fragment_tieba;
     }
 
     @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        init();
+
     }
-
-    private void init() {
-        Toolbar toolbar = $(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle("Codekk");
-            toolbar.setNavigationIcon(R.drawable.ic_back);
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(v -> finish());
-        }
-
-        mPresenter = new CodekkPresenter((CodekkFragment) getSupportFragmentManager().findFragmentById(R.id.layout_codekk));
-        mPresenter.start();
-    }
-
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menu.clear();
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+        menuInflater.inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search title, tags, author, keywords, description etc.");
+        searchView.setQueryHint("输入小说名或相关关键字");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mPresenter.search(query, true);
+                tiebaPresenter.getBarData(query);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -65,7 +55,6 @@ public class CodekkActivity extends BaseActivity {
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                mPresenter.setFirstContent();
                 return true;
             }
 
@@ -74,6 +63,10 @@ public class CodekkActivity extends BaseActivity {
                 return true;
             }
         });
-        return true;
+    }
+
+    @Override
+    public void setPresenter(TiebaContract.Presenter presenter) {
+        tiebaPresenter = presenter;
     }
 }

@@ -34,6 +34,10 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.wang.avi:library:1.0.5'
     compile 'com.zhy:base-adapter:2.0.1'
+    compile 'com.orhanobut:dialogplus:1.11@aar'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile project(':PhotoView')
 //    compile 'org.roboguice:roboguice:3.0.1'
 //    provided 'org.roboguice:roboblender:3.0.1'
 }

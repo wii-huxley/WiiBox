@@ -85,7 +85,7 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                         if (isFirst) {
                             mView.setProgress(false);
                         }
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             mView.isNoNetView(isFirst);
                         }else if (ExceptionHelper.isEmptyException(e)){
                             mView.isEmptyView(isFirst);
@@ -134,7 +134,7 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                         if (isFirst) {
                             mView.setProgress(false);
                         }
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             mView.isNoNetView(isFirst);
                         }else if (ExceptionHelper.isEmptyException(e)){
                             mView.isEmptyView(isFirst);

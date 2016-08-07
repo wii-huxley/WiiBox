@@ -9,6 +9,7 @@ import com.huxley.wii.wiitools.common.Utils.StringUtil;
 import com.squareup.picasso.Picasso;
 
 /**
+ *
  * Created by huxley on 16/4/22.
  */
 public class ImageLoaderUtils {
@@ -30,7 +31,7 @@ public class ImageLoaderUtils {
     public static void setGankImage(ImageView image, String url) {
         Picasso.with(WiiApp.getContext())
                 .load(StringUtil.isEmp(url))
-                .resize(ResHelper.getScreenWidth() / 3 - ResHelper.dpToPx(10), ResHelper.getScreenHeight())
+                .resize(ResHelper.getScreenWidth() / 2 - ResHelper.dpToPx(10), ResHelper.getScreenHeight())
                 .placeholder(R.drawable.img_empty)
                 .error(R.drawable.img_empty)
                 .centerInside()

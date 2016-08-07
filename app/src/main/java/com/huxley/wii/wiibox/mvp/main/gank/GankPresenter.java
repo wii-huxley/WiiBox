@@ -78,7 +78,7 @@ public class GankPresenter implements GankContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         mGankView.dismissLoading();
-                        if (ExceptionHelper.isNoNetException(e) && !NetWorkHelper.isConnected()) {
+                        if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
                             mGankView.showNotNet();
                         } else {
                             mGankView.showError(e);

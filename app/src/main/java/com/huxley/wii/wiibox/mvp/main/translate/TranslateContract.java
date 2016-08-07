@@ -8,7 +8,7 @@ import com.huxley.wii.wiitools.base.interfaces.INetView;
  * Created by huxley on 16/7/18.
  */
 public interface TranslateContract {
-    interface View extends BaseView<Presenter>, INetView<Object>{
+    interface View extends BaseView<Presenter>, INetView<String>{
 
     }
     interface Presenter extends BasePresenter{

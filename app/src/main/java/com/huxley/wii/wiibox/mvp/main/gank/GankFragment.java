@@ -10,17 +10,27 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
+import com.huxley.wii.wiibox.mvp.main.gank.model.GankEvent;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
 import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.common.Utils.L;
+import com.huxley.wii.wiitools.common.factory.DialogFactory;
+import com.huxley.wii.wiitools.common.helper.ListHelper;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.CommonAdapter;
 import com.zhy.base.adapter.recyclerview.OnItemClickListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -32,6 +42,7 @@ import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements SwipeRefreshLayout.OnRefreshListener, GankContract.View {
 
     private GankContract.Presenter mGankPresenter;
+    private DialogPlus mDialogPlus;
 
     public static GankFragment newInstance() {
         return new GankFragment();
@@ -46,9 +57,16 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
+        EventBus.getDefault().register(this);
         initView();
         initListener();
         mGankPresenter.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -68,7 +86,9 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
                 if (results != null) {
                     url = results.photo.get(0).url;
                 }
-                ImageLoaderUtils.setGankImage(holder.getView(R.id.ivPhoto), url);
+                ImageView ivPhoto = holder.getView(R.id.ivPhoto);
+                ImageLoaderUtils.setGankImage(ivPhoto, url);
+                ivPhoto.setTransitionName(gankBean.date);
                 holder.setVisible(R.id.spacer, holder.getItemPosition() == (getItemCount() - 1));
             }
         };
@@ -81,7 +101,7 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
 
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
-        return new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 
     private void initView() {
@@ -96,17 +116,47 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),
-                        Pair.create(view.findViewById(R.id.ivPhoto), getString(R.string.transition_pic))
+                        Pair.create(view.findViewById(R.id.ivPhoto), ((GankInfo)o).date)
                 );
                 UIHelper.startGankDataDetailActivity(getActivity(), (GankInfo) o, position, optionsCompat);
             }
 
             @Override
             public boolean onItemLongClick(ViewGroup parent, View view, Object o, int position) {
+                if (((GankInfo) o).results == null) {
+                    SnackbarHelper.showInfo(mRecyclerView, "未检查到图片");
+                } else {
+                    openView = view.findViewById(R.id.ivPhoto);
+                    openUrl = ((GankInfo) o).results.photo.get(0).url;
+                    showSettingDialog();
+                }
                 return true;
             }
         });
         mSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    String openUrl;
+    View openView;
+    private void showSettingDialog() {
+        if (mDialogPlus == null) {
+            mDialogPlus = DialogFactory.newInstance(getContext(), "列表选项", "单选", false, ListHelper.create("查看大图", "保存本地"), null, (dialog, item, view, position) -> {
+                mDialogPlus.dismiss();
+                switch (position) {
+                    case 0:
+                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                getActivity(),
+                                Pair.create(openView, openUrl)
+                        );
+                        UIHelper.startPhotoActivity(getActivity(), openUrl, optionsCompat);
+                        break;
+                    case 1:
+
+                        break;
+                }
+            });
+        }
+        mDialogPlus.show();
     }
 
     @Override
@@ -119,14 +169,13 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
         this.mGankPresenter = checkNotNull(presenter);
     }
 
-    public void update(int position) {
-        if (mData.get(position).results != null) {
-            return;
-        }
-        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mData.get(position).date);
-        mData.remove(position);
-        mData.add(position, gankInfo);
-        mAdapter.notifyItemChanged(position);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GankEvent event) {
+        L.jsonObject(event);
+        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mData.get(event.position).date);
+        mData.remove(event.position);
+        mData.add(event.position, gankInfo);
+        mAdapter.notifyItemChanged(event.position);
     }
 
     @Override

@@ -5,20 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:padding="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="下载列表"
+        tools:text="列表选项"
         android:textColor="@color/wii_color_900"
         android:textSize="@dimen/size_20"/>
 
     <TextView
+        android:id="@+id/tvContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="所有"
+        tools:text="单选"
         android:textColor="@color/wii_color_300"
         android:textSize="@dimen/size_12"/>
 

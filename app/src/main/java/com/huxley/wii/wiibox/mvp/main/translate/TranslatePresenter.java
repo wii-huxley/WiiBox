@@ -1,11 +1,10 @@
 package com.huxley.wii.wiibox.mvp.main.translate;
 
-import com.huxley.wii.wiibox.mvp.main.translate.model.BaiduTranslateInfo;
 import com.huxley.wii.wiibox.mvp.main.translate.model.TranslateModel;
-import com.huxley.wii.wiibox.mvp.main.translate.model.YouDaoTranslateInfo;
-import com.huxley.wii.wiitools.common.Utils.L;
+import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
+import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
-import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -30,23 +29,32 @@ public class TranslatePresenter implements TranslateContract.Presenter {
 
     @Override
     public void baiduTranslate(String content) {
-        TranslateModel.getInstance().baiduTranslateEn(content)
+        TranslateModel.getInstance().baiduTranslate(content)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaiduTranslateInfo>() {
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onStart() {
+                        translateView.showLoading();
+                    }
+
                     @Override
                     public void onCompleted() {
-
+                        translateView.dismissLoading();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        translateView.dismissLoading();
+                        if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
+                            translateView.showNotNet();
+                        } else {
+                            translateView.showError(e);
+                        }
                     }
 
                     @Override
-                    public void onNext(BaiduTranslateInfo baiduTranslateInfo) {
-                        L.json(baiduTranslateInfo.toString());
-                        translateView.setBaiduTranslateContent(baiduTranslateInfo);
+                    public void onNext(String content) {
+                        translateView.showContent(content, true);
                     }
                 });
     }
@@ -55,19 +63,28 @@ public class TranslatePresenter implements TranslateContract.Presenter {
     public void youdaoTranslate(String content) {
         TranslateModel.getInstance().youdaoTranslate(content)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<YouDaoTranslateInfo>() {
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onStart() {
+                        translateView.showLoading();
+                    }
+
                     @Override
                     public void onCompleted() {
-
+                        translateView.dismissLoading();
                     }
+
                     @Override
                     public void onError(Throwable e) {
-
+                        translateView.dismissLoading();
+                        if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
+                            translateView.showNotNet();
+                        }
+                        translateView.showError(e);
                     }
                     @Override
-                    public void onNext(YouDaoTranslateInfo youDaoTranslateInfo) {
-                        L.json(youDaoTranslateInfo.toString());
-                        translateView.setYoudaoTranslateContent(youDaoTranslateInfo);
+                    public void onNext(String content) {
+                        translateView.showContent(content, true);
                     }
                 });
     }

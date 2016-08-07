@@ -93,4 +93,7 @@ public final class L {
     }
 
 
+    public static void jsonObject(Object object) {
+        printer.json(GsonUtils.get().toJson(object));
+    }
 }

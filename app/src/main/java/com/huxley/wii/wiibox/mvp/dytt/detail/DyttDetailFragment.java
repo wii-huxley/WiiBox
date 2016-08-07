@@ -11,7 +11,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,15 +20,12 @@ import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
-import com.huxley.wii.wiibox.mvp.dytt.model.DyttModel;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttDetailInfo;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
+import com.huxley.wii.wiibox.mvp.dytt.model.DyttModel;
 import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.common.factory.DialogFactory;
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ListHolder;
-import com.orhanobut.dialogplus.OnItemClickListener;
-import com.zhy.base.adapter.ViewHolder;
-import com.zhy.base.adapter.abslistview.CommonAdapter;
 
 import java.util.List;
 
@@ -66,14 +62,11 @@ public class DyttDetailFragment extends BaseNetFragment implements DyttDetailCon
     }
 
     private void initListener() {
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btnDownload:
-                        showDownloadDialog();
-                        break;
-                }
+        View.OnClickListener clickListener = v -> {
+            switch (v.getId()) {
+                case R.id.btnDownload:
+                    showDownloadDialog();
+                    break;
             }
         };
         UIHelper.setOnClickListener(clickListener, $1(R.id.btnDownload));
@@ -92,12 +85,7 @@ public class DyttDetailFragment extends BaseNetFragment implements DyttDetailCon
         Toolbar toolbar = $1(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finishAfterTransition();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout collapsingToolbar = $1(R.id.collapsingToolbar);
@@ -113,27 +101,8 @@ public class DyttDetailFragment extends BaseNetFragment implements DyttDetailCon
             ImageLoaderUtils.setGankBigImage(ivPhoto, remove);
         }
 
-
-        downloadDialog = DialogPlus.newDialog(getContext())
-                .setAdapter(new CommonAdapter<String>(getContext(), R.layout.item_diglog_downloadlist, movieDetailInfo.urls) {
-                    @Override
-                    public void convert(ViewHolder holder, String name) {
-                        holder.setText(R.id.tvName, name);
-                    }
-                })
-                .setContentHolder(new ListHolder())
-                .setCancelable(true)
-                .setGravity(Gravity.BOTTOM)
-                .setHeader(R.layout.layout_dialog_header)
-                .setExpanded(true)
-                .setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                        onClickDownload(view, (String) item);
-                    }
-                })
-                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
-                .create();
+        downloadDialog = DialogFactory.newInstance(getContext(),"下载列表", "单选", true, movieDetailInfo.urls, null,
+                (dialog, item, view, position) -> onClickDownload(view, (String) item));
     }
 
     private void showDownloadDialog() {

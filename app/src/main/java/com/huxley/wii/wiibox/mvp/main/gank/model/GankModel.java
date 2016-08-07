@@ -5,6 +5,7 @@ import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.utils.SP;
 import com.huxley.wii.wiibox.http.HttpClient;
 import com.huxley.wii.wiitools.common.Utils.GsonUtils;
+import com.huxley.wii.wiitools.common.Utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,43 +79,47 @@ public class GankModel {
 
     public List<Object> getGankList(GankInfo gankInfo) {
         List<Object> objs = new ArrayList<>();
-        List<String> categorys = gankInfo.category;
         GankInfo.ResultsBean results = gankInfo.results;
-        for (int i = 0; i < categorys.size(); i++) {
-            String category = categorys.get(i);
-            switch (category) {
-                case "iOS":
-                    objs.add(category);
-                    objs.addAll(results.iOS);
-                    break;
-                case "休息视频":
-                    objs.add(category);
-                    objs.addAll(results.restVideo);
-                    break;
-                case "前端":
-                    objs.add(category);
-                    objs.addAll(results.frontEnd);
-                    break;
-                case "Android":
-                    objs.addAll(0, results.Android);
-                    objs.add(0, category);
-                    break;
-                case "瞎推荐":
-                    objs.add(category);
-                    objs.addAll(results.recommend);
-                    break;
-                case "App":
-                    objs.add(category);
-                    objs.addAll(results.App);
-                    break;
-                case "拓展资源":
-                    objs.add(category);
-                    objs.addAll(results.expandResources);
-                    break;
-                case "福利":
-                    objs.add(0, results.photo.get(0).url);
-                    break;
-            }
+        String url = results.photo.get(0).url;
+        if (!StringUtil.isEmpty(url)) {
+            objs.add(url);
+        } else {
+            objs.add("file:///android_asset/img_gank_default.jpeg");
+        }
+        List<GankInfo.ResultsBean.ItemBean> android = results.Android;
+        if (android != null && android.size() > 0) {
+            objs.add("android");
+            objs.addAll(android);
+        }
+        List<GankInfo.ResultsBean.ItemBean> app = results.App;
+        if (app != null && app.size() > 0) {
+            objs.add("app");
+            objs.addAll(app);
+        }
+        List<GankInfo.ResultsBean.ItemBean> frontEnd = results.frontEnd;
+        if (frontEnd != null && frontEnd.size() > 0) {
+            objs.add("拓展资源");
+            objs.addAll(frontEnd);
+        }
+        List<GankInfo.ResultsBean.ItemBean> expandResources = results.expandResources;
+        if (expandResources != null && expandResources.size() > 0) {
+            objs.add("android");
+            objs.addAll(expandResources);
+        }
+        List<GankInfo.ResultsBean.ItemBean> iOS = results.iOS;
+        if (iOS != null && iOS.size() > 0) {
+            objs.add("IOS");
+            objs.addAll(iOS);
+        }
+        List<GankInfo.ResultsBean.ItemBean> recommend = results.recommend;
+        if (recommend != null && recommend.size() > 0) {
+            objs.add("瞎推荐");
+            objs.addAll(recommend);
+        }
+        List<GankInfo.ResultsBean.ItemBean> restVideo = results.restVideo;
+        if (restVideo != null && restVideo.size() > 0) {
+            objs.add("休息视频");
+            objs.addAll(restVideo);
         }
         return objs;
     }

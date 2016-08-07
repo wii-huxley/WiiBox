@@ -108,7 +108,7 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
                 UIHelper.startBlurViewActivity(getActivity());
                 break;
             case 11:
-                UIHelper.openWebView("file:///android_asset/image-switch/index.html", "html-image-switch", getContext());
+                UIHelper.openWebView("file:///android_asset/image-switch/index.html", mVals[11], getContext());
                 break;
         }
         return false;

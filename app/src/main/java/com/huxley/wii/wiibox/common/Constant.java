@@ -18,6 +18,7 @@ public interface Constant {
         String POSITION_MUSIC = "positionMusic";
         String DATA           = "data";
         String POSITION       = "position";
+        String URL            = "url";
     }
 
     interface RequestCode {
@@ -31,7 +32,6 @@ public interface Constant {
 
     interface Data {
     }
-
 
     interface Extra {
         String DATE         = "date";

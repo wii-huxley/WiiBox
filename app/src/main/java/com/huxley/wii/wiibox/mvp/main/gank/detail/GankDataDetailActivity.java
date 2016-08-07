@@ -3,7 +3,6 @@ package com.huxley.wii.wiibox.mvp.main.gank.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
-import android.view.KeyEvent;
 import android.view.Window;
 
 import com.huxley.wii.wiibox.R;
@@ -51,13 +50,7 @@ public class GankDataDetailActivity extends BaseActivity {
             FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), gankDataDetailFragment, R.id.flContent);
         }
 
-        new GankDataDetailPresenter(gankDataDetailFragment, mGankInfo);
-    }
-
-    @Override
-    protected boolean back(int keyCode, KeyEvent event) {
-        setResult(RESULT_OK, new Intent().putExtra(Constant.Key.POSITION, position));
-        return super.back(keyCode, event);
+        new GankDataDetailPresenter(gankDataDetailFragment, mGankInfo, position);
     }
 
     @Override

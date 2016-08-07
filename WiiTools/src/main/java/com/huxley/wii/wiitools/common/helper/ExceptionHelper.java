@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
  */
 public class ExceptionHelper {
 
-    public static boolean isNoNetException(Throwable e) {
+    public static boolean isNetException(Throwable e) {
         return e instanceof SocketTimeoutException || e instanceof UnknownHostException || e instanceof ConnectException;
     }
 

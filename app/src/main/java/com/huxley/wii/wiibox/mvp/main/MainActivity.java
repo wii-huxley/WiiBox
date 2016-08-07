@@ -1,7 +1,5 @@
 package com.huxley.wii.wiibox.mvp.main;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -10,13 +8,14 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankPresenter;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
+import com.huxley.wii.wiibox.mvp.tieba.TiebaFragment;
+import com.huxley.wii.wiibox.mvp.tieba.TiebaPresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
@@ -67,6 +66,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fragments[2] = translateFragments;
         new TranslatePresenter((TranslateFragment) translateFragments[0]);
 
+        BaseFragment[] tiebaFragments = new BaseFragment[1];
+        tiebaFragments[0] = TiebaFragment.newInstance();
+        fragments[3] = tiebaFragments;
+        new TiebaPresenter((TiebaFragment) tiebaFragments[0]);
+
         mDrawerLayout = $(R.id.drawer_layout);
         navigationView = $(R.id.nav_view);
         checkNotNull(navigationView).setItemIconTintList(null);
@@ -103,6 +107,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.navTranslate:
                 changePage(2);
                 break;
+            case R.id.navTieba:
+                changePage(3);
+                break;
 
             case R.id.navCode:
                 UIHelper.startCodekkActivity(this);
@@ -129,22 +136,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void changePage(int position) {
         if (currentPositions[0] != position) {
             showFragment(position, 0);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-
-        switch (requestCode) {
-            case Constant.RequestCode.GANK_DETAIL_DATA:
-                int position = data.getIntExtra(Constant.Key.POSITION, -1);
-                ((GankFragment) fragments[0][0]).update(position);
-                break;
         }
     }
 

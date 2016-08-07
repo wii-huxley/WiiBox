@@ -44,7 +44,7 @@ public class TingPlayPresenter implements TingPlayContract.Presenter{
                     @Override
                     public void onError(Throwable e) {
                         tingPlayView.setProgress(false);
-                        if (ExceptionHelper.isNoNetException(e)) {
+                        if (ExceptionHelper.isNetException(e)) {
                             tingPlayView.isNoNetView();
                         }else if (ExceptionHelper.isEmptyException(e)){
                             tingPlayView.isEmptyView();

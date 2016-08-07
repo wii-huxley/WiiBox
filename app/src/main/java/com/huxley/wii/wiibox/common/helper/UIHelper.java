@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.Constant;
+import com.huxley.wii.wiibox.common.ui.PhotoActivity;
 import com.huxley.wii.wiibox.common.ui.photoAlbum.PhotoAlbumActivity;
 import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
@@ -41,18 +42,10 @@ import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 public class UIHelper {
 
     public static void jumpSplash(final Activity activity) {
-        activity.getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        activity.finish();
-                    }
-                }, 1000);
-            }
-        });
+        activity.getWindow().getDecorView().post(() -> new Handler().postDelayed(() -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        }, 1000));
     }
 
     public static void setOnClickListener(Object object, View... views) {
@@ -204,7 +197,12 @@ public class UIHelper {
         Intent intent = new Intent(activity, GankDataDetailActivity.class);
         intent.putExtra(Constant.Key.DATA, gankInfo);
         intent.putExtra(Constant.Key.POSITION, position);
-        ActivityCompat.startActivityForResult(activity, intent,
-                Constant.RequestCode.GANK_DETAIL_DATA, optionsCompat.toBundle());
+        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+    }
+
+    public static void startPhotoActivity(Activity activity, String url, ActivityOptionsCompat optionsCompat) {
+        Intent intent = new Intent(activity, PhotoActivity.class);
+        intent.putExtra(Constant.Key.URL, url);
+        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
     }
 }

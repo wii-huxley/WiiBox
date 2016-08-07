@@ -115,6 +115,7 @@ public class GankDataDetailFragment extends BaseRecyclerViewFragment<Object> imp
     private void initView() {
         ivPhoto = $(R.id.ivPhoto);
 
+
         Toolbar toolbar = $(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -127,6 +128,7 @@ public class GankDataDetailFragment extends BaseRecyclerViewFragment<Object> imp
     @Override
     public void showTitle(String date) {
         collapsingToolbar.setTitle(date);
+        ivPhoto.setTransitionName(date);
     }
 
     private void initListener() {

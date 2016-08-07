@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -100,7 +99,7 @@ public class Ting56Activity extends BaseActivity {
         menu.clear();
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("输入小说名或相关关键字");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -113,9 +112,9 @@ public class Ting56Activity extends BaseActivity {
                 return false;
             }
         });
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
+            public boolean onMenuItemActionExpand(MenuItem menuItem) {
                 viewPager.setVisibility(View.VISIBLE);
                 tabLayout.setVisibility(View.VISIBLE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -123,9 +122,8 @@ public class Ting56Activity extends BaseActivity {
                 transaction.commit();
                 return true;
             }
-
             @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
+            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
