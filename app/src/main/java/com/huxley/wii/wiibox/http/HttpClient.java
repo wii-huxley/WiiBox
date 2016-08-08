@@ -3,10 +3,13 @@ package com.huxley.wii.wiibox.http;
 import com.huxley.wii.wiibox.http.adapter.RxJavaCallAdapterFactory;
 import com.huxley.wii.wiibox.http.api.BaiduTranslateApi;
 import com.huxley.wii.wiibox.http.api.CodekkApi;
+import com.huxley.wii.wiibox.http.api.FacePlusApi;
 import com.huxley.wii.wiibox.http.api.GankApi;
 import com.huxley.wii.wiibox.http.api.YoudaoTranslateApi;
 import com.huxley.wii.wiibox.http.converter.GsonConverterFactory;
+import com.huxley.wii.wiibox.http.interceptors.FacePlusInterceptor;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 /**
@@ -14,11 +17,11 @@ import retrofit2.Retrofit;
  */
 public class HttpClient {
 
-
     private static BaiduTranslateApi sBaiduTranslateApi;
     private static GankApi sGankApi;
     private static YoudaoTranslateApi sYoudaoTranslateApi;
     private static CodekkApi sCodekkApi;
+    private static FacePlusApi sFacePlusApi;
 
     public static BaiduTranslateApi getBaiduTranslateApi(){
         if (sBaiduTranslateApi == null){
@@ -82,5 +85,22 @@ public class HttpClient {
             }
         }
         return sCodekkApi;
+    }
+
+    public static FacePlusApi getFacePlusApi() {
+        if (sFacePlusApi == null) {
+            synchronized (FacePlusApi.class) {
+                if (sFacePlusApi == null) {
+                    sFacePlusApi = new Retrofit.Builder()
+                            .client(new OkHttpClient.Builder().addInterceptor(new FacePlusInterceptor()).build())
+                            .baseUrl(FacePlusApi.BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .build()
+                            .create(FacePlusApi.class);
+                }
+            }
+        }
+        return sFacePlusApi;
     }
 }
