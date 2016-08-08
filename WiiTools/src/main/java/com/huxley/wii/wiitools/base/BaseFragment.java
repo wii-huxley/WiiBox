@@ -19,6 +19,10 @@ public class BaseFragment extends Fragment {
     protected LayoutInflater mInflater;
     private   KProgressHUD   hud;
 
+    protected int getLayoutId() {
+        return 0;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -31,16 +35,17 @@ public class BaseFragment extends Fragment {
         return rootView;
     }
 
-    protected int getLayoutId() {
-        return 0;
-    }
-
     protected void created(Bundle savedInstanceState) {
 
     }
 
     protected void create(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {

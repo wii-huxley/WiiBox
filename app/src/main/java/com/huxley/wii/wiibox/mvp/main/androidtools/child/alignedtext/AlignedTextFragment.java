@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiitools.base.BaseNetFragment;
 import com.huxley.wii.wiitools.common.helper.TextHelper;
-import com.huxley.wii.wiitools.common.helper.UIHelper;
+import com.huxley.wii.wiitools.common.helper.WiiUIHelper;
 import com.huxley.wii.wiitools.view.WiiTextView;
 import com.thefinestartist.utils.log.LogUtil;
 
@@ -53,7 +53,7 @@ public class AlignedTextFragment extends BaseNetFragment implements AlignedTextC
         WiiTextView[] textViews = new WiiTextView[datas.length];
         for (int i = 0; i < datas.length; i++) {
             LogUtil.i(datas[i]);
-            container.addView(textViews[i] = UIHelper.getTextView(getContext())
+            container.addView(textViews[i] = WiiUIHelper.getTextView(getContext())
                     .setWiiText(datas[i]));
         }
         TextHelper.aligned(textViews);

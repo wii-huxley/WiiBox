@@ -14,8 +14,6 @@ import com.huxley.wii.wiibox.mvp.main.gank.GankFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankPresenter;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
-import com.huxley.wii.wiibox.mvp.tieba.TiebaFragment;
-import com.huxley.wii.wiibox.mvp.tieba.TiebaPresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
@@ -66,11 +64,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fragments[2] = translateFragments;
         new TranslatePresenter((TranslateFragment) translateFragments[0]);
 
-        BaseFragment[] tiebaFragments = new BaseFragment[1];
-        tiebaFragments[0] = TiebaFragment.newInstance();
-        fragments[3] = tiebaFragments;
-        new TiebaPresenter((TiebaFragment) tiebaFragments[0]);
-
         mDrawerLayout = $(R.id.drawer_layout);
         navigationView = $(R.id.nav_view);
         checkNotNull(navigationView).setItemIconTintList(null);
@@ -106,9 +99,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.navTranslate:
                 changePage(2);
-                break;
-            case R.id.navTieba:
-                changePage(3);
                 break;
 
             case R.id.navCode:

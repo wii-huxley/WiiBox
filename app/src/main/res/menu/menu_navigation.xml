@@ -29,10 +29,6 @@
             android:id="@id/navTranslate"
             android:icon="@drawable/ic_translate"
             android:title="@string/str_translate" />
-        <item
-            android:id="@id/navTieba"
-            android:icon="@drawable/ic_tieba"
-            android:title="@string/str_tieba" />
     </group>
 
     <item android:title="@string/str_more">

@@ -1,6 +1,5 @@
 package com.huxley.wii.wiibox.common;
 
-import com.baidu.tiebasdk.TiebaSDK;
 import com.huxley.wii.wiibox.common.helper.InitHelper;
 import com.huxley.wii.wiitools.base.WiiApplication;
 import com.huxley.wii.wiitools.common.WiiTools;
@@ -18,7 +17,7 @@ public class WiiApp extends WiiApplication {
 
         InitHelper.init(getContext());
         WiiTools.init(getContext()).debug();
-        TiebaSDK.init(this);
+//        TiebaSDK.init(this);
     }
 
 }

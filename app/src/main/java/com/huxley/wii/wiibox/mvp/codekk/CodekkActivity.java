@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.huxley.wii.wiibox.R;
+import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiitools.base.BaseActivity;
 
 /**
@@ -30,13 +31,11 @@ public class CodekkActivity extends BaseActivity {
     }
 
     private void init() {
-        Toolbar toolbar = $(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle("Codekk");
-            toolbar.setNavigationIcon(R.drawable.ic_back);
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(v -> finish());
-        }
+
+        Toolbar toolbar = UIHelper.createToolbar(this);
+        toolbar.setTitle(R.string.str_codekk);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         mPresenter = new CodekkPresenter((CodekkFragment) getSupportFragmentManager().findFragmentById(R.id.layout_codekk));
         mPresenter.start();
@@ -65,7 +64,7 @@ public class CodekkActivity extends BaseActivity {
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                mPresenter.setFirstContent();
+                mPresenter.resetContent();
                 return true;
             }
 

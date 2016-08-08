@@ -12,7 +12,9 @@ import com.huxley.wii.wiitools.common.Utils.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
+ *
  * Created by LeiJin01 on 2016/8/5.
  */
 public abstract class BaseRecyclerViewFragment<D> extends BaseFragment implements IRecyclerView {

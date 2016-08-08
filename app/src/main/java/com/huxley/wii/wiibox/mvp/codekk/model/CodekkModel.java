@@ -2,6 +2,9 @@ package com.huxley.wii.wiibox.mvp.codekk.model;
 
 import com.huxley.wii.wiibox.http.HttpClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -11,9 +14,12 @@ import rx.schedulers.Schedulers;
  */
 public class CodekkModel {
 
+    private List<CodekkProjectBean> codeHomeData;
+
     private static CodekkModel instance;
 
     private CodekkModel() {
+        codeHomeData = new ArrayList<>();
     }
 
     public static CodekkModel getInstance() {
@@ -35,5 +41,17 @@ public class CodekkModel {
     public Observable<ResultBean<CodekkSearchListBean>> getSearchList(String content, int page){
         return HttpClient.getCodekkApi().getSearchList(content, page)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public List<CodekkProjectBean> getCodekkHomeData() {
+        return this.codeHomeData;
+    }
+
+    public void removeAllData() {
+        this.codeHomeData.clear();
+    }
+
+    public void setCodekkHomeData(List<CodekkProjectBean> codeHomeData) {
+        this.codeHomeData.addAll(codeHomeData);
     }
 }

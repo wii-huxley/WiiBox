@@ -10,7 +10,7 @@ import com.huxley.wii.wiitools.R;
 import com.huxley.wii.wiitools.base.WiiApplication;
 import com.huxley.wii.wiitools.common.Utils.StringUtil;
 import com.huxley.wii.wiitools.common.helper.ResHelper;
-import com.huxley.wii.wiitools.common.helper.UIHelper;
+import com.huxley.wii.wiitools.common.helper.WiiUIHelper;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
@@ -49,7 +49,7 @@ public class DialogFactory {
 
     public static <D> DialogPlus newInstance(Context context, String title, String content, boolean expanded, List<D> data, final DataHandler<D> handler, OnItemClickListener listener) {
 
-        View headerView = UIHelper.getView(context, R.layout.wii_dialog_header);
+        View headerView = WiiUIHelper.getView(context, R.layout.wii_dialog_header);
         TextView tvTitle = (TextView) headerView.findViewById(R.id.tvTitle);
         TextView tvContent = (TextView) headerView.findViewById(R.id.tvContent);
         tvTitle.setText(title);

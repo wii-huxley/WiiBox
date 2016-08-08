@@ -1,6 +1,7 @@
 package com.huxley.wii.wiibox.common.helper;
 
 
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 import com.huxley.wii.wiibox.common.WiiApp;
@@ -20,7 +21,7 @@ public class ToastHelper {
     public static void showInfo(Object info){
         String infoStr = String.valueOf(info);
         if(toast==null){
-            toast = Toast.makeText(WiiApp.getContext(), String.valueOf(infoStr), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(WiiApp.getContext(), infoStr, Toast.LENGTH_SHORT);
             toast.show();
             oneTime=System.currentTimeMillis();
         }else{
@@ -38,7 +39,7 @@ public class ToastHelper {
         oneTime=twoTime;
     }
 
-    public static void showInfo(int strRecId) {
+    public static void showInfo(@StringRes int strRecId) {
         showInfo(ResHelper.getString(strRecId));
     }
 }

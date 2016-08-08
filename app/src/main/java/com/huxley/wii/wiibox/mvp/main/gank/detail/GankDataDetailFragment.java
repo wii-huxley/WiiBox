@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
-import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
@@ -136,7 +135,6 @@ public class GankDataDetailFragment extends BaseRecyclerViewFragment<Object> imp
         ((MultiItemCommonAdapter) mAdapter).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
-                WiiLog.i(position);
                 if (mAdapter.getItemViewType(position) == 1) {
                     GankInfo.ResultsBean.ItemBean item = (GankInfo.ResultsBean.ItemBean) o;
                     UIHelper.openWebView(item.url, item.desc, getContext());

@@ -2,11 +2,12 @@ package com.huxley.wii.wiibox.mvp.main.androidtools.child.stepview;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiitools.base.BaseTitleActivity;
+import com.huxley.wii.wiitools.base.BaseActivity;
 
 
 /**
@@ -14,16 +15,27 @@ import com.huxley.wii.wiitools.base.BaseTitleActivity;
  * <p/>
  * 描述：
  */
-public class StepViewActivity extends BaseTitleActivity {
+public class StepViewActivity extends BaseActivity {
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_step_view;
+    }
 
     @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        addView(R.layout.activity_step_view);
         VerticalStepViewFragment mVerticalStepViewFragment = new VerticalStepViewFragment();
         getFragmentManager().beginTransaction().replace(R.id.container, mVerticalStepViewFragment).commit();
-        titleFragment.setTitle("StepView");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle("StepView");
+            toolbar.setNavigationIcon(R.drawable.ic_back);
+            setSupportActionBar(toolbar);
+            toolbar.setNavigationOnClickListener(v -> finish());
+        }
     }
 
     @Override
@@ -45,7 +57,6 @@ public class StepViewActivity extends BaseTitleActivity {
                 mHorizontalStepviewFragment = new HorizontalStepviewFragment();
                 fragmentTransaction.replace(R.id.container, mHorizontalStepviewFragment).commit();
                 break;
-
             case R.id.action_drawcanvas:
                 mDrawCanvasFragment = new DrawCanvasFragment();
                 fragmentTransaction.replace(R.id.container, mDrawCanvasFragment).commit();
@@ -58,7 +69,6 @@ public class StepViewActivity extends BaseTitleActivity {
                 mVerticalStepViewSnapshotFragment = new VerticalStepViewSnapshotFragment();
                 fragmentTransaction.replace(R.id.container, mVerticalStepViewSnapshotFragment).commit();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }

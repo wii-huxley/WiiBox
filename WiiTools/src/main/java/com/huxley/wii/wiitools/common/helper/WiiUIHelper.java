@@ -11,7 +11,7 @@ import com.huxley.wii.wiitools.view.WiiTextView;
  *
  * Created by huxley on 16/7/3.
  */
-public class UIHelper {
+public class WiiUIHelper {
 
     private static final int INVALID = -1;
 

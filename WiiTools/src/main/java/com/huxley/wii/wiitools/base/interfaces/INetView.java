@@ -1,6 +1,7 @@
 package com.huxley.wii.wiitools.base.interfaces;
 
 /**
+ * 网络接口
  * Created by LeiJin01 on 2016/8/5.
  */
 public interface INetView<D> {

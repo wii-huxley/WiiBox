@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.mvp.codekk;
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
 import com.huxley.wii.wiibox.mvp.codekk.model.CodekkProjectBean;
+import com.huxley.wii.wiitools.base.interfaces.INetView;
 
 import java.util.List;
 
@@ -11,17 +12,7 @@ import java.util.List;
  */
 public interface CodekkContract {
 
-    interface View extends BaseView<Presenter> {
-
-        void isNoNetView(boolean isFirst);
-
-        void isEmptyView(boolean isFirst);
-
-        void isErrorView(boolean isFirst);
-
-        void setProgress(boolean isShow);
-
-        void setContent(List<CodekkProjectBean> codekkProjectBean, boolean isRefresh, boolean isFirst);
+    interface View extends BaseView<Presenter>, INetView<List<CodekkProjectBean>> {
     }
 
     interface Presenter extends BasePresenter {
@@ -32,6 +23,8 @@ public interface CodekkContract {
 
         void search(String content, boolean isFirst);
 
-        void setFirstContent();
+        void resetContent();
+
+        boolean hasMore();
     }
 }

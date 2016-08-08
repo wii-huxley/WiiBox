@@ -21,7 +21,7 @@ import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
 import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.factory.DialogFactory;
-import com.huxley.wii.wiitools.common.helper.ListHelper;
+import com.huxley.wii.wiitools.common.helper.CollectionHelper;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.zhy.base.adapter.ViewHolder;
@@ -105,9 +105,8 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
     }
 
     private void initView() {
-        Toolbar toolbar = $(R.id.toolbar);
-        toolbar.setTitle("Gank");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
+        toolbar.setTitle(R.string.str_gank);
     }
 
     private void initListener() {
@@ -140,7 +139,7 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
     View openView;
     private void showSettingDialog() {
         if (mDialogPlus == null) {
-            mDialogPlus = DialogFactory.newInstance(getContext(), "列表选项", "单选", false, ListHelper.create("查看大图", "保存本地"), null, (dialog, item, view, position) -> {
+            mDialogPlus = DialogFactory.newInstance(getContext(), "列表选项", "单选", false, CollectionHelper.createList("查看大图", "保存本地"), null, (dialog, item, view, position) -> {
                 mDialogPlus.dismiss();
                 switch (position) {
                     case 0:
@@ -167,15 +166,6 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
     @Override
     public void setPresenter(GankContract.Presenter presenter) {
         this.mGankPresenter = checkNotNull(presenter);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(GankEvent event) {
-        L.jsonObject(event);
-        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mData.get(event.position).date);
-        mData.remove(event.position);
-        mData.add(event.position, gankInfo);
-        mAdapter.notifyItemChanged(event.position);
     }
 
     @Override
@@ -205,5 +195,14 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
         }
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GankEvent event) {
+        L.jsonObject(event);
+        GankInfo gankInfo = GankModel.getInstance().getGankInfo(mData.get(event.position).date);
+        mData.remove(event.position);
+        mData.add(event.position, gankInfo);
+        mAdapter.notifyItemChanged(event.position);
     }
 }

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ResHelper;
 import com.huxley.wii.wiibox.common.widget.WiiViewPager;
-import com.huxley.wii.wiibox.common.utils.CheckEmptyUtils;
+import com.huxley.wii.wiitools.common.helper.CollectionHelper;
 
 import java.util.List;
 
@@ -144,7 +144,7 @@ public class ViewPagerIndicator extends LinearLayout{
     }
 
     public void setTabItemTitles(List<String> titles) {
-        if (!CheckEmptyUtils.list(titles)) {
+        if (!CollectionHelper.isEmpty(titles)) {
             this.removeAllViews();
             this.mTitles = titles;
             for (String title : mTitles) {

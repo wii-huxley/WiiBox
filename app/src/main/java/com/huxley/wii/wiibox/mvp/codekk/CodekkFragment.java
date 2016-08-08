@@ -1,6 +1,7 @@
 package com.huxley.wii.wiibox.mvp.codekk;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -8,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.codekk.model.CodekkProjectBean;
-import com.huxley.wii.wiitools.base.BaseListFragment;
+import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.Utils.DateUtils;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.huxley.wii.wiitools.listener.RecyclerViewScrollListener;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.CommonAdapter;
@@ -25,7 +26,8 @@ import java.util.List;
  * Created by huxley on 16/7/31.
  */
 
-public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implements CodekkContract.View{
+public class CodekkFragment extends BaseRecyclerViewFragment<CodekkProjectBean> implements
+        CodekkContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private CodekkContract.Presenter mPresenter;
 
@@ -33,10 +35,14 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
-        mRecyclerView.addOnScrollListener(RecyclerViewScrollListener.getLoadMoreListener((StaggeredGridLayoutManager) mLinearLayoutManager,
-                mSwipeRefreshLayout, mAdapter, this::loadMore));
+        initListener();
+    }
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+    private void initListener() {
+        mRecyclerView.addOnScrollListener(RecyclerViewScrollListener.getLoadMoreListener((StaggeredGridLayoutManager) mLayoutManager,
+                mSwipeRefreshLayout, (CommonAdapter)mAdapter, this::loadMore));
+
+        ((CommonAdapter)mAdapter).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {
                 UIHelper.openWebView(((CodekkProjectBean) o).codeKKUrl, ((CodekkProjectBean) o).projectName, getContext());
@@ -47,6 +53,7 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
                 return true;
             }
         });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -55,8 +62,13 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
     }
 
     @Override
-    protected CommonAdapter<CodekkProjectBean> getAdapter() {
-        return new CommonAdapter<CodekkProjectBean>(getContext(), R.layout.item_codekk, mDatas) {
+    public RecyclerView getRecyclerView() {
+        return $(R.id.recyclerView);
+    }
+
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return new CommonAdapter<CodekkProjectBean>(getContext(), R.layout.item_codekk, mData) {
             @Override
             public void convert(ViewHolder holder, CodekkProjectBean codekkBean) {
                 holder.setText(R.id.tvName, codekkBean.projectName);
@@ -68,16 +80,20 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
     }
 
     @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return $(R.id.swipeRefreshLayout);
     }
 
     @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
+    }
+
     protected void loadMore() {
-        if (!((CodekkPresenter)mPresenter).hasMore) {
+        if (!mPresenter.hasMore()) {
             return;
         }
-        super.loadMore();
+        mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.loadMore();
     }
 
@@ -86,54 +102,32 @@ public class CodekkFragment extends BaseListFragment<CodekkProjectBean> implemen
         mPresenter.refresh();
     }
 
-
     @Override
-    public void isNoNetView(boolean isFirst) {
-        super.showNoNetView(isFirst);
-        if (!isFirst) {
-            ToastHelper.showInfo("没有网络");
-        }
+    public void showLoading() {
+        setRefreshing(true);
     }
 
     @Override
-    public void isEmptyView(boolean isFirst) {
-        super.showEmptyView(isFirst);
-        if (!isFirst) {
-            
-            ToastHelper.showInfo("没有内容");
-        }
+    public void dismissLoading() {
+        setRefreshing(false);
     }
 
     @Override
-    public void isErrorView(boolean isFirst) {
-        super.showErrorView(isFirst);
-        if (!isFirst) {
-            ToastHelper.showInfo("加载错误");
-        }
+    public void showNotNet() {
+        SnackbarHelper.showNoNetInfo(rootView);
     }
 
     @Override
-    public void setProgress(boolean isShow) {
-        if (isShow) {
-            super.showProgress();
-        } else {
-            super.dismissProgress();
-        }
+    public void showError(Throwable e) {
+
     }
 
     @Override
-    protected void isErrorToLoad() {
-        super.isErrorToLoad();
-        mPresenter.start();
-    }
-
-    @Override
-    public void setContent(List<CodekkProjectBean> codekkProjectBean, boolean isRefresh, boolean isFirst) {
-        super.showContentView(isFirst);
+    public void showContent(List<CodekkProjectBean> data, boolean isRefresh) {
         if (isRefresh) {
-            mDatas.clear();
+            mData.clear();
         }
-        mDatas.addAll(codekkProjectBean);
+        mData.addAll(data);
         mAdapter.notifyDataSetChanged();
     }
 }

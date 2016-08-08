@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
+import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.Utils.StringUtil;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
@@ -44,11 +45,8 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
     }
 
     private void initView() {
-        Toolbar toolbar = $(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle("在线翻译");
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        }
+        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
+        toolbar.setTitle(R.string.str_translate);
 
         et_translate_content = $(R.id.et_translate_content);
         btn_baidu_translate = $(R.id.btn_baidu_translate);

@@ -36,7 +36,7 @@ public class DyttFragment extends BaseListFragment <DyttListBean.MovieInfo>imple
 
         mPresenter.start();
         mRecyclerView.addOnScrollListener(RecyclerViewScrollListener.getLoadMoreListener((LinearLayoutManager) mLinearLayoutManager,
-                mSwipeRefreshLayout, mAdapter, () -> mPresenter.loadMore()));
+                mSwipeRefreshLayout, mAdapter, mPresenter::loadMore));
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, Object o, int position) {

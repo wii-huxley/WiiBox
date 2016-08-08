@@ -55,9 +55,8 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
     }
 
     private void initView() {
-        Toolbar toolbar = $(R.id.toolbar);
-        toolbar.setTitle("AndroidTools");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
+        toolbar.setTitle(R.string.str_androidtools);
 
         mFlowLayout = $(R.id.flowLayout);
         mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
@@ -93,7 +92,7 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
                 UIHelper.startCategoryActivity(getActivity());
                 break;
             case 6:
-//                UIHelper.startIndexableListViewActivity(getActivity());
+//                WiiUIHelper.startIndexableListViewActivity(getActivity());
                 break;
             case 7:
                 UIHelper.setNavigationTabBarActivity(getActivity());

@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.ui.PhotoActivity;
 import com.huxley.wii.wiibox.common.ui.photoAlbum.PhotoAlbumActivity;
-import com.huxley.wii.wiibox.common.utils.WiiLog;
 import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
 import com.huxley.wii.wiibox.mvp.dytt.DyttActivity;
 import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
@@ -31,12 +31,14 @@ import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.ting56.Ting56Activity;
 import com.huxley.wii.wiibox.mvp.ting56.detail.TingPlayActivity;
-import com.nineoldandroids.view.ViewHelper;
 import com.thefinestartist.finestwebview.FinestWebView;
+
+import butterknife.ButterKnife;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
 /**
+ *
  * Created by huxley on 16/5/9.
  */
 public class UIHelper {
@@ -64,28 +66,16 @@ public class UIHelper {
         }
     }
 
-    /**
-     * 在xml里设置android:alpha对api11以前的系统不起作用，所以在代码里获取并设置透明度
-     */
-    public static void setAlpha(View view, float alphaValue) {
-        if (view == null) {
-            return;
-        }
-        ViewHelper.setAlpha(view, alphaValue);
+    public static Toolbar createToolbar(AppCompatActivity activity, View rootView) {
+        Toolbar toolbar = ButterKnife.findById(rootView, R.id.toolbar);
+        (activity).setSupportActionBar(toolbar);
+        return toolbar;
     }
 
-
-    /**
-     * 统一设置下拉刷新的布局
-     * @param layout 下拉刷新的布局
-     * @param listener 下拉刷新的监听
-     */
-    public static void setSwipeRefreshStyles(SwipeRefreshLayout layout, SwipeRefreshLayout.OnRefreshListener listener) {
-        layout.setSize(SwipeRefreshLayout.DEFAULT);                                                 //设置下拉圆圈的大小，两个值 LARGE， DEFAULT
-        layout.setColorSchemeResources(R.color.wii_color_500);                                      // 设置下拉圆圈上的颜色
-        layout.setProgressBackgroundColorSchemeResource(R.color.wii_color_50);                      // 设定下拉圆圈的背景
-        layout.setOnRefreshListener(listener);
-        WiiLog.i(" --- setSwipeRefreshStyles --- " + layout);
+    public static Toolbar createToolbar(AppCompatActivity activity) {
+        Toolbar toolbar = ButterKnife.findById(activity, R.id.toolbar);
+        (activity).setSupportActionBar(toolbar);
+        return toolbar;
     }
 
     public static void openWebView(String url, String title, Context context) {

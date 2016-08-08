@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -36,6 +37,9 @@ dependencies {
     compile 'com.zhy:base-adapter:2.0.1'
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton:butterknife:8.2.1'
+
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
     compile project(':PhotoView')
 //    compile 'org.roboguice:roboguice:3.0.1'
