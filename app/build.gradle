@@ -140,7 +140,6 @@ dependencies {
     compile project(':stepview')
     compile project(':WiiTools')
     compile project(':circualreveal')
-//    compile project(':tiebasdk')
 
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/jsoup-1.9.2.jar')

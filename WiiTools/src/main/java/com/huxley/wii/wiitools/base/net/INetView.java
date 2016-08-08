@@ -1,4 +1,4 @@
-package com.huxley.wii.wiitools.base.interfaces;
+package com.huxley.wii.wiitools.base.net;
 
 /**
  * 网络接口

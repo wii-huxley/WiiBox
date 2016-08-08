@@ -1,4 +1,4 @@
-package com.huxley.wii.wiitools.base.interfaces;
+package com.huxley.wii.wiitools.base.recyclerview;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;

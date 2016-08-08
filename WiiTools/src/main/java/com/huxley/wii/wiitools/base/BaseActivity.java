@@ -15,6 +15,8 @@ import android.view.View;
 
 import com.huxley.wii.wiitools.common.Utils.L;
 
+import static com.huxley.wii.wiitools.common.Utils.L.i;
+
 
 /**
  * 生命周期：
@@ -47,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             handleIntent(getIntent());
         }
         created(savedInstanceState);
-        L.i("onCreate");
+        i("onCreate");
     }
 
     protected void handleIntent(Intent intent) {
@@ -69,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        L.i("onContentChanged");
+        i("onContentChanged");
     }
 
     /**
@@ -78,49 +80,49 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        L.i("onStart");
+        i("onStart");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        L.i("onRestart");
+        i("onRestart");
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        L.i("onPostCreate");
+        i("onPostCreate");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        L.i("onResume");
+        i("onResume");
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        L.i("onPostResume");
+        i("onPostResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        L.i("onPause");
+        i("onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        L.i("onStop");
+        i("onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        L.i("onDestroy");
+        i("onDestroy");
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -130,7 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        L.i("onSaveInstanceState");
+        i("onSaveInstanceState");
     }
 
     public void onRestoreInstanceState(Bundle outState) {
@@ -154,12 +156,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean back(int keyCode, KeyEvent event) {
-        L.i("back");
+        i("back");
         return super.onKeyDown(keyCode, event);
     }
 
     protected void home() {
-        L.i("home");
+        i("home");
     }
 
 }

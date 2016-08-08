@@ -1,4 +1,4 @@
-package com.huxley.wii.wiitools.base;
+package com.huxley.wii.wiitools.base.recyclerview;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.huxley.wii.wiitools.R;
-import com.huxley.wii.wiitools.base.interfaces.IRecyclerView;
+import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.Utils.NonNull;
 
 import java.util.ArrayList;
