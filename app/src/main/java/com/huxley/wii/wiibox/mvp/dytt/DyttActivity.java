@@ -5,12 +5,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttModel;
@@ -18,6 +20,7 @@ import com.huxley.wii.wiibox.mvp.dytt.search.DyttSearchFragment;
 import com.huxley.wii.wiibox.mvp.dytt.search.DyttSearchPresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.helper.FragmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class DyttActivity extends BaseActivity {
     private TabLayout tabLayout;
     private DyttSearchFragment mDyttSearchFragment;
     private DyttSearchPresenter mDyttSearchPresenter;
+    private FrameLayout contentDyttSearch;
 
     @Override
     protected int getLayoutId() {
@@ -42,8 +46,14 @@ public class DyttActivity extends BaseActivity {
     }
 
     private void initView() {
-        mDyttSearchPresenter = new DyttSearchPresenter(mDyttSearchFragment = (DyttSearchFragment)
-                getSupportFragmentManager().findFragmentById(R.id.layout_dytt_search));
+        contentDyttSearch = $(R.id.contentDyttSearch);
+        mDyttSearchFragment = (DyttSearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentDyttSearch);
+        if (mDyttSearchFragment == null) {
+            mDyttSearchFragment = DyttSearchFragment.newInstance();
+            FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), mDyttSearchFragment, R.id.contentDyttSearch);
+        }
+        mDyttSearchPresenter = new DyttSearchPresenter(mDyttSearchFragment);
+        contentDyttSearch.setVisibility(View.GONE);
 
         Toolbar toolbar = $(R.id.toolbar);
         if (toolbar != null) {
@@ -100,7 +110,6 @@ public class DyttActivity extends BaseActivity {
             viewPager.setAdapter(adapter);
         }
 
-
         tabLayout = $(R.id.tabs);
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(viewPager);
@@ -129,30 +138,25 @@ public class DyttActivity extends BaseActivity {
                 return false;
             }
         });
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                viewPager.setVisibility(View.GONE);
-                tabLayout.setVisibility(View.GONE);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.show(mDyttSearchFragment);
-                transaction.commit();
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                viewPager.setVisibility(View.VISIBLE);
+                tabLayout.setVisibility(View.VISIBLE);
+                contentDyttSearch.setVisibility(View.GONE);
                 return true;
             }
 
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                viewPager.setVisibility(View.VISIBLE);
-                tabLayout.setVisibility(View.VISIBLE);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.hide(mDyttSearchFragment);
-                transaction.commit();
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                viewPager.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.GONE);
+                contentDyttSearch.setVisibility(View.VISIBLE);
                 return true;
             }
         });
         return true;
     }
-
 
     private static class Adapter extends FragmentPagerAdapter {
         private final List<BaseFragment> mFragments = new ArrayList<>();

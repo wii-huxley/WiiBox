@@ -4,6 +4,7 @@ import com.huxley.wii.wiibox.http.HttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,8 +40,11 @@ public class CodekkModel {
     }
 
     public Observable<ResultBean<CodekkSearchListBean>> getSearchList(String content, int page){
-        return HttpClient.getCodekkApi().getSearchList(content, page)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return Observable.just(content)
+                .subscribeOn(Schedulers.io())
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .switchMap(s -> HttpClient.getCodekkApi().getSearchList(s, page))
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public List<CodekkProjectBean> getCodekkHomeData() {

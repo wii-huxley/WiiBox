@@ -9,10 +9,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
+ * DyttModel
  * Created by huxley on 16/7/20.
  */
 public class DyttModel {
@@ -30,8 +37,10 @@ public class DyttModel {
     public static final String Zongyi2013MovieBaseUrl = BaseUrl + "/html/zongyi2013/";//最新综艺
     public static final String Zongyi2009MovieBaseUrl = BaseUrl + "/html/2009zongyi/";//旧版综艺
     public static final String DongmanMovieBaseUrl = BaseUrl + "/html/dongman/";//动漫资源
+    private Map<String, List<DyttListBean.MovieInfo>> mData;
 
     private DyttModel() {
+        mData = new HashMap<>();
     }
 
     public static DyttModel getInstance() {
@@ -155,12 +164,17 @@ public class DyttModel {
 
     public Observable<DyttListBean> search (String content) {
         return Observable.just(content)
-                .map(this::loadSearch);
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .switchMap(s -> Observable.just(loadSearch(s)))
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<DyttListBean> search_1 (String content) {
         return Observable.just(content)
-                .map(this::loadSearch_1);
+                .subscribeOn(Schedulers.io())
+                .map(this::loadSearch_1)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static final String SBaseUrl = "http://s.dydytt.net";
@@ -195,6 +209,7 @@ public class DyttModel {
         }
         return movies;
     }
+
     private DyttListBean loadSearch_1(String url){
         DyttListBean movies = new DyttListBean();
         try {
@@ -222,5 +237,27 @@ public class DyttModel {
             e.printStackTrace();
         }
         return movies;
+    }
+
+    public void clearHomeData(String key) {
+        if (mData.containsKey(key)) {
+            mData.remove(key);
+        }
+    }
+
+    public void setHomeData(String key, List<DyttListBean.MovieInfo> data) {
+        if (mData.containsKey(key)) {
+            mData.get(key).addAll(data);
+        } else {
+            this.mData.put(key, data);
+        }
+    }
+
+    public List<DyttListBean.MovieInfo> getHomeData(String key) {
+        if (mData.containsKey(key)) {
+            return mData.get(key);
+        } else {
+            return null;
+        }
     }
 }

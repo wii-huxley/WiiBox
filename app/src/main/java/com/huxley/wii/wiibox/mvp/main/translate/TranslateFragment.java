@@ -15,6 +15,7 @@ import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.Utils.StringUtil;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
+import com.huxley.wii.wiitools.common.helper.SoftUtils;
 
 /**
  *
@@ -69,6 +70,7 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
                     mTranslatePresenter.youdaoTranslate(content);
                     break;
             }
+            SoftUtils.hideSoftInput(getActivity());
         };
         btn_baidu_translate.setOnClickListener(mClickListener);
         btn_youdao_translate.setOnClickListener(mClickListener);

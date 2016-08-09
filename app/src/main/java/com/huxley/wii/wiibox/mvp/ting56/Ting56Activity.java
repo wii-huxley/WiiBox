@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -107,14 +108,15 @@ public class Ting56Activity extends BaseActivity {
                 mPresenter.search(query);
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+            public boolean onMenuItemActionCollapse(MenuItem item) {
                 viewPager.setVisibility(View.VISIBLE);
                 tabLayout.setVisibility(View.VISIBLE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -122,8 +124,9 @@ public class Ting56Activity extends BaseActivity {
                 transaction.commit();
                 return true;
             }
+
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+            public boolean onMenuItemActionExpand(MenuItem item) {
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

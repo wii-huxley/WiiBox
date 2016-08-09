@@ -15,7 +15,7 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
-import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.base.recyclerview.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.zhy.base.adapter.ViewHolder;
 import com.zhy.base.adapter.recyclerview.MultiItemCommonAdapter;

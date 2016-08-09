@@ -27,7 +27,9 @@ public class CodekkPresenter implements CodekkContract.Presenter {
     // 搜索的下一页页数
     private int                 searchNextPage;
     private boolean             hasMore;
-    private String searchContent = null;
+    private boolean             isHomeError;
+    private boolean             errorState;
+    private String              searchContent;
 
     public CodekkPresenter(CodekkContract.View view) {
         this.mView = view;
@@ -82,6 +84,8 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                         if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
                             mView.showNotNet();
                         } else {
+                            isHomeError = true;
+                            errorState = isRefresh;
                             mView.showError(e);
                         }
                     }
@@ -109,9 +113,7 @@ public class CodekkPresenter implements CodekkContract.Presenter {
     @Override
     public void search(String query, boolean isFirst) {
         if (isFirst) {
-            searchNextPage = 1;
             searchContent = query;
-            hasMore = true;
         }
         CodekkModel.getInstance().getSearchList(query, searchNextPage)
                 .subscribe(new Subscriber<ResultBean<CodekkSearchListBean>>() {
@@ -119,22 +121,22 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                     public void onStart() {
                         mView.showLoading();
                     }
-
                     @Override
                     public void onCompleted() {
+                        mView.dismissLoading();
                         CodekkPresenter.this.searchNextPage++;
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         mView.dismissLoading();
                         if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
                             mView.showNotNet();
                         } else {
+                            isHomeError = false;
+                            errorState = isFirst;
                             mView.showError(e);
                         }
                     }
-
                     @Override
                     public void onNext(ResultBean<CodekkSearchListBean> datas) {
                         if (datas.code != 0) {
@@ -154,8 +156,25 @@ public class CodekkPresenter implements CodekkContract.Presenter {
 
     @Override
     public void resetContent() {
+        hasMore = true;
         searchContent = null;
-        mView.showContent(CodekkModel.getInstance().getCodekkHomeData(), false);
+        mView.showContent(CodekkModel.getInstance().getCodekkHomeData(), true);
+    }
+
+    @Override
+    public void clearContent() {
+        hasMore = true;
+        mView.clearContent();
+        searchNextPage = 1;
+    }
+
+    @Override
+    public void reTry() {
+        if (isHomeError) {
+            loadCodekkList(homeNextPage, errorState);
+        } else {
+            search(searchContent, errorState);
+        }
     }
 
     @Override

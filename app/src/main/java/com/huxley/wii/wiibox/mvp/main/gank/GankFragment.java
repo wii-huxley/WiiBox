@@ -18,7 +18,7 @@ import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankEvent;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankModel;
-import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.base.recyclerview.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.factory.DialogFactory;
 import com.huxley.wii.wiitools.common.helper.CollectionHelper;
@@ -197,6 +197,10 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * {}
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(GankEvent event) {
         L.jsonObject(event);

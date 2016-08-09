@@ -3,7 +3,7 @@ package com.huxley.wii.wiibox.mvp.main.gank;
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
-import com.huxley.wii.wiitools.base.interfaces.INetView;
+import com.huxley.wii.wiitools.base.net.INetView;
 
 import java.util.List;
 

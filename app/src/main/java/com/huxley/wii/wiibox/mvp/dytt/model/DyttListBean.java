@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 电影列表bean
  * Created by huxley on 16/7/22.
  */
 public class DyttListBean implements Serializable {

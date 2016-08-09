@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.codekk.model.CodekkProjectBean;
-import com.huxley.wii.wiitools.base.BaseRecyclerViewFragment;
+import com.huxley.wii.wiitools.base.recyclerview.BaseRecyclerViewFragment;
 import com.huxley.wii.wiitools.common.Utils.DateUtils;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.huxley.wii.wiitools.listener.RecyclerViewScrollListener;
@@ -30,6 +30,11 @@ public class CodekkFragment extends BaseRecyclerViewFragment<CodekkProjectBean> 
         CodekkContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private CodekkContract.Presenter mPresenter;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_codekk;
+    }
 
     @Override
     protected void created(Bundle savedInstanceState) {
@@ -119,7 +124,7 @@ public class CodekkFragment extends BaseRecyclerViewFragment<CodekkProjectBean> 
 
     @Override
     public void showError(Throwable e) {
-
+        SnackbarHelper.showLoadErrorInfo(mRecyclerView, mPresenter::reTry);
     }
 
     @Override
@@ -128,6 +133,12 @@ public class CodekkFragment extends BaseRecyclerViewFragment<CodekkProjectBean> 
             mData.clear();
         }
         mData.addAll(data);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void clearContent() {
+        mData.clear();
         mAdapter.notifyDataSetChanged();
     }
 }

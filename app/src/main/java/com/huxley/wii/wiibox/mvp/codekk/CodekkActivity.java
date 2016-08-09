@@ -1,6 +1,7 @@
 package com.huxley.wii.wiibox.mvp.codekk;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiitools.base.BaseActivity;
+import com.huxley.wii.wiitools.common.helper.SoftUtils;
 
 /**
  *
@@ -53,6 +55,7 @@ public class CodekkActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mPresenter.search(query, true);
+                SoftUtils.hideSoftInput(CodekkActivity.this);
                 return true;
             }
 
@@ -61,15 +64,16 @@ public class CodekkActivity extends BaseActivity {
                 return false;
             }
         });
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+            public boolean onMenuItemActionCollapse(MenuItem item) {
                 mPresenter.resetContent();
                 return true;
             }
 
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                mPresenter.clearContent();
                 return true;
             }
         });

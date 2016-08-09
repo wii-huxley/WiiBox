@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.mvp.dytt.search;
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
+import com.huxley.wii.wiitools.base.net.INetView;
 
 import java.util.List;
 
@@ -11,22 +12,15 @@ import java.util.List;
  */
 public interface DyttSearchContract {
 
-    interface View extends BaseView<Presenter> {
-
-        void isNoNetView(boolean isFirst);
-
-        void isEmptyView(boolean isFirst);
-
-        void isErrorView(boolean isFirst);
-
-        void setProgress(boolean isShow);
-
-        void setContent(boolean isRefresh, boolean isFirst, List<DyttListBean.MovieInfo> movieInfos);
+    interface View extends BaseView<Presenter>, INetView<List<DyttListBean.MovieInfo>> {
     }
 
     interface Presenter extends BasePresenter {
+
         void search(String content);
 
         void loadMore();
+
+        void reTry();
     }
 }
