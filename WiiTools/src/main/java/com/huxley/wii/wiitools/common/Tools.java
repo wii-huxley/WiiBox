@@ -13,7 +13,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -22,8 +21,6 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-
-import java.util.Locale;
 
 /**
  * Created by huxley on 16/3/3.
@@ -219,20 +216,6 @@ public class Tools {
         bgOverlay.setBackgroundColor(newColor);
         bgOverlay.setVisibility(View.VISIBLE);
     }
-
-    protected static int getColor(int color) {
-        TypedValue tv = new TypedValue();
-        WiiTools.getTheme().resolveAttribute(color, tv, true);
-        return tv.data;
-    }
-
-
-    public static String getTag(Context context) {
-        String tag = context.getPackageName().toUpperCase(Locale.US);
-        StackTraceElement trace = Thread.currentThread().getStackTrace()[6];
-        return tag + "/" + trace.getFileName() + ":" + trace.getLineNumber();
-    }
-
 
     public static boolean checkIsInstall(Context paramContext, String paramString) {
         if ((paramString == null) || ("".equals(paramString)))

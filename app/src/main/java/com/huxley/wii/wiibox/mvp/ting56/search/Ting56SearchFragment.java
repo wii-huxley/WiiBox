@@ -47,7 +47,7 @@ public class Ting56SearchFragment extends BaseRecyclerViewFragment<Ting56Bean> i
 
     @Override
     public RecyclerView getRecyclerView() {
-        return null;
+        return $(R.id.recyclerView);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Ting56SearchFragment extends BaseRecyclerViewFragment<Ting56Bean> i
 
     @Override
     public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return null;
+        return $(R.id.swipeRefreshLayout);
     }
 
     @Override

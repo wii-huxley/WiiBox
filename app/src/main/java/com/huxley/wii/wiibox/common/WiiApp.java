@@ -1,8 +1,12 @@
 package com.huxley.wii.wiibox.common;
 
-import com.huxley.wii.wiibox.common.helper.InitHelper;
+import com.huxley.wii.wiibox.beans.KeyInfo;
 import com.huxley.wii.wiitools.base.WiiApplication;
-import com.huxley.wii.wiitools.common.WiiTools;
+import com.huxley.wii.wiitools.common.Utils.FileUtils;
+import com.huxley.wii.wiitools.common.Utils.GsonUtils;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobConfig;
 
 
 /**
@@ -11,13 +15,30 @@ import com.huxley.wii.wiitools.common.WiiTools;
  */
 public class WiiApp extends WiiApplication {
 
+    private KeyInfo mKeyInfo;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        InitHelper.init(getContext());
-        WiiTools.init(getContext()).debug();
-//        TiebaSDK.init(this);
+        initKey();
+        initBmob();
+    }
+
+    private void initBmob() {
+        if (mKeyInfo != null) {
+            Bmob.initialize(new BmobConfig.Builder(this) //设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)
+                    .setApplicationId(mKeyInfo.Bmob.ApplicationId) // 设置appkey
+                    .setConnectTimeout(30) // 请求超时时间（单位为秒）：默认15s
+                    .setUploadBlockSize(1024*1024) // 文件分片上传时每片的大小（单位字节），默认512*1024
+                    .setFileExpiration(2500) // 文件的过期时间(单位为秒)：默认1800s
+                    .build());
+        }
+    }
+
+    private void initKey() {
+        String key = FileUtils.readAssets(this, "key");
+        mKeyInfo = GsonUtils.get().fromJson(key, KeyInfo.class);
     }
 
 }

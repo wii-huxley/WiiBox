@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import com.huxley.wii.wiitools.common.helper.ResourcesHelper;
+import com.huxley.wii.wiitools.common.helper.ResHelper;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
@@ -38,7 +38,7 @@ public class WiiTextView extends TextView {
     }
 
     public WiiTextView setWiiTextColor(@ColorRes int colorRes) {
-        setTextColor(ResourcesHelper.getColor(colorRes));
+        setTextColor(ResHelper.getColor(colorRes));
         return this;
     }
 
@@ -48,7 +48,7 @@ public class WiiTextView extends TextView {
     }
 
     public WiiTextView setWiiTextSize(@DimenRes int dimenRes) {
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourcesHelper.getDimension(dimenRes));
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, ResHelper.getDimen(dimenRes));
         return this;
     }
 }

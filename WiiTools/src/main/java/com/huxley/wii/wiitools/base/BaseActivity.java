@@ -49,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             handleIntent(getIntent());
         }
         created(savedInstanceState);
-        i("onCreate");
+        i("lifecycle - onCreate");
     }
 
     protected void handleIntent(Intent intent) {
@@ -71,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        i("onContentChanged");
+        i("lifecycle - onContentChanged");
     }
 
     /**
@@ -80,59 +80,59 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        i("onStart");
+        i("lifecycle - onStart");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        i("onRestart");
+        i("lifecycle - onRestart");
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        i("onPostCreate");
+        i("lifecycle - onPostCreate");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        i("onResume");
+        i("lifecycle - onResume");
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        i("onPostResume");
+        i("lifecycle - onPostResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        i("onPause");
+        i("lifecycle - onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        i("onStop");
+        i("lifecycle - onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        i("onDestroy");
+        i("lifecycle - onDestroy");
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        L.i("onConfigurationChanged");
+        L.i("lifecycle - onConfigurationChanged");
     }
 
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        i("onSaveInstanceState");
+        i("lifecycle - onSaveInstanceState");
     }
 
     public void onRestoreInstanceState(Bundle outState) {
@@ -156,12 +156,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean back(int keyCode, KeyEvent event) {
-        i("back");
         return super.onKeyDown(keyCode, event);
     }
 
     protected void home() {
-        i("home");
     }
 
 }

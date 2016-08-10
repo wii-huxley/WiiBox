@@ -71,7 +71,7 @@ public abstract class BaseRecyclerViewFragment<D> extends BaseFragment implement
                     }
                 };
             }
-            mHandler.postDelayed(closeRunnable, 1000);
+            mHandler.postDelayed(closeRunnable, 300);
         }
     }
 }

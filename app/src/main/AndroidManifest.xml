@@ -63,8 +63,6 @@
         </service>
 
 
-
-
         <activity
             android:name=".mvp.splash.SplashActivity"
             android:theme="@style/LaunchTheme">

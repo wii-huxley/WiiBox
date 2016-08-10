@@ -31,29 +31,19 @@ import android.util.Log;
 public class NetworkStatusManager {
 
 
-    /**
-     * 未知网络类别
-     */
+    /** 未知网络类别 */
     public static final int NETWORK_CLASS_UNKNOWN = 0;
     public static final String NETWORK_CLASS_UNKNOWN_NAME = "UNKNOWN";
-    /**
-     * 2G网络
-     */
+    /** 2G网络 */
     public static final int NETWORK_CLASS_2G = 1;
     public static final String NETWORK_CLASS_2G_NAME = "2G";
-    /**
-     * 3G网络
-     */
+    /** 3G网络 */
     public static final int NETWORK_CLASS_3G = 2;
     public static final String NETWORK_CLASS_3G_NAME = "3G";
-    /**
-     * 4G网络
-     */
+    /** 4G网络 */
     public static final int NETWORK_CLASS_4G = 3;
     public static final String NETWORK_CLASS_4G_NAME = "4G";
-    /**
-     * WIFI网络
-     */
+    /** WIFI网络 */
     public static final int NETWORK_CLASS_WIFI = 999;
     public static final String NETWORK_CLASS_WIFI_NAME = "WIFI";
     private static final String TAG = "NetworkStatusManager";
@@ -271,8 +261,8 @@ public class NetworkStatusManager {
                 mState = State.CONNECTED;
             }
 
-            mNetworkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-            mOtherNetworkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_OTHER_NETWORK_INFO);
+            mNetworkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+            mOtherNetworkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_OTHER_NETWORK_INFO);
 
             mReason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
             mIsFailOver = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);

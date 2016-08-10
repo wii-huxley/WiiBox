@@ -48,7 +48,7 @@ public class Ting56Activity extends BaseActivity {
         Ting56SearchFragment mTing56SearchFragment = (Ting56SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentTing56Search);
         if (mTing56SearchFragment == null) {
             mTing56SearchFragment = Ting56SearchFragment.newInstance();
-            FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), mTing56SearchFragment, R.id.contentDyttSearch);
+            FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), mTing56SearchFragment, R.id.contentTing56Search);
         }
         mPresenter = new Ting56SearchPresenter(mTing56SearchFragment);
         contentTing56Search.setVisibility(View.GONE);

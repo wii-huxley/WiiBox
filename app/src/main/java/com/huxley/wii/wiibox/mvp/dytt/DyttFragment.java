@@ -11,7 +11,6 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiitools.base.recyclerview.BaseRecyclerViewFragment;
-import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.huxley.wii.wiitools.listener.RecyclerViewScrollListener;
 import com.zhy.base.adapter.ViewHolder;
@@ -100,7 +99,6 @@ public class DyttFragment extends BaseRecyclerViewFragment<DyttListBean.MovieInf
 
     @Override
     public void showLoading() {
-        L.i(".....................................");
         setRefreshing(true);
     }
 

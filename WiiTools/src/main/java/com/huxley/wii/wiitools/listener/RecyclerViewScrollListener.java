@@ -26,7 +26,6 @@ public class RecyclerViewScrollListener {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (!swipeRefreshLayout.isRefreshing() && newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(true);
                     loadMoreListener.loadMore();
                 }
             }

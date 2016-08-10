@@ -4,6 +4,7 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56ListBean;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
+import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
 import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
@@ -36,7 +37,7 @@ public class Ting56Presenter implements Ting56Contract.Presenter{
 
     @Override
     public void refresh() {
-        loadTing56List(mUrl, true);
+        loadTing56List(Ting56Model.URL_BASE + mUrl, true);
     }
 
     @Override
@@ -84,7 +85,11 @@ public class Ting56Presenter implements Ting56Contract.Presenter{
                     @Override
                     public void onNext(Ting56ListBean tingBookInfos) {
                         ting56View.showContent(tingBookInfos.ting56BeanList, isRefresh);
-                        nextUrl = tingBookInfos.nextUrl;
+                        if (nextUrl == null ? mUrl.equals(tingBookInfos.nextUrl) : nextUrl.equals(tingBookInfos.nextUrl)) {
+                            nextUrl = null;
+                        } else {
+                            nextUrl = tingBookInfos.nextUrl;
+                        }
                     }
                 });
     }
