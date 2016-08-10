@@ -33,7 +33,7 @@ public class CodekkFragment extends BaseRecyclerViewFragment<CodekkProjectBean> 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_codekk;
+        return R.layout.wii_layout_list;
     }
 
     @Override

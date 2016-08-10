@@ -39,7 +39,7 @@ public class GankModel {
     public Observable<List<GankInfo>> getLocalGankDatas() {
         String read = null;
         if (SP.Gank.hasHistory()) {
-            read = (String) SP.Gank.read(Constant.Extra.HISTORY_LIST, "");
+            read = (String) SP.Gank.read(Constant.Key.HISTORY_LIST, "");
         }
         return Observable.just(GsonUtils.get().fromJson(read, DataInfo.class))
                 .flatMap(dataInfo -> {
@@ -125,7 +125,7 @@ public class GankModel {
     }
 
     public void setDataInfo(DataInfo dataInfo) {
-        SP.Gank.save(Constant.Extra.HISTORY_LIST, new Gson().toJson(dataInfo));
+        SP.Gank.save(Constant.Key.HISTORY_LIST, new Gson().toJson(dataInfo));
     }
 
     public void setGankInfo(String date, GankInfo gankInfo) {

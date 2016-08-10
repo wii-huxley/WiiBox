@@ -52,7 +52,7 @@ public class SP extends SPUtils {
             return sp;
         }
         public static boolean hasHistory() {
-            return hasKey(get(), Constant.Extra.HISTORY_LIST);
+            return hasKey(get(), Constant.Key.HISTORY_LIST);
         }
         public static void save(String key, Object object) {
             input(get(), key, object);

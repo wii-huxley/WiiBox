@@ -8,6 +8,7 @@ import com.huxley.wii.wiitools.base.net.INetView;
 import java.util.List;
 
 /**
+ * DyttSearchContract
  * Created by huxley on 16/7/13.
  */
 public interface DyttSearchContract {

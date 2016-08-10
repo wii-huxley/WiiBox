@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
@@ -12,13 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
+import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.ting56.search.Ting56SearchFragment;
 import com.huxley.wii.wiibox.mvp.ting56.search.Ting56SearchPresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.helper.FragmentHelper;
+import com.huxley.wii.wiitools.common.helper.ResHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,8 @@ public class Ting56Activity extends BaseActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private Ting56SearchFragment mTing56SearchFragment;
     private Ting56SearchPresenter mPresenter;
+    private FrameLayout contentTing56Search;
 
     @Override
     protected int getLayoutId() {
@@ -38,61 +40,38 @@ public class Ting56Activity extends BaseActivity {
     @Override
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
-
         initView();
     }
 
     private void initView() {
-        mPresenter = new Ting56SearchPresenter(mTing56SearchFragment = (Ting56SearchFragment)
-                getSupportFragmentManager().findFragmentById(R.id.layout_ting56_search));
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle("听书网");
-            toolbar.setNavigationIcon(R.drawable.ic_back);
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(v -> finish());
+        contentTing56Search = $(R.id.contentTing56Search);
+        Ting56SearchFragment mTing56SearchFragment = (Ting56SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentTing56Search);
+        if (mTing56SearchFragment == null) {
+            mTing56SearchFragment = Ting56SearchFragment.newInstance();
+            FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), mTing56SearchFragment, R.id.contentDyttSearch);
         }
+        mPresenter = new Ting56SearchPresenter(mTing56SearchFragment);
+        contentTing56Search.setVisibility(View.GONE);
+
+        Toolbar toolbar = UIHelper.createToolbar(this);
+        toolbar.setTitle(R.string.str_ting_56);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        if (viewPager != null) {
-            Ting56Activity.Adapter adapter = new Ting56Activity.Adapter(getSupportFragmentManager());
-
-            Ting56Fragment militaryHistoryFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(militaryHistoryFragment, Ting56Model.URL_MILITARY_HISTORY);
-            adapter.addFragment(militaryHistoryFragment, "军事历史");
-
-            Ting56Fragment forensicReasoningFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(forensicReasoningFragment, Ting56Model.URL_FORENSIC_REASONING);
-            adapter.addFragment(forensicReasoningFragment, "刑侦推理");
-
-            Ting56Fragment workplaceMallFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(workplaceMallFragment, Ting56Model.URL_WORKPLACE_MALL);
-            adapter.addFragment(workplaceMallFragment, "职场商场");
-
-            Ting56Fragment lectureRoomFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(lectureRoomFragment, Ting56Model.URL_LECTURE_ROOM);
-            adapter.addFragment(lectureRoomFragment, "百家讲坛");
-
-            Ting56Fragment balladSingingFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(balladSingingFragment, Ting56Model.URL_BALLAD_SINGING);
-            adapter.addFragment(balladSingingFragment, "经典评书");
-
-            Ting56Fragment humorousJokesFragment = Ting56Fragment.newInstance();
-            new Ting56Presenter(humorousJokesFragment, Ting56Model.URL_HUMOROUS_JOKES);
-            adapter.addFragment(humorousJokesFragment, "幽默笑话");
-
-            viewPager.setAdapter(adapter);
-        }
+        String[] titles = ResHelper.getStringArray(R.array.array_ting56_tab);
+        String[] urls = ResHelper.getStringArray(R.array.array_ting56_url);
+        Ting56Activity.Adapter adapter = new Ting56Activity.Adapter(getSupportFragmentManager());
+        adapter.createFragment(urls[0], titles[0]);
+        adapter.createFragment(urls[1], titles[1]);
+        adapter.createFragment(urls[2], titles[2]);
+        adapter.createFragment(urls[3], titles[3]);
+        adapter.createFragment(urls[4], titles[4]);
+        adapter.createFragment(urls[5], titles[5]);
+        viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        if (tabLayout != null) {
-            tabLayout.setupWithViewPager(viewPager);
-        }
-        
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.hide(mTing56SearchFragment);
-        transaction.commit();
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -101,7 +80,7 @@ public class Ting56Activity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("输入小说名或相关关键字");
+        searchView.setQueryHint(ResHelper.getString(R.string.hint_ting56_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -119,19 +98,14 @@ public class Ting56Activity extends BaseActivity {
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 viewPager.setVisibility(View.VISIBLE);
                 tabLayout.setVisibility(View.VISIBLE);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.hide(mTing56SearchFragment);
-                transaction.commit();
+                contentTing56Search.setVisibility(View.GONE);
                 return true;
             }
-
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 viewPager.setVisibility(View.GONE);
                 tabLayout.setVisibility(View.GONE);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.show(mTing56SearchFragment);
-                transaction.commit();
+                contentTing56Search.setVisibility(View.VISIBLE);
                 return true;
             }
         });
@@ -164,6 +138,12 @@ public class Ting56Activity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
+        }
+
+        private void createFragment(String url, String title) {
+            Ting56Fragment humorousJokesFragment = Ting56Fragment.newInstance();
+            new Ting56Presenter(humorousJokesFragment, url);
+            addFragment(humorousJokesFragment, title);
         }
     }
 }

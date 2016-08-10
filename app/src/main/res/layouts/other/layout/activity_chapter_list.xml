@@ -20,7 +20,7 @@
             android:background="@color/wii_color_700"
             app:titleTextColor="@color/wii_color_50"/>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/chapterFragmentContent"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_p"

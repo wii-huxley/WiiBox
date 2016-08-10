@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.mvp.ting56.detail;
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Bean;
+import com.huxley.wii.wiitools.base.net.INetView;
 
 import java.util.List;
 
@@ -11,20 +12,19 @@ import java.util.List;
  */
 public interface TingPlayContract {
 
-    interface View extends BaseView<Presenter> {
-
-        void isEmptyView();
-
-        void isErrorView();
-
-        void isNoNetView();
-
-        void setProgress(boolean isShow);
-
-        void setContent(List<Ting56Bean.Ting56DetailBean> ting56DetailBeen);
+    interface View extends BaseView<Presenter>, INetView<List<Ting56Bean.Ting56DetailBean>> {
     }
 
     interface Presenter extends BasePresenter {
-        void openBook(String content);
+
+        void reTry();
+
+        void play(List<Ting56Bean.Ting56DetailBean> data, int position);
+
+        void resume();
+
+        void pause();
+
+        String getTag();
     }
 }

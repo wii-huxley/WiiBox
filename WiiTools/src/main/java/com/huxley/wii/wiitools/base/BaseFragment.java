@@ -31,6 +31,7 @@ public class BaseFragment extends Fragment {
             rootView = inflater.inflate(getLayoutId(), container, false);
         }
         mInflater = LayoutInflater.from(getContext());
+
         created(savedInstanceState);
         return rootView;
     }
@@ -46,11 +47,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        LayoutInflater result = getActivity().getLayoutInflater();
-        return result;
     }
 
     public <V extends View> V $(int id) {

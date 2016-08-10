@@ -72,4 +72,49 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+
+    <string-array name="array_dytt_tab">
+        <item>最新电影</item>
+        <item>国内电影</item>
+        <item>欧美电影</item>
+        <item>日韩电影</item>
+        <item>华语电视</item>
+        <item>日韩电视</item>
+        <item>欧美电视</item>
+        <item>最新综艺</item>
+        <item>旧版综艺</item>
+        <item>动漫资源</item>
+    </string-array>
+
+    <string-array name="array_dytt_url">
+        <item>/html/gndy/dyzz/</item>
+        <item>/html/gndy/china/</item>
+        <item>/html/gndy/oumei/</item>
+        <item>/html/gndy/rihan/</item>
+        <item>/html/tv/hytv/</item>
+        <item>/html/tv/rihantv/</item>
+        <item>/html/tv/oumeitv/</item>
+        <item>/html/zongyi2013/</item>
+        <item>/html/2009zongyi/</item>
+        <item>/html/dongman/</item>
+    </string-array>
+
+    <string-array name="array_ting56_tab">
+        <item>军事历史</item>
+        <item>刑侦推理</item>
+        <item>职场商场</item>
+        <item>百家讲坛</item>
+        <item>经典评书</item>
+        <item>幽默笑话</item>
+    </string-array>
+
+    <string-array name="array_ting56_url">
+        <item>/book/6.html</item>
+        <item>/book/41.html</item>
+        <item>/book/7.html</item>
+        <item>/book/10.html</item>
+        <item>/book/9.html</item>
+        <item>/book/44.html</item>
+    </string-array>
+
 </resources>

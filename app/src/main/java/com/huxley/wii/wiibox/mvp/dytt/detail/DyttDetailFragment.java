@@ -1,13 +1,9 @@
 package com.huxley.wii.wiibox.mvp.dytt.detail;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -16,33 +12,88 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.common.utils.ImageLoaderUtils;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttDetailInfo;
-import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttModel;
-import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.Tools;
 import com.huxley.wii.wiitools.common.factory.DialogFactory;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.orhanobut.dialogplus.DialogPlus;
 
 import java.util.List;
 
-public class DyttDetailFragment extends BaseNetFragment implements DyttDetailContract.View {
+public class DyttDetailFragment extends BaseFragment implements DyttDetailContract.View {
 
     private DyttDetailContract.Presenter mDyttDetailPresenter;
-    private ImageView ivPhoto;
-    private DyttListBean.MovieInfo mMovieInfo;
-    private LinearLayout llContent;
-    private DialogPlus downloadDialog;
+    private ImageView                    ivPhoto;
+    private LinearLayout                 llContent;
+    private DialogPlus                   downloadDialog;
+    private CollapsingToolbarLayout      collapsingToolbar;
+    public static final String XUNLEI_PACKAGENAME = "com.xunlei.downloadprovider";
 
-    public static DyttDetailFragment newInstance(DyttListBean.MovieInfo movieInfo) {
-        Bundle args = new Bundle();
-        args.putSerializable(Constant.Extra.DATE, movieInfo);
-        DyttDetailFragment fragment = new DyttDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static DyttDetailFragment newInstance() {
+        return new DyttDetailFragment();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_dyttdetail;
+    }
+
+    @Override
+    protected void created(Bundle savedInstanceState) {
+        super.created(savedInstanceState);
+
+        initView();
+        initListener();
+        mDyttDetailPresenter.start();
+    }
+
+    private void initListener() {
+        View.OnClickListener clickListener = v -> {
+            switch (v.getId()) {
+                case R.id.btnDownload:
+                    if (downloadDialog == null) {
+                        ToastHelper.showInfo(R.string.str_loading);
+                        return;
+                    }
+                    downloadDialog.show();
+                    break;
+            }
+        };
+        UIHelper.setOnClickListener(clickListener, $(R.id.btnDownload));
+    }
+
+    private void initView() {
+        ivPhoto = $(R.id.ivPhoto);
+        llContent = $(R.id.llContent);
+
+        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        collapsingToolbar = $(R.id.collapsingToolbar);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        collapsingToolbar.setTitle(title);
+    }
+
+    public void onClickDownload(View view, String ftpUrl) {
+        if (TextUtils.isEmpty(ftpUrl)) {
+            SnackbarHelper.showInfo(view, getContext().getString(R.string.un_ftpurl_label));
+            return;
+        }
+        if (Tools.checkIsInstall(getContext(), XUNLEI_PACKAGENAME)) {
+            UIHelper.setXunLeiActivity(getContext(), Uri.parse(DyttModel.getInstance().encode(ftpUrl)));
+        } else {
+            SnackbarHelper.showInfo(view, getContext().getString(R.string.un_install_xunlei_label));
+        }
     }
 
     @Override
@@ -51,92 +102,34 @@ public class DyttDetailFragment extends BaseNetFragment implements DyttDetailCon
     }
 
     @Override
-    protected void created(Bundle savedInstanceState) {
-        super.created(savedInstanceState);
-
-        addView(R.layout.fragment_dyttdetail);
-        getData();
-        initView();
-        initListener();
-        mDyttDetailPresenter.loadData(mMovieInfo.url);
-    }
-
-    private void initListener() {
-        View.OnClickListener clickListener = v -> {
-            switch (v.getId()) {
-                case R.id.btnDownload:
-                    showDownloadDialog();
-                    break;
-            }
-        };
-        UIHelper.setOnClickListener(clickListener, $1(R.id.btnDownload));
-    }
-
-    private void getData() {
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            mMovieInfo = (DyttListBean.MovieInfo) arguments.getSerializable(Constant.Extra.DATE);
-        }
-    }
-
-    private void initView() {
-        ivPhoto = $1(R.id.ivPhoto);
-        llContent = $1(R.id.llContent);
-        Toolbar toolbar = $1(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_back);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        CollapsingToolbarLayout collapsingToolbar = $1(R.id.collapsingToolbar);
-        collapsingToolbar.setTitle(mMovieInfo.name);
-
+    public void showLoading() {
+        isLoading(true);
     }
 
     @Override
-    public void setContent(DyttDetailInfo movieDetailInfo) {
-        List<String> pics = movieDetailInfo.pics;
+    public void dismissLoading() {
+        isLoading(false);
+    }
+
+    @Override
+    public void showNotNet() {
+        SnackbarHelper.showNoNetInfo(rootView);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        SnackbarHelper.showLoadErrorInfo(rootView, mDyttDetailPresenter::start);
+    }
+
+    @Override
+    public void showContent(DyttDetailInfo data, boolean isRefresh) {
+        List<String> pics = data.pics;
         if (pics != null && pics.size() > 0) {
             String remove = pics.remove(0);
             ImageLoaderUtils.setGankBigImage(ivPhoto, remove);
         }
 
-        downloadDialog = DialogFactory.newInstance(getContext(),"下载列表", "单选", true, movieDetailInfo.urls, null,
+        downloadDialog = DialogFactory.newInstance(getContext(), "下载列表", "单选", true, data.urls, null,
                 (dialog, item, view, position) -> onClickDownload(view, (String) item));
-    }
-
-    private void showDownloadDialog() {
-        if (downloadDialog == null) {
-            ToastHelper.showInfo(R.string.str_loading);
-            return;
-        }
-        downloadDialog.show();
-    }
-
-    public static final String XUNLEI_PACKAGENAME = "com.xunlei.downloadprovider";
-
-    public void onClickDownload(View view, String ftpUrl) {
-        if (TextUtils.isEmpty(ftpUrl)) {
-            Snackbar.make(view, getContext().getString(R.string.un_ftpurl_label), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
-        }
-
-        if (checkIsInstall(getContext(), XUNLEI_PACKAGENAME)) {
-            // 唤醒迅雷
-            getContext().startActivity(new Intent("android.intent.action.VIEW", Uri.parse(DyttModel.getInstance().encode(ftpUrl))));
-        } else {
-            Snackbar.make(view, getContext().getString(R.string.un_install_xunlei_label), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        }
-    }
-
-    private boolean checkIsInstall(Context paramContext, String paramString) {
-        if ((paramString == null) || ("".equals(paramString)))
-            return false;
-        try {
-            paramContext.getPackageManager().getApplicationInfo(paramString, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException localNameNotFoundException) {
-        }
-        return false;
     }
 }

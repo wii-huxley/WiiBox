@@ -40,7 +40,7 @@
             <item
                 android:id="@id/navMovie"
                 android:icon="@drawable/ic_movie"
-                android:title="@string/str_movie" />
+                android:title="@string/str_dytt" />
             <item
                 android:id="@id/navTing56"
                 android:icon="@drawable/ic_ting_56"

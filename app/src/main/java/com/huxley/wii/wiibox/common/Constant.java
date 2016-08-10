@@ -11,6 +11,7 @@ public interface Constant {
     double GOLDEN_RATIO = (Math.sqrt(5) - 1) / 2;
 
     interface Key {
+        String HISTORY_LIST   = "historyList";
         String strKey         = "key.str";
         String IMAGE_VIEW     = "imageView";
         String POSITION_X     = "positionX";
@@ -19,6 +20,8 @@ public interface Constant {
         String DATA           = "data";
         String POSITION       = "position";
         String URL            = "url";
+        String NAME           = "name";
+        String DATE           = "date";
     }
 
     interface RequestCode {
@@ -31,14 +34,6 @@ public interface Constant {
     }
 
     interface Data {
-    }
-
-    interface Extra {
-        String DATE         = "date";
-        String URL          = "url";
-        String POSITION     = "position";
-        String HISTORY_LIST = "historyList";
-        String NAME         = "name";
     }
 
     interface Debug {

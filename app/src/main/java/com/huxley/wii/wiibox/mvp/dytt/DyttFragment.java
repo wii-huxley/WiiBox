@@ -34,7 +34,7 @@ public class DyttFragment extends BaseRecyclerViewFragment<DyttListBean.MovieInf
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_dytt;
+        return R.layout.wii_layout_list;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class DyttFragment extends BaseRecyclerViewFragment<DyttListBean.MovieInf
 
     @Override
     public void showError(Throwable e) {
-        SnackbarHelper.showLoadErrorInfo(mRecyclerView, mPresenter::start);
+        SnackbarHelper.showLoadErrorInfo(mRecyclerView, mPresenter::reTry);
     }
 
     @Override

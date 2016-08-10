@@ -18,7 +18,7 @@
     <string name="str_ting_56">听书网</string>
     <string name="str_translate">翻译</string>
     <string name="str_tieba">贴吧</string>
-    <string name="str_movie">电影天堂</string>
+    <string name="str_dytt">电影天堂</string>
     <string name="str_more">更多</string>
     <string name="str_setting">设置</string>
     <string name="str_exit_app">退出应用</string>
@@ -26,9 +26,7 @@
     <string name="str_codekk">Codekk</string>
     <string name="str_other">其他</string>
 
-    <string name="str_hint_search">请输入作者名或书名</string>
     <string name="str_translate_content_is_empty">内容不能为空</string>
-    <string name="hint_input_translate_content">在此输入要翻译的文本</string>
 
 
     <string name="un_ftpurl_label">尚未提供下载地址~稍后再试哦</string>
@@ -42,5 +40,10 @@
     <string name="str_error">加载失败</string>
     <string name="str_no_more">没有更多…</string>
     <string name="str_search_empty">搜索内容为空</string>
+
+
+    <string name="hint_input_translate_content">在此输入要翻译的文本</string>
+    <string name="hint_ting56_search">输入小说名或相关关键字</string>
+    <string name="str_hint_search">请输入作者名或书名</string>
 
 </resources>

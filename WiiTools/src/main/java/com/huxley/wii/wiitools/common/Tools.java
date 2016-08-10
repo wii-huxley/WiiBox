@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
@@ -230,5 +231,17 @@ public class Tools {
         String tag = context.getPackageName().toUpperCase(Locale.US);
         StackTraceElement trace = Thread.currentThread().getStackTrace()[6];
         return tag + "/" + trace.getFileName() + ":" + trace.getLineNumber();
+    }
+
+
+    public static boolean checkIsInstall(Context paramContext, String paramString) {
+        if ((paramString == null) || ("".equals(paramString)))
+            return false;
+        try {
+            paramContext.getPackageManager().getApplicationInfo(paramString, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException localNameNotFoundException) {
+            return false;
+        }
     }
 }

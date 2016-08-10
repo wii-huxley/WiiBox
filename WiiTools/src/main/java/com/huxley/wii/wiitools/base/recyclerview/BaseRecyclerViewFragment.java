@@ -14,7 +14,6 @@ import java.util.List;
 
 
 /**
- *
  * Created by LeiJin01 on 2016/8/5.
  */
 public abstract class BaseRecyclerViewFragment<D> extends BaseFragment implements IRecyclerView {
@@ -24,7 +23,8 @@ public abstract class BaseRecyclerViewFragment<D> extends BaseFragment implement
     protected SwipeRefreshLayout         mSwipeRefreshLayout;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected Handler                    mHandler;
-    protected Runnable                   mRunnable;
+    protected Runnable                   openRunnable;
+    protected Runnable                   closeRunnable;
     protected List<D>                    mData;
 
     @Override
@@ -49,21 +49,29 @@ public abstract class BaseRecyclerViewFragment<D> extends BaseFragment implement
     }
 
     protected void setRefreshing(boolean refreshing) {
+        if (mHandler == null) {
+            mHandler = new Handler();
+        }
         if (refreshing) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        } else {
-            if (mHandler == null) {
-                mHandler = new Handler();
+            if (openRunnable == null) {
+                openRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(true);
+                    }
+                };
             }
-            if (mRunnable == null) {
-                mRunnable = new Runnable() {
+            mHandler.post(openRunnable);
+        } else {
+            if (closeRunnable == null) {
+                closeRunnable = new Runnable() {
                     @Override
                     public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 };
             }
-            mHandler.postDelayed(mRunnable, 1000);
+            mHandler.postDelayed(closeRunnable, 1000);
         }
     }
 }

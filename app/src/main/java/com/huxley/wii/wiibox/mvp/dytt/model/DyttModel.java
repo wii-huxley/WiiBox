@@ -25,18 +25,7 @@ import rx.schedulers.Schedulers;
 public class DyttModel {
 
     private static DyttModel instance;
-    private static final String BaseUrl = "http://www.ygdy8.net";
-    public static final String FirstUrl = "index.html";
-    public static final String NewMovieBaseUrl = BaseUrl + "/html/gndy/dyzz/";//最新电影
-    public static final String ChinaMovieBaseUrl = BaseUrl + "/html/gndy/china/";//国内电影
-    public static final String OumeiMovieBaseUrl = BaseUrl + "/html/gndy/oumei/";//欧美电影
-    public static final String RihanMovieBaseUrl = BaseUrl + "/html/gndy/rihan/";//日韩电影
-    public static final String HytvMovieBaseUrl = BaseUrl + "/html/tv/hytv/";//华语电视
-    public static final String RihantvMovieBaseUrl = BaseUrl + "/html/tv/rihantv/";//日韩电视
-    public static final String OumeitvMovieBaseUrl = BaseUrl + "/html/tv/oumeitv/";//欧美电视
-    public static final String Zongyi2013MovieBaseUrl = BaseUrl + "/html/zongyi2013/";//最新综艺
-    public static final String Zongyi2009MovieBaseUrl = BaseUrl + "/html/2009zongyi/";//旧版综艺
-    public static final String DongmanMovieBaseUrl = BaseUrl + "/html/dongman/";//动漫资源
+    public static final String BaseUrl = "http://www.ygdy8.net";
     private Map<String, List<DyttListBean.MovieInfo>> mData;
 
     private DyttModel() {

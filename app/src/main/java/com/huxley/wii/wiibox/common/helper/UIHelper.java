@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.common.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -143,8 +144,8 @@ public class UIHelper {
     public static void startChapterListActivity(Context context, String url, String name) {
         Intent intent = new Intent(checkNotNull(context), TingPlayActivity.class);
         if (url != null && name != null) {
-            intent.putExtra(Constant.Extra.URL, url);
-            intent.putExtra(Constant.Extra.NAME, name);
+            intent.putExtra(Constant.Key.URL, url);
+            intent.putExtra(Constant.Key.NAME, name);
         }
         checkNotNull(context).startActivity(intent);
     }
@@ -159,7 +160,7 @@ public class UIHelper {
         if (context != null) {
             Intent intent = new Intent(context, DyttDetailActivity.class);
             if (movieInfo != null) {
-                intent.putExtra(Constant.Extra.DATE, movieInfo);
+                intent.putExtra(Constant.Key.DATE, movieInfo);
             }
             context.startActivity(intent);
         }
@@ -194,5 +195,10 @@ public class UIHelper {
         Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putExtra(Constant.Key.URL, url);
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+    }
+
+    /** 唤醒迅雷 */
+    public static void setXunLeiActivity(Context context, Uri ftpUrl) {
+        context.startActivity(new Intent("android.intent.action.VIEW", ftpUrl));
     }
 }

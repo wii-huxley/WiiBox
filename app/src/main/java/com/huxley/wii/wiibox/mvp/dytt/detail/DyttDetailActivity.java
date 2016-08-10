@@ -24,15 +24,15 @@ public class DyttDetailActivity extends BaseActivity {
 
         DyttDetailFragment dyttDetailFragment = (DyttDetailFragment) getSupportFragmentManager().findFragmentById(R.id.dyttDetailContent);
         if (dyttDetailFragment == null) {
-            dyttDetailFragment = DyttDetailFragment.newInstance(mMovieInfo);
+            dyttDetailFragment = DyttDetailFragment.newInstance();
             FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), dyttDetailFragment, R.id.dyttDetailContent);
         }
 
-        new DyttDetailPresenter(dyttDetailFragment);
+        new DyttDetailPresenter(dyttDetailFragment, mMovieInfo);
     }
 
     @Override
     protected void handleIntent(Intent intent) {
-        mMovieInfo = (DyttListBean.MovieInfo) intent.getSerializableExtra(Constant.Extra.DATE);
+        mMovieInfo = (DyttListBean.MovieInfo) intent.getSerializableExtra(Constant.Key.DATE);
     }
 }

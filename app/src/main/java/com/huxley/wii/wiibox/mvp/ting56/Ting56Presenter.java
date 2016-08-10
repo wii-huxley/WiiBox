@@ -1,14 +1,13 @@
 package com.huxley.wii.wiibox.mvp.ting56;
 
+import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56ListBean;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
-import com.huxley.wii.wiitools.exception.EmptyException;
+import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
@@ -20,8 +19,8 @@ public class Ting56Presenter implements Ting56Contract.Presenter{
 
     private Ting56Contract.View ting56View;
     private String mUrl;
-    private boolean isFirst;
     private String nextUrl;
+    private boolean errorState;
 
     public Ting56Presenter(Ting56Contract.View ting56View, String url) {
         this.ting56View = checkNotNull(ting56View);
@@ -31,59 +30,61 @@ public class Ting56Presenter implements Ting56Contract.Presenter{
 
     @Override
     public void start() {
-        isFirst = true;
-        loadTing56List(false, mUrl);
+        refresh();
     }
 
 
     @Override
     public void refresh() {
-        loadTing56List(true, mUrl);
+        loadTing56List(mUrl, true);
     }
 
     @Override
     public void loadMore() {
         if (nextUrl == null) {
-            ToastHelper.showInfo("没有更多...");
+            ToastHelper.showInfo(R.string.str_no_more);
             return;
         }
-        loadTing56List(false, Ting56Model.URL_BASE + nextUrl);
+        loadTing56List(Ting56Model.URL_BASE + nextUrl, false);
     }
 
-    public void loadTing56List(final boolean isRefresh, String content) {
-        if (isFirst) {
-            ting56View.setProgress(true);
+    @Override
+    public void reTry() {
+        if (errorState) {
+            refresh();
+        } else {
+            loadMore();
         }
+    }
+
+    public void loadTing56List(String content, boolean isRefresh) {
         Ting56Model.getInstance().getList(content)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Ting56ListBean>() {
                     @Override
-                    public void onCompleted() {
-                        if (isFirst) {
-                            ting56View.setProgress(false);
-                            isFirst = false;
-                        }
+                    public void onStart() {
+                        ting56View.showLoading();
                     }
+
+                    @Override
+                    public void onCompleted() {
+                        ting56View.dismissLoading();
+                    }
+
                     @Override
                     public void onError(Throwable e) {
-                        if (isFirst) {
-                            ting56View.setProgress(false);
-                        }
-                        if (ExceptionHelper.isNetException(e)) {
-                            ting56View.isNoNetView(isFirst);
-                        }else if (ExceptionHelper.isEmptyException(e)){
-                            ting56View.isEmptyView(isFirst);
-                        }else {
-                            ting56View.isErrorView(isFirst);
+                        ting56View.dismissLoading();
+                        if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
+                            ting56View.showNotNet();
+                        } else {
+                            errorState = isRefresh;
+                            ting56View.showError(e);
                         }
                     }
+
                     @Override
                     public void onNext(Ting56ListBean tingBookInfos) {
-                        if (tingBookInfos == null || tingBookInfos.isEmp()) {
-                            throw new EmptyException();
-                        }
+                        ting56View.showContent(tingBookInfos.ting56BeanList, isRefresh);
                         nextUrl = tingBookInfos.nextUrl;
-                        ting56View.setContent(tingBookInfos.ting56BeanList, isRefresh, isFirst);
                     }
                 });
     }

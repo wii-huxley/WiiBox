@@ -48,6 +48,6 @@ public class PhotoActivity extends BaseActivity {
 
     @Override
     protected void handleIntent(Intent intent) {
-        mUrl = intent.getStringExtra(Constant.Extra.URL);
+        mUrl = intent.getStringExtra(Constant.Key.URL);
     }
 }

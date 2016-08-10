@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.mvp.ting56;
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Bean;
+import com.huxley.wii.wiitools.base.net.INetView;
 
 import java.util.List;
 
@@ -12,17 +13,7 @@ import java.util.List;
  */
 public interface Ting56Contract {
 
-    interface View extends BaseView<Presenter> {
-
-        void isNoNetView(boolean isFirst);
-
-        void isEmptyView(boolean isFirst);
-
-        void isErrorView(boolean isFirst);
-
-        void setProgress(boolean isShow);
-
-        void setContent(List<Ting56Bean> ting56BeanList, boolean isRefresh, boolean isFirst);
+    interface View extends BaseView<Presenter>, INetView<List<Ting56Bean>> {
     }
 
     interface Presenter extends BasePresenter {
@@ -30,5 +21,7 @@ public interface Ting56Contract {
         void refresh();
 
         void loadMore();
+
+        void reTry();
     }
 }

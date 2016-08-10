@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  *
@@ -25,13 +27,6 @@ public class Ting56Model {
     private static Ting56Model mModel;
     public static final String URL_BASE = "http://www.ting56.com";
     private static final String URL_SEARCH = URL_BASE + "/search.asp?searchword=";
-    public static final String URL_MILITARY_HISTORY = URL_BASE + "/book/6.html";
-    public static final String URL_FORENSIC_REASONING = URL_BASE + "/book/41.html";
-    public static final String URL_WORKPLACE_MALL = URL_BASE + "/book/7.html";
-    public static final String URL_LECTURE_ROOM = URL_BASE + "/book/10.html";
-    public static final String URL_BALLAD_SINGING = URL_BASE + "/book/9.html";
-    public static final String URL_HUMOROUS_JOKES = URL_BASE + "/book/44.html";
-
 
     private Ting56Model() {
 
@@ -55,7 +50,9 @@ public class Ting56Model {
 
     public Observable<Ting56ListBean> getList(String url){
         return Observable.just(url)
-                .map(this::loadList);
+                .subscribeOn(Schedulers.io())
+                .map(this::loadList)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<Ting56ListBean> search_1(String url){

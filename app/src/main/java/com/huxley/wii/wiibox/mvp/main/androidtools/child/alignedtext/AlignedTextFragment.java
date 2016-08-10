@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.widget.LinearLayout;
 
 import com.huxley.wii.wiibox.R;
-import com.huxley.wii.wiitools.base.BaseNetFragment;
+import com.huxley.wii.wiitools.base.BaseFragment;
 import com.huxley.wii.wiitools.common.helper.TextHelper;
 import com.huxley.wii.wiitools.common.helper.WiiUIHelper;
 import com.huxley.wii.wiitools.view.WiiTextView;
@@ -17,7 +17,7 @@ import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 /**
  *
  */
-public class AlignedTextFragment extends BaseNetFragment implements AlignedTextContract.View {
+public class AlignedTextFragment extends BaseFragment implements AlignedTextContract.View {
 
     private AlignedTextContract.Presenter mPresenter;
 
@@ -28,6 +28,11 @@ public class AlignedTextFragment extends BaseNetFragment implements AlignedTextC
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_aligned_text;
     }
 
     @Override
@@ -48,8 +53,7 @@ public class AlignedTextFragment extends BaseNetFragment implements AlignedTextC
     }
 
     private void initView() {
-        addView(R.layout.fragment_aligned_text);
-        LinearLayout container = $1(R.id.container);
+        LinearLayout container = $(R.id.container);
         WiiTextView[] textViews = new WiiTextView[datas.length];
         for (int i = 0; i < datas.length; i++) {
             LogUtil.i(datas[i]);

@@ -6,7 +6,6 @@ import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttModel;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
 import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
-import com.thefinestartist.utils.log.L;
 
 import rx.Subscriber;
 
@@ -91,7 +90,6 @@ public class DyttSearchPresenter implements DyttSearchContract.Presenter{
                     public void onNext(DyttListBean dyttListBean) {
                         nextUrl = dyttListBean.nextUrl;
                         mView.showContent(dyttListBean.mMovieInfos, false);
-                        L.json(dyttListBean.toString());
                     }
                 });
     }

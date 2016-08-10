@@ -21,7 +21,7 @@ import com.zhy.base.adapter.recyclerview.OnItemClickListener;
 import java.util.List;
 
 /**
- *
+ * DyttSearchFragment
  * Created by huxley on 16/7/13.
  */
 public class DyttSearchFragment extends BaseRecyclerViewFragment<DyttListBean.MovieInfo> implements DyttSearchContract.View {
@@ -34,7 +34,7 @@ public class DyttSearchFragment extends BaseRecyclerViewFragment<DyttListBean.Mo
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_dytt_search;
+        return R.layout.wii_layout_list;
     }
 
     @Override
