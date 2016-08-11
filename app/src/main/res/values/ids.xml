@@ -8,11 +8,6 @@
     <item type="id" name="collapsingToolbar"/>
     <item type="id" name="toolbar"/>
     <item type="id" name="recyclerView"/>
-    <item type="id" name="bottomBarMe"/>
-    <item type="id" name="bottomBarMessage"/>
-    <item type="id" name="bottomBarLike"/>
-    <item type="id" name="bottomBarSetting"/>
-    <item type="id" name="bottomBar"/>
     <item type="id" name="ivPhoto"/>
     <item type="id" name="container"/>
     <item type="id" name="tvSource"/>

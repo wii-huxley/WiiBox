@@ -53,7 +53,7 @@ public class Ting56SearchPresenter implements Ting56SearchContract.Presenter{
                         if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
                             ting56View.showNotNet();
                         } else {
-                            ToastHelper.showInfo(R.string.str_error);
+                            ToastHelper.showInfo(R.string.str_prompt_loading_fail);
                         }
                     }
 
@@ -73,7 +73,7 @@ public class Ting56SearchPresenter implements Ting56SearchContract.Presenter{
     @Override
     public void loadMore() {
         if (nextUrl == null) {
-            ToastHelper.showInfo(R.string.str_no_more);
+            ToastHelper.showInfo(R.string.str_prompt_no_more);
             return;
         }
         Ting56Model.getInstance().search_1("http://www.ting56.com/search.asp" + nextUrl)

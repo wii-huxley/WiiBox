@@ -74,7 +74,6 @@ public class DyttDetailFragment extends BaseFragment implements DyttDetailContra
         Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         collapsingToolbar = $(R.id.collapsingToolbar);
     }
@@ -86,13 +85,13 @@ public class DyttDetailFragment extends BaseFragment implements DyttDetailContra
 
     public void onClickDownload(View view, String ftpUrl) {
         if (TextUtils.isEmpty(ftpUrl)) {
-            SnackbarHelper.showInfo(view, getContext().getString(R.string.un_ftpurl_label));
+            SnackbarHelper.showInfo(view, getContext().getString(R.string.dytt_un_ftpurl));
             return;
         }
         if (Tools.checkIsInstall(getContext(), XUNLEI_PACKAGENAME)) {
             UIHelper.setXunLeiActivity(getContext(), Uri.parse(DyttModel.getInstance().encode(ftpUrl)));
         } else {
-            SnackbarHelper.showInfo(view, getContext().getString(R.string.un_install_xunlei_label));
+            SnackbarHelper.showInfo(view, getContext().getString(R.string.dytt_un_install_xunlei));
         }
     }
 
@@ -128,7 +127,6 @@ public class DyttDetailFragment extends BaseFragment implements DyttDetailContra
             String remove = pics.remove(0);
             ImageLoaderUtils.setGankBigImage(ivPhoto, remove);
         }
-
         downloadDialog = DialogFactory.newInstance(getContext(), "下载列表", "单选", true, data.urls, null,
                 (dialog, item, view, position) -> onClickDownload(view, (String) item));
     }

@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
 /**
- *
+ * TingPlayPresenter
  * Created by huxley on 16/7/13.
  */
 public class TingPlayPresenter implements TingPlayContract.Presenter{

@@ -32,8 +32,7 @@
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:background="@color/wii_color_500"
-                android:contentDescription="@string/str_gank"
-                android:transitionName="@string/transition_pic"
+                android:contentDescription="@string/gank_title"
                 android:scaleType="centerInside"
                 android:src="@drawable/img_empty"/>
 

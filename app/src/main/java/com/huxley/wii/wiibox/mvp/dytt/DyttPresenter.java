@@ -49,7 +49,7 @@ public class DyttPresenter implements DyttContract.Presenter {
     @Override
     public void loadMore() {
         if (nextUrl == null) {
-            ToastHelper.showInfo(R.string.str_no_more);
+            ToastHelper.showInfo(R.string.str_prompt_no_more);
             return;
         }
         loadMovie(mUrl + nextUrl, false);

@@ -4,7 +4,6 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.ToastHelper;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56ListBean;
 import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
-import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.ExceptionHelper;
 import com.huxley.wii.wiitools.common.helper.NetWorkHelper;
 
@@ -43,7 +42,7 @@ public class Ting56Presenter implements Ting56Contract.Presenter{
     @Override
     public void loadMore() {
         if (nextUrl == null) {
-            ToastHelper.showInfo(R.string.str_no_more);
+            ToastHelper.showInfo(R.string.str_prompt_no_more);
             return;
         }
         loadTing56List(Ting56Model.URL_BASE + nextUrl, false);

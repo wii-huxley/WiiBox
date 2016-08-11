@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiitools.base.BaseActivity;
+import com.huxley.wii.wiitools.common.helper.ResHelper;
 import com.huxley.wii.wiitools.common.helper.SoftUtils;
 
 /**
@@ -35,7 +36,7 @@ public class CodekkActivity extends BaseActivity {
     private void init() {
 
         Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.str_codekk);
+        toolbar.setTitle(R.string.codekk_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 
@@ -50,7 +51,7 @@ public class CodekkActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search title, tags, author, keywords, description etc.");
+        searchView.setQueryHint(ResHelper.getString(R.string.codekk_hint_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

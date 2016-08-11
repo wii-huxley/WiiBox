@@ -54,7 +54,7 @@ public class Ting56Activity extends BaseActivity {
         contentTing56Search.setVisibility(View.GONE);
 
         Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.str_ting_56);
+        toolbar.setTitle(R.string.ting56_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 
@@ -80,7 +80,7 @@ public class Ting56Activity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint(ResHelper.getString(R.string.hint_ting56_search));
+        searchView.setQueryHint(ResHelper.getString(R.string.ting56_hint_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

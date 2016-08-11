@@ -4,6 +4,6 @@
     <string name="str_load_error">加载失败，点击重试</string>
     <string name="str_empty_error">空空如也，点击重试</string>
     <string name="str_back">返回</string>
-    <string name="str_more">更多</string>
+    <string name="home_more">更多</string>
     <string name="hint_search_ting">输入小说名或相关关键字</string>
 </resources>

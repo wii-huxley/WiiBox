@@ -56,7 +56,7 @@ public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.
 
     private void initView() {
         Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
-        toolbar.setTitle(R.string.str_androidtools);
+        toolbar.setTitle(R.string.androidtools_title);
 
         mFlowLayout = $(R.id.flowLayout);
         mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {

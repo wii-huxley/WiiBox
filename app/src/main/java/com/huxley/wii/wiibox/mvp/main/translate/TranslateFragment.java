@@ -47,7 +47,7 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
 
     private void initView() {
         Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
-        toolbar.setTitle(R.string.str_translate);
+        toolbar.setTitle(R.string.translate_title);
 
         et_translate_content = $(R.id.et_translate_content);
         btn_baidu_translate = $(R.id.btn_baidu_translate);
@@ -59,7 +59,7 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
         View.OnClickListener mClickListener = v -> {
             String content = et_translate_content.getText().toString();
             if (StringUtil.isEmpty(content)) {
-                ToastHelper.showInfo(R.string.str_translate_content_is_empty);
+                ToastHelper.showInfo(R.string.str_prompt_content_is_empty);
                 return;
             }
             switch (v.getId()) {
@@ -99,7 +99,7 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
 
     @Override
     public void showError(Throwable e) {
-        SnackbarHelper.showInfo(rootView, R.string.str_error);
+        SnackbarHelper.showInfo(rootView, R.string.str_prompt_loading_fail);
     }
 
     @Override

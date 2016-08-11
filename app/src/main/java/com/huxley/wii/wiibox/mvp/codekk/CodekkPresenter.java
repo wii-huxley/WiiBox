@@ -98,7 +98,7 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                         List<CodekkProjectBean> projectArray = datas.data.projectArray;
                         if (projectArray.size() <= 0) {
                             hasMore = false;
-                            ToastHelper.showInfo(R.string.str_no_more);
+                            ToastHelper.showInfo(R.string.str_prompt_no_more);
                             return;
                         }
                         if (isRefresh) {
@@ -145,7 +145,7 @@ public class CodekkPresenter implements CodekkContract.Presenter {
                         List<CodekkProjectBean> projectArray = datas.data.projectArray;
                         if (projectArray.size() <= 0) {
                             hasMore = false;
-                            ToastHelper.showInfo(isFirst ? R.string.str_search_empty : R.string.str_no_more);
+                            ToastHelper.showInfo(isFirst ? R.string.str_prompt_result_is_empty : R.string.str_prompt_no_more);
                             return;
                         }
                         mView.showContent(projectArray, isFirst);

@@ -19,7 +19,7 @@
         android:maxLines="5"
         android:padding="@dimen/dp_5_p"
         android:textSize="@dimen/size_16"
-        android:hint="@string/hint_input_translate_content"
+        android:hint="@string/translate_hint_search"
         android:textColorHint="@color/wii_color_300"
         android:textCursorDrawable="@color/wii_color_700"
         android:textColor="@color/wii_color_700"/>
@@ -36,14 +36,14 @@
             android:layout_width="@dimen/dp_0_p"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="百度翻译"/>
+            android:text="@string/translate_baidu"/>
 
         <Button
             android:id="@+id/btn_youdao_translate"
             android:layout_width="@dimen/dp_0_p"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="有道翻译"/>
+            android:text="@string/translate_youdao"/>
     </LinearLayout>
 
     <ScrollView

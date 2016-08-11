@@ -1,49 +1,46 @@
 <resources>
+
+    <!-- prompt -->
+    <string name="str_prompt_content_is_empty">内容为空</string>
+    <string name="str_prompt_result_is_empty">结果为空</string>
+    <string name="str_prompt_no_more">没有更多…</string>
+    <string name="str_prompt_loading_fail">加载失败…</string>
+
+    <!-- 应用名 -->
     <string name="app_name">WiiBox</string>
-    <string name="bottomBarHome">首页</string>
-    <string name="bottomBarMe">我</string>
-    <string name="bottomBarMessage">消息</string>
-    <string name="bottomBarLike">收藏</string>
-    <string name="bottomBarSetting">设置</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="navigation_view_header_title">唯一很无敌</string>
-    <string name="str_open_net">打开网络</string>
-    <string name="str_load_error">加载失败，点击重试</string>
-    <string name="str_loading">加载中…</string>
 
+    <!-- home -->
+    <string name="home_username">唯一很无敌</string>
+    <string name="home_more">更多</string>
+    <string name="home_other">其他</string>
+    <string name="home_exit_app">退出应用</string>
 
-    <string name="str_androidtools">AndroidTools</string>
-    <string name="str_gank">Gank</string>
-    <string name="str_csnd">CSDN</string>
-    <string name="str_ting_56">听书网</string>
-    <string name="str_translate">翻译</string>
-    <string name="str_tieba">贴吧</string>
-    <string name="str_dytt">电影天堂</string>
-    <string name="str_more">更多</string>
-    <string name="str_setting">设置</string>
-    <string name="str_exit_app">退出应用</string>
-    <string name="str_search">搜索</string>
-    <string name="str_codekk">Codekk</string>
-    <string name="str_other">其他</string>
+    <!-- setting -->
+    <string name="setting_title">设置</string>
 
-    <string name="str_translate_content_is_empty">内容不能为空</string>
+    <!-- AndroidTools -->
+    <string name="androidtools_title">AndroidTools</string>
 
+    <!-- ting56 -->
+    <string name="ting56_title">听书网</string>
+    <string name="ting56_hint_search">输入小说名或相关关键字…</string>
 
-    <string name="un_ftpurl_label">尚未提供下载地址~稍后再试哦</string>
-    <string name="un_install_xunlei_label">该影片链接为迅雷P2P资源，须安装迅雷下载工具才能进行下载！</string>
-    <string name="str_player_bar_empty">乐享听书，随心而动</string>
+    <!-- gank -->
+    <string name="gank_title">Gank</string>
 
-    <string name="transition_pic">transition:PIC</string>
-    <string name="transition_title">transition:TITLE</string>
+    <!-- 翻译 -->
+    <string name="translate_title">在线翻译</string>
+    <string name="translate_hint_search">请输入要翻译的文字…</string>
+    <string name="translate_baidu">百度翻译</string>
+    <string name="translate_youdao">有道翻译</string>
 
+    <!-- codekk -->
+    <string name="codekk_title">Codekk</string>
+    <string name="codekk_hint_search">请输入标题、标签、作者、关键词、描述等…</string>
 
-    <string name="str_error">加载失败</string>
-    <string name="str_no_more">没有更多…</string>
-    <string name="str_search_empty">搜索内容为空</string>
-
-
-    <string name="hint_input_translate_content">在此输入要翻译的文本</string>
-    <string name="hint_ting56_search">输入小说名或相关关键字</string>
-    <string name="str_hint_search">请输入作者名或书名</string>
-
+    <!-- dytt -->
+    <string name="dytt_title">电影天堂</string>
+    <string name="dytt_hint_search">请输入搜索关键字</string>
+    <string name="dytt_un_ftpurl">尚未提供下载地址~稍后再试哦</string>
+    <string name="dytt_un_install_xunlei">该影片链接为迅雷P2P资源，须安装迅雷下载工具才能进行下载！</string>
 </resources>

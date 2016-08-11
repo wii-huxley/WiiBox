@@ -20,44 +20,44 @@
         <item
             android:id="@id/navGank"
             android:icon="@drawable/ic_me"
-            android:title="@string/str_gank" />
+            android:title="@string/gank_title" />
         <item
             android:id="@id/navAndroidTools"
             android:icon="@drawable/ic_android_tools"
-            android:title="@string/str_androidtools" />
+            android:title="@string/androidtools_title" />
         <item
             android:id="@id/navTranslate"
             android:icon="@drawable/ic_translate"
-            android:title="@string/str_translate" />
+            android:title="@string/translate_title" />
     </group>
 
-    <item android:title="@string/str_more">
+    <item android:title="@string/home_more">
         <menu>
             <item
                 android:id="@id/navCode"
                 android:icon="@drawable/ic_code"
-                android:title="@string/str_codekk" />
+                android:title="@string/codekk_title" />
             <item
                 android:id="@id/navMovie"
                 android:icon="@drawable/ic_movie"
-                android:title="@string/str_dytt" />
+                android:title="@string/dytt_title" />
             <item
                 android:id="@id/navTing56"
                 android:icon="@drawable/ic_ting_56"
-                android:title="@string/str_ting_56" />
+                android:title="@string/ting56_title" />
         </menu>
     </item>
 
-    <item android:title="@string/str_other">
+    <item android:title="@string/home_other">
         <menu>
             <item
                 android:id="@id/navSetting"
                 android:icon="@drawable/ic_setting"
-                android:title="@string/str_setting" />
+                android:title="@string/setting_title" />
             <item
                 android:id="@id/navExit"
                 android:icon="@drawable/ic_exit"
-                android:title="@string/str_exit_app" />
+                android:title="@string/home_exit_app" />
         </menu>
     </item>
 </menu>

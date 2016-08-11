@@ -56,7 +56,7 @@ public class DyttActivity extends BaseActivity {
         contentDyttSearch.setVisibility(View.GONE);
 
         Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.str_dytt);
+        toolbar.setTitle(R.string.dytt_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 
@@ -89,7 +89,7 @@ public class DyttActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("输入小说名或相关关键字");
+        searchView.setQueryHint(ResHelper.getString(R.string.dytt_hint_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

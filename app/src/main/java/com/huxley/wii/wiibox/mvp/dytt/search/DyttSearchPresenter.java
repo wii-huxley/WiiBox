@@ -49,7 +49,7 @@ public class DyttSearchPresenter implements DyttSearchContract.Presenter{
                         if (ExceptionHelper.isNetException(e) && !NetWorkHelper.isConnected()) {
                             mView.showNotNet();
                         } else {
-                            ToastHelper.showInfo(R.string.str_error);
+                            ToastHelper.showInfo(R.string.str_prompt_loading_fail);
                         }
                     }
 
@@ -64,7 +64,7 @@ public class DyttSearchPresenter implements DyttSearchContract.Presenter{
     @Override
     public void loadMore() {
         if (nextUrl == null) {
-            ToastHelper.showInfo(R.string.str_no_more);
+            ToastHelper.showInfo(R.string.str_prompt_no_more);
             return;
         }
         DyttModel.getInstance().search_1(DyttModel.SBaseUrl + nextUrl)
