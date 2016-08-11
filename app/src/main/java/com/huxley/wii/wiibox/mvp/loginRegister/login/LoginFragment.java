@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.huxley.wii.wiibox.R;
+import com.huxley.wii.wiibox.mvp.loginRegister.LoginRegisterActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
+
 
 /**
  * LoginFragment
@@ -76,7 +78,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
                 }
             }
         });
-        fabRegister.setOnClickListener(view -> ((LoginActivity)getActivity()).jumpRegisterUI(fabRegister));
+        fabRegister.setOnClickListener(view -> ((LoginRegisterActivity)getActivity()).jumpRegisterUI(fabRegister));
     }
 
     private void changeBtnState() {
