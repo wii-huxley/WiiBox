@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.fanrunqi.materiallogin.MainActivity">
+
+    <FrameLayout
+        android:layout_width="320dp"
+        android:layout_height="390dp"
+        android:layout_centerInParent="true"
+        android:paddingTop="70dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_add"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@color/wii_color_light_300"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/register_title"
+                    android:textColor="@color/wii_color_50"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="50dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f7f4">
+
+                        <EditText
+                            android:id="@+id/et_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/slr_bg_login_edit"
+                            android:hint="@string/login_user_name"
+                            android:inputType="textPersonName"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/wii_color_50"
+                            android:textCursorDrawable="@drawable/sp_input_cursor"
+                            android:textSize="13sp"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="50dp">
+
+                    <android.support.design.widget.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f7f4">
+
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/slr_bg_login_edit"
+                            android:hint="@string/login_password"
+                            android:inputType="textPassword"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/wii_color_50"
+                            android:textCursorDrawable="@drawable/sp_input_cursor"
+                            android:textSize="13sp"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="50dp">
+
+                    <android.support.design.widget.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f7f4">
+
+                        <EditText
+                            android:id="@+id/et_repeatpassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/slr_bg_login_edit"
+                            android:hint="@string/login_repeat_password"
+                            android:inputType="textPassword"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/wii_color_50"
+                            android:textCursorDrawable="@drawable/sp_input_cursor"
+                            android:textSize="13sp"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/bt_go"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/slr_bg_btn"
+                    android:stateListAnimator="@drawable/slr_list_animator_z"
+                    android:text="@string/register_title"
+                    android:enabled="false"
+                    android:textColor="@drawable/slr_tv_clr"
+                    >
+                </Button>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:src="@drawable/ic_close"
+            android:transitionName="loginFab"
+            app:backgroundTint="@color/wii_color_light_500"
+            app:fabSize="normal"/>
+    </FrameLayout>
+</RelativeLayout>

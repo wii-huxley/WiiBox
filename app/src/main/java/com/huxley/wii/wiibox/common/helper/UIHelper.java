@@ -19,6 +19,7 @@ import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
 import com.huxley.wii.wiibox.mvp.dytt.DyttActivity;
 import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
+import com.huxley.wii.wiibox.mvp.loginRegister.login.LoginActivity;
 import com.huxley.wii.wiibox.mvp.main.MainActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.alignedtext.AlignedTextActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.blurview.BlurViewActivity;
@@ -200,5 +201,11 @@ public class UIHelper {
     /** 唤醒迅雷 */
     public static void setXunLeiActivity(Context context, Uri ftpUrl) {
         context.startActivity(new Intent("android.intent.action.VIEW", ftpUrl));
+    }
+
+    public static void startLoginActivity(Context context) {
+        if (context != null) {
+            context.startActivity(new Intent(context, LoginActivity.class));
+        }
     }
 }

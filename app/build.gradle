@@ -14,7 +14,7 @@ android {
      * 兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用
      * compile 'cn.bmob.android:http-legacy:1.0'
      */
-    useLibrary 'org.apache.http.legacy'
+//    useLibrary 'org.apache.http.legacy'
 
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
@@ -96,6 +96,14 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
+
+//        exclude 'META-INF/rxjava.properties'
+//        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.xml'
+//        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.properties'
+//        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+//        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+//        exclude 'META-INF/maven/com.google.code.gson/gson/pom.xml'
+//        exclude 'META-INF/maven/com.google.code.gson/gson/pom.properties'
     }
 
     lintOptions {
@@ -117,6 +125,7 @@ android {
                     'src/main/res/layouts/other',
                     'src/main/res/layouts/blurview',
                     'src/main/res/layouts/tieba',
+                    'src/main/res/layouts/login',
                     'src/main/res/layouts',
                     'src/main/res/drawables/icon',
                     'src/main/res/drawables/layerlist',
@@ -146,6 +155,7 @@ dependencies {
     compile project(':circualreveal')
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/jsoup-1.9.2.jar')
+    compile files('libs/BmobSDK_3.5.1_20160719.jar')
     //    compile files('libs/faceppsdk.jar')
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -169,14 +179,14 @@ dependencies {
 
     //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
     //3.5.0：请务必查看下面注释[1]
-    compile 'cn.bmob.android:bmob-sdk:3.5.0'
+//    compile 'cn.bmob.android:bmob-sdk:3.5.1'
     //bmob-push：Bmob的推送包
 //    compile 'cn.bmob.android:bmob-push:0.8'
     //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
 //    compile 'cn.bmob.android:bmob-im:2.0.5@aar'
 //    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
     //bmob-sms ：Bmob单独为短信服务提供的包
-    compile 'cn.bmob.android:bmob-sms:1.0.1'
+//    compile 'cn.bmob.android:bmob-sms:1.0.1'
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
 //    compile 'cn.bmob.android:http-legacy:1.0'
 }

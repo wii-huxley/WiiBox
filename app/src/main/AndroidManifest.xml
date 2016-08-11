@@ -100,7 +100,6 @@
         <activity android:name=".mvp.main.androidtools.child.navigationTabBar.VerticalNtbActivity"/>
         <activity android:name=".mvp.main.androidtools.child.navigationTabBar.SamplesNtbActivity"/>
         <activity android:name=".mvp.main.androidtools.child.stepview.StepViewActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.sidebar.SideBarActivity"/>
         <activity android:name=".mvp.main.androidtools.child.alignedtext.AlignedTextActivity"/>
         <activity android:name=".mvp.ting56.detail.TingPlayActivity"/>
         <activity android:name=".mvp.dytt.DyttActivity"/>
@@ -110,6 +109,7 @@
         <activity android:name=".mvp.main.androidtools.child.blurview.BlurredViewBasicActivity"/>
         <activity android:name=".mvp.main.androidtools.child.blurview.BlurViewActivity"/>
         <activity android:name=".mvp.main.androidtools.child.blurview.WeatherActivity"/>
+        <activity android:name=".mvp.loginRegister.login.LoginActivity"/>
     </application>
 
 </manifest>

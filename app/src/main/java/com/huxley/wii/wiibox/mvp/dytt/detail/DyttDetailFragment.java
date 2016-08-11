@@ -57,7 +57,7 @@ public class DyttDetailFragment extends BaseFragment implements DyttDetailContra
             switch (v.getId()) {
                 case R.id.btnDownload:
                     if (downloadDialog == null) {
-                        ToastHelper.showInfo(R.string.str_loading);
+                        ToastHelper.showInfo(R.string.str_prompt_loading);
                         return;
                     }
                     downloadDialog.show();

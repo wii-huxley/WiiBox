@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
@@ -33,6 +36,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      * 1:是fragmentPosition
      */
     private int[] currentPositions = {0, -1};
+    private ImageView ivHeaderPhoto;
+    private TextView  tvUserName;
+    private View      headerView;
 
     @Override
     protected int getLayoutId() {
@@ -66,12 +72,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         mDrawerLayout = $(R.id.drawer_layout);
         navigationView = $(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
         checkNotNull(navigationView).setItemIconTintList(null);
         showFragment(0, 0);
     }
 
     private void initListener() {
         navigationView.setNavigationItemSelectedListener(this);
+        headerView.setOnClickListener(v -> {
+            UIHelper.startLoginActivity(this);
+        });
     }
 
     private void showFragment(int pagePosition, int fragmentPosition) {
