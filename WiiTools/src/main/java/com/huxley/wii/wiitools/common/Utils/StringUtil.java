@@ -57,4 +57,8 @@ public class StringUtil {
             return content;
         }
     }
+
+    public static boolean isPhone(String content) {
+        return content.matches("0?(13|14|15|17|18)[0-9]{9}");
+    }
 }

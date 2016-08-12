@@ -140,6 +140,6 @@
         android:layout_marginTop="25dp"
         android:src="@drawable/ic_add"
         android:transitionName="loginFab"
-        app:backgroundTint="@color/wii_color_light_500"
+        app:backgroundTint="@color/wii_color_light_400"
         app:fabSize="normal"/>
 </RelativeLayout>

@@ -16,25 +16,31 @@ import android.widget.EditText;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.mvp.loginRegister.LoginRegisterActivity;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfoEvent;
 import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.Utils.StringUtil;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
+
+import org.greenrobot.eventbus.EventBus;
+
+import cn.iwgang.countdownview.CountdownView;
 
 /**
  * LoginFragment
  * Created by LeiJin01 on 2016/8/11.
  */
-public class RegisterFragment extends BaseFragment implements RegisterContact.View{
+public class RegisterFragment extends BaseFragment implements RegisterContact.View {
 
     private RegisterContact.Presenter mPresenter;
-    public FloatingActionButton fabLogin;
-    private CardView cvAdd;
-    private EditText et_password;
-    private EditText et_username;
-    private EditText et_repeatpassword;
-    private Button btn_go;
-    private boolean isInputPassword;
-    private boolean isInputRepeatPassword;
-    private boolean isInputUsername;
+    public  FloatingActionButton      fabLogin;
+    private CardView                  cvAdd;
+    private EditText                  et_phone_num;
+    private EditText                  et_phone_code;
+    private Button                    btn_go;
+    private boolean                   isInputPhoneNum;
+    private boolean                   isInputPhoneCode;
+    private CountdownView             timeView;
+    private Button                    btnSendCode;
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -59,38 +65,17 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
     }
 
     private void initView() {
-        et_password = $(R.id.et_password);
-        et_username = $(R.id.et_username);
-        et_repeatpassword = $(R.id.et_repeatpassword);
+        et_phone_num = $(R.id.et_phone_num);
+        et_phone_code = $(R.id.et_phone_code);
         btn_go = $(R.id.btn_go);
         fabLogin = $(R.id.fabLogin);
         cvAdd = $(R.id.cv_add);
+        timeView = $(R.id.timeView);
+        btnSendCode = $(R.id.btnSendCode);
     }
 
     private void initListener() {
-        et_password.addTextChangedListener(new TextWatcher() {
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (isInputPassword != editable.length() > 0) {
-                    isInputPassword = editable.length() > 0;
-                    changeBtnState();
-                }
-            }
-        });
-        et_username.addTextChangedListener(new TextWatcher() {
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (isInputUsername != editable.length() > 0) {
-                    isInputUsername = editable.length() > 0;
-                    changeBtnState();
-                }
-            }
-        });
-        et_repeatpassword.addTextChangedListener(new TextWatcher() {
+        et_phone_num.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
@@ -99,18 +84,110 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (isInputRepeatPassword != editable.length() > 0) {
-                    isInputRepeatPassword = editable.length() > 0;
+                if (isInputPhoneNum != editable.length() > 0) {
+                    isInputPhoneNum = editable.length() > 0;
+                    changeBtnState();
+                }
+                btnSendCode.setEnabled(StringUtil.isPhone(editable.toString()));
+            }
+        });
+        et_phone_code.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (isInputPhoneCode != editable.length() > 0) {
+                    isInputPhoneCode = editable.length() > 0;
                     changeBtnState();
                 }
             }
         });
         fabLogin.setOnClickListener(v -> animateRevealClose());
-        btn_go.setOnClickListener(v -> mPresenter.register());
+        btn_go.setOnClickListener(v -> mPresenter.signOrLoginByMobilePhone(et_phone_num.getText().toString(), et_phone_code.getText().toString()));
+        btnSendCode.setOnClickListener(v -> {
+            mPresenter.requestSMSCode(et_phone_num.getText().toString());
+            showTimeView();
+        });
+        timeView.setOnCountdownEndListener(cv -> {
+            dismissTimeView();
+        });
+    }
+
+    private void dismissTimeView() {
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(timeView, timeView.getWidth() / 2,
+                timeView.getHeight() / 2, timeView.getWidth() / 2, 0);
+        mAnimator.setDuration(300);
+        mAnimator.setInterpolator(new AccelerateInterpolator());
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                timeView.setVisibility(View.GONE);
+
+                Animator mAnimator = ViewAnimationUtils.createCircularReveal(btnSendCode, btnSendCode.getWidth() / 2,
+                        btnSendCode.getHeight() / 2, 0, btnSendCode.getWidth() / 2);
+                mAnimator.setDuration(300);
+                mAnimator.setInterpolator(new AccelerateInterpolator());
+                mAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        btnSendCode.setVisibility(View.VISIBLE);
+                    }
+                });
+                mAnimator.start();
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        mAnimator.start();
+    }
+
+    private void showTimeView() {
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(btnSendCode, btnSendCode.getWidth() / 2,
+                btnSendCode.getHeight() / 2, btnSendCode.getWidth() / 2, 0);
+        mAnimator.setDuration(300);
+        mAnimator.setInterpolator(new AccelerateInterpolator());
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                btnSendCode.setVisibility(View.GONE);
+
+                Animator mAnimator = ViewAnimationUtils.createCircularReveal(timeView, timeView.getWidth() / 2,
+                        timeView.getHeight() / 2, 0, timeView.getWidth() / 2);
+                mAnimator.setDuration(300);
+                mAnimator.setInterpolator(new AccelerateInterpolator());
+                mAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        timeView.start(60000);
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        timeView.setVisibility(View.VISIBLE);
+                    }
+                });
+                mAnimator.start();
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        mAnimator.start();
     }
 
     public void animateRevealShow() {
-        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth()/2,0, fabLogin.getWidth() / 2, cvAdd.getHeight());
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth() / 2, 0, fabLogin.getWidth() / 2, cvAdd.getHeight());
         mAnimator.setDuration(300);
         mAnimator.setInterpolator(new AccelerateInterpolator());
         mAnimator.addListener(new AnimatorListenerAdapter() {
@@ -127,7 +204,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
     }
 
     public void animateRevealClose() {
-        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd,cvAdd.getWidth()/2,0, cvAdd.getHeight(), fabLogin.getWidth() / 2);
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth() / 2, 0, cvAdd.getHeight(), fabLogin.getWidth() / 2);
         mAnimator.setDuration(300);
         mAnimator.setInterpolator(new AccelerateInterpolator());
         mAnimator.addListener(new AnimatorListenerAdapter() {
@@ -145,7 +222,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
     }
 
     private void changeBtnState() {
-        btn_go.setEnabled(isInputPassword && isInputUsername && isInputRepeatPassword);
+        btn_go.setEnabled(isInputPhoneNum && isInputPhoneCode);
     }
 
     @Override
@@ -165,11 +242,19 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
 
     @Override
     public void showError(Throwable e) {
-        SnackbarHelper.showInfo(rootView, R.string.str_prompt_loading_fail);
+        SnackbarHelper.showInfo(rootView, R.string.loginRegister_register_fail);
     }
 
     @Override
     public void showContent(UserInfo data, boolean isRefresh) {
-
+        if (data == null) {
+            data = UserInfo.getCurrentUser(UserInfo.class);
+        }
+        if (data == null) {
+            SnackbarHelper.showInfo(rootView, R.string.str_prompt_un_know_error);
+            return;
+        }
+        EventBus.getDefault().post(new UserInfoEvent(data));
+        getActivity().finish();
     }
 }

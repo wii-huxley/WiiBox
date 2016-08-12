@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfoEvent;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankPresenter;
@@ -22,9 +23,12 @@ import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
-import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.huxley.wii.wiitools.common.manager.ActivityManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import static com.huxley.wii.wiitools.common.Utils.NonNull.checkNotNull;
 
@@ -43,6 +47,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ImageView ivHeaderPhoto;
     private TextView  tvUserName;
     private View      headerView;
+    private UserInfo  userInfo;
 
     @Override
     protected int getLayoutId() {
@@ -56,15 +61,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initData();
         initView();
         initListener();
+        EventBus.getDefault().register(this);
     }
 
     private void initData() {
-        UserInfo userInfo = (UserInfo) UserInfo.getCurrentUser();
-        if(userInfo != null){
-            L.i("登录过");
-        }else{
-            L.i("未登录");
-        }
+        userInfo = UserInfo.getCurrentUser(UserInfo.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initView() {
@@ -85,24 +92,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         new TranslatePresenter((TranslateFragment) translateFragments[0]);
 
         mDrawerLayout = $(R.id.drawer_layout);
+
         navigationView = $(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
         tvUserName = (TextView) headerView.findViewById(R.id.tvUserName);
+        if (userInfo != null) {
+            tvUserName.setText(userInfo.getUsername());
+        }
+
         checkNotNull(navigationView).setItemIconTintList(null);
         showFragment(0, 0);
     }
 
+    @SuppressWarnings("unchecked")
     private void initListener() {
         navigationView.setNavigationItemSelectedListener(this);
+
         headerView.setOnClickListener(v -> {
-
-
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this,
-                    Pair.create(tvUserName, tvUserName.getTransitionName())
-            );
-            UIHelper.startLoginActivity(this, optionsCompat);
-            mDrawerLayout.closeDrawers();
+            Pair<View, String> textViewStringPair = Pair.create(tvUserName, tvUserName.getTransitionName());
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, textViewStringPair);
+            if (userInfo == null) {
+                UIHelper.startLoginActivity(this, optionsCompat);
+            } else {
+//                UIHelper
+            }
         });
     }
 
@@ -165,5 +178,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected boolean back(int keyCode, KeyEvent event) {
         moveTaskToBack(false);
         return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UserInfoEvent event) {
+        tvUserName.setText(event.userInfo.getUsername());
     }
 }

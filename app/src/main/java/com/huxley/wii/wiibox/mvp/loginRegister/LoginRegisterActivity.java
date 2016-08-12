@@ -155,4 +155,8 @@ public class LoginRegisterActivity extends BaseActivity {
         }
         return super.back(keyCode, event);
     }
+
+    public void registerComplete() {
+        finish();
+    }
 }

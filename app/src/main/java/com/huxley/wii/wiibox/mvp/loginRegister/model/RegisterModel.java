@@ -2,6 +2,9 @@ package com.huxley.wii.wiibox.mvp.loginRegister.model;
 
 import com.huxley.wii.wiitools.common.Utils.CodeUtils;
 
+import cn.bmob.v3.BmobSMS;
+import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -17,5 +20,13 @@ public class RegisterModel {
         userInfo.setUsername(userName);
         userInfo.setPassword(CodeUtils.passwordEncoder(password));
         userInfo.signUp(listener);
+    }
+
+    public void requestSMSCode(String phoneNum, QueryListener<Integer> listener) {
+        BmobSMS.requestSMSCode(phoneNum, "WiiBox", listener);
+    }
+
+    public void signOrLoginByMobilePhone(String phoneNum, String code, LogInListener<UserInfo> listener) {
+        UserInfo.signOrLoginByMobilePhone(phoneNum, code, listener);
     }
 }

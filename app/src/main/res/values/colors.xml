@@ -42,7 +42,7 @@
     <color name="wii_color_700">@color/color_brown_700</color>
     <color name="wii_color_900">@color/color_brown_900</color>
     <color name="wii_color_light_300">@color/color_amber_300</color>
-    <color name="wii_color_light_500">@color/color_amber_500</color>
+    <color name="wii_color_light_400">@color/color_amber_400</color>
     <color name="wii_color_dark">@color/color_grey_400</color>
 
     <color name="color_red_50">#FFEBEE</color>

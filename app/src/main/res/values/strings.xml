@@ -6,6 +6,7 @@
     <string name="str_prompt_no_more">没有更多…</string>
     <string name="str_prompt_loading_fail">加载失败…</string>
     <string name="str_prompt_loading">加载中…</string>
+    <string name="str_prompt_un_know_error">未知错误</string>
 
     <!-- 应用名 -->
     <string name="app_name">WiiBox</string>
@@ -24,6 +25,10 @@
     <string name="loginRegister_password">密码</string>
     <string name="loginRegister_repeat_password">再次输入密码</string>
     <string name="loginRegister_forgot_password">忘记密码?</string>
+    <string name="loginRegister_phone_num">手机号码</string>
+    <string name="loginRegister_phone_code">验证码</string>
+    <string name="loginRegister_send_phone_code">发送验证码</string>
+    <string name="loginRegister_register_fail">注册失败</string>
 
     <!-- setting -->
     <string name="setting_title">设置</string>
