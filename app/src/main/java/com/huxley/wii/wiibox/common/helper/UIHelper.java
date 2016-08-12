@@ -203,9 +203,9 @@ public class UIHelper {
         context.startActivity(new Intent("android.intent.action.VIEW", ftpUrl));
     }
 
-    public static void startLoginActivity(Context context) {
-        if (context != null) {
-            context.startActivity(new Intent(context, LoginRegisterActivity.class));
+    public static void startLoginActivity(Activity activity, ActivityOptionsCompat optionsCompat) {
+        if (activity != null) {
+            ActivityCompat.startActivity(activity, new Intent(activity, LoginRegisterActivity.class), optionsCompat.toBundle());
         }
     }
 }

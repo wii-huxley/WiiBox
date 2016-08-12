@@ -21,5 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:text="@string/home_username"
+        android:transitionName="loginTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 </FrameLayout>

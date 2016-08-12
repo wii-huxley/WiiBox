@@ -18,6 +18,5 @@ public class LoginPresenter implements LoginContact.Presenter{
 
     @Override
     public void start() {
-
     }
 }

@@ -78,6 +78,16 @@ public class CodeUtils {
         }
     }
 
+    public static String passwordEncoder(String params) {
+        StringBuilder param = new StringBuilder(params);
+        param.append("&@*#^%^%$&");
+        char[] md5 = md5Encoder(param.toString(), false).toCharArray();
+        if (md5.length == 32) {
+            param.append(md5[5]).append(md5[1]).append(md5[11]).append(md5[8]).append(md5[18])
+                    .append(md5[30]).append(md5[28]).append(md5[22]);
+        }
+        return md5Encoder(param.toString(), false);
+    }
 
     public static String utf16to8(String str) {
         int i = 0, len = str.length(), c;

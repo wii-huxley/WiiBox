@@ -2,6 +2,7 @@ package com.huxley.wii.wiibox.mvp.loginRegister.register;
 
 import com.huxley.wii.wiibox.mvp.BasePresenter;
 import com.huxley.wii.wiibox.mvp.BaseView;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
 import com.huxley.wii.wiitools.base.net.INetView;
 
 /**
@@ -9,11 +10,12 @@ import com.huxley.wii.wiitools.base.net.INetView;
  */
 public interface RegisterContact {
 
-    interface View extends BaseView<Presenter>, INetView<Object>{
+    interface View extends BaseView<Presenter>, INetView<UserInfo>{
 
     }
 
     interface Presenter extends BasePresenter{
 
+        void register(String userName, String password);
     }
 }

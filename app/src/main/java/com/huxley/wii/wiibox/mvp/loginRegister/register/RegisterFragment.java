@@ -7,8 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
@@ -17,8 +15,9 @@ import android.widget.EditText;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.mvp.loginRegister.LoginRegisterActivity;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
 import com.huxley.wii.wiitools.base.BaseFragment;
-import com.huxley.wii.wiitools.common.Utils.L;
+import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 
 /**
  * LoginFragment
@@ -32,7 +31,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
     private EditText et_password;
     private EditText et_username;
     private EditText et_repeatpassword;
-    private Button bt_go;
+    private Button btn_go;
     private boolean isInputPassword;
     private boolean isInputRepeatPassword;
     private boolean isInputUsername;
@@ -57,15 +56,13 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
 
         initView();
         initListener();
-        showEnterAnimation();
-        L.i("1111111111111111111111111");
     }
 
     private void initView() {
         et_password = $(R.id.et_password);
         et_username = $(R.id.et_username);
         et_repeatpassword = $(R.id.et_repeatpassword);
-        bt_go = $(R.id.bt_go);
+        btn_go = $(R.id.btn_go);
         fabLogin = $(R.id.fabLogin);
         cvAdd = $(R.id.cv_add);
     }
@@ -94,8 +91,12 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
             }
         });
         et_repeatpassword.addTextChangedListener(new TextWatcher() {
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (isInputRepeatPassword != editable.length() > 0) {
@@ -105,30 +106,8 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
             }
         });
         fabLogin.setOnClickListener(v -> animateRevealClose());
+        btn_go.setOnClickListener(v -> mPresenter.register());
     }
-
-    public void showEnterAnimation() {
-        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.login_register_fab_transition);
-        setSharedElementEnterTransition(transition);
-        transition.addListener(new Transition.TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {
-                cvAdd.setVisibility(View.GONE);
-                L.i("22222222222");
-            }
-
-            @Override
-            public void onTransitionEnd(Transition transition) {
-                transition.removeListener(this);
-                animateRevealShow();
-                L.i("33333333333");
-            }
-            public void onTransitionCancel(Transition transition) {}
-            public void onTransitionPause(Transition transition) {}
-            public void onTransitionResume(Transition transition) {}
-        });
-    }
-
 
     public void animateRevealShow() {
         Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth()/2,0, fabLogin.getWidth() / 2, cvAdd.getHeight());
@@ -137,13 +116,11 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
         mAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
             }
 
             @Override
             public void onAnimationStart(Animator animation) {
                 cvAdd.setVisibility(View.VISIBLE);
-                super.onAnimationStart(animation);
             }
         });
         mAnimator.start();
@@ -168,31 +145,31 @@ public class RegisterFragment extends BaseFragment implements RegisterContact.Vi
     }
 
     private void changeBtnState() {
-        bt_go.setEnabled(isInputPassword && isInputUsername && isInputRepeatPassword);
+        btn_go.setEnabled(isInputPassword && isInputUsername && isInputRepeatPassword);
     }
 
     @Override
     public void showLoading() {
-
+        isLoading(true);
     }
 
     @Override
     public void dismissLoading() {
-
+        isLoading(false);
     }
 
     @Override
     public void showNotNet() {
-
+        SnackbarHelper.showNoNetInfo(rootView);
     }
 
     @Override
     public void showError(Throwable e) {
-
+        SnackbarHelper.showInfo(rootView, R.string.str_prompt_loading_fail);
     }
 
     @Override
-    public void showContent(Object data, boolean isRefresh) {
+    public void showContent(UserInfo data, boolean isRefresh) {
 
     }
 }

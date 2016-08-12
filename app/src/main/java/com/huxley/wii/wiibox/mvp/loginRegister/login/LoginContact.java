@@ -10,7 +10,7 @@ import com.huxley.wii.wiitools.base.net.INetView;
 public interface LoginContact {
 
     interface View extends BaseView<Presenter>, INetView<Object>{
-
+        void animateRevealShow();
     }
 
     interface Presenter extends BasePresenter{

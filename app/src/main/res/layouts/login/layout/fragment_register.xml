@@ -20,6 +20,7 @@
             app:cardCornerRadius="6dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true"
+            android:visibility="invisible"
             >
 
             <LinearLayout
@@ -122,7 +123,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/bt_go"
+                    android:id="@+id/btn_go"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
@@ -143,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_close"
             android:transitionName="loginFab"
             app:backgroundTint="@color/wii_color_light_500"
             app:fabSize="normal"/>

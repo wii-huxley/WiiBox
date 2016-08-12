@@ -3,6 +3,7 @@ package com.huxley.wii.wiibox.mvp.loginRegister;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.DisplayMetrics;
@@ -14,6 +15,7 @@ import android.widget.FrameLayout;
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.mvp.loginRegister.login.LoginFragment;
 import com.huxley.wii.wiibox.mvp.loginRegister.login.LoginPresenter;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.RegisterModel;
 import com.huxley.wii.wiibox.mvp.loginRegister.register.RegisterFragment;
 import com.huxley.wii.wiibox.mvp.loginRegister.register.RegisterPresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
@@ -27,6 +29,7 @@ import com.huxley.wii.wiitools.common.helper.ResHelper;
 public class LoginRegisterActivity extends BaseActivity {
 
     private RegisterFragment registerFragment;
+    private LoginFragment loginFragment;
     private boolean isHidd;
     private FrameLayout loginFragmentContent;
     private static final int topMargin = ResHelper.dpToPx(100);
@@ -43,6 +46,10 @@ public class LoginRegisterActivity extends BaseActivity {
         super.create(savedInstanceState);
 
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setExitTransition(new Fade());
+        getWindow().setEnterTransition(new Fade());
+        getWindow().setReturnTransition(new Fade());
+        getWindow().setReenterTransition(new Fade());
     }
 
     @Override
@@ -50,7 +57,7 @@ public class LoginRegisterActivity extends BaseActivity {
         super.created(savedInstanceState);
 
         loginFragmentContent = $(R.id.loginFragmentContent);
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.loginFragmentContent);
+        loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.loginFragmentContent);
         if (loginFragment == null) {
             loginFragment = LoginFragment.newInstance();
             FragmentHelper.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.loginFragmentContent);
@@ -61,7 +68,7 @@ public class LoginRegisterActivity extends BaseActivity {
         if (registerFragment == null) {
             registerFragment = RegisterFragment.newInstance();
         }
-        new RegisterPresenter(registerFragment);
+        new RegisterPresenter(registerFragment, new RegisterModel());
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             if (isKeyboardShown(view) && !isHidd) {
@@ -100,6 +107,16 @@ public class LoginRegisterActivity extends BaseActivity {
         if (!isOpen) {
             Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.login_register_fab_transition);
             registerFragment.setSharedElementEnterTransition(transition);
+            transition.addListener(new Transition.TransitionListener() {
+                public void onTransitionStart(Transition transition) {}
+                public void onTransitionCancel(Transition transition) {}
+                public void onTransitionPause(Transition transition) {}
+                public void onTransitionResume(Transition transition) {}
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    registerFragment.animateRevealShow();
+                }
+            });
             getSupportFragmentManager().beginTransaction().replace(R.id.loginFragmentContent, registerFragment)
                     .addSharedElement(sharedElementView, sharedElementView.getTransitionName())
                     .commit();
@@ -109,7 +126,21 @@ public class LoginRegisterActivity extends BaseActivity {
 
     public void jumpLoginUI() {
         if (isOpen) {
-            getSupportFragmentManager().beginTransaction().remove(registerFragment)
+            Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.login_register_fab_transition);
+            loginFragment.setSharedElementEnterTransition(transition);
+            transition.addListener(new Transition.TransitionListener() {
+                public void onTransitionStart(Transition transition) {
+                    loginFragment.cv.setVisibility(View.INVISIBLE);
+                }
+                public void onTransitionCancel(Transition transition) {}
+                public void onTransitionPause(Transition transition) {}
+                public void onTransitionResume(Transition transition) {}
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    loginFragment.animateRevealShow();
+                }
+            });
+            getSupportFragmentManager().beginTransaction().replace(R.id.loginFragmentContent, loginFragment)
                     .addSharedElement(registerFragment.fabLogin, registerFragment.fabLogin.getTransitionName())
                     .commit();
             isOpen = false;

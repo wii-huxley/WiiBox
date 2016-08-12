@@ -2,7 +2,9 @@ package com.huxley.wii.wiibox.mvp.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
+import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankFragment;
 import com.huxley.wii.wiibox.mvp.main.gank.GankPresenter;
@@ -19,6 +22,7 @@ import com.huxley.wii.wiibox.mvp.main.translate.TranslateFragment;
 import com.huxley.wii.wiibox.mvp.main.translate.TranslatePresenter;
 import com.huxley.wii.wiitools.base.BaseActivity;
 import com.huxley.wii.wiitools.base.BaseFragment;
+import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.helper.SnackbarHelper;
 import com.huxley.wii.wiitools.common.manager.ActivityManager;
 
@@ -49,8 +53,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void created(Bundle savedInstanceState) {
         super.created(savedInstanceState);
 
+        initData();
         initView();
         initListener();
+    }
+
+    private void initData() {
+        UserInfo userInfo = (UserInfo) UserInfo.getCurrentUser();
+        if(userInfo != null){
+            L.i("登录过");
+        }else{
+            L.i("未登录");
+        }
     }
 
     private void initView() {
@@ -73,6 +87,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerLayout = $(R.id.drawer_layout);
         navigationView = $(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
+        tvUserName = (TextView) headerView.findViewById(R.id.tvUserName);
         checkNotNull(navigationView).setItemIconTintList(null);
         showFragment(0, 0);
     }
@@ -80,7 +95,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void initListener() {
         navigationView.setNavigationItemSelectedListener(this);
         headerView.setOnClickListener(v -> {
-            UIHelper.startLoginActivity(this);
+
+
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    Pair.create(tvUserName, tvUserName.getTransitionName())
+            );
+            UIHelper.startLoginActivity(this, optionsCompat);
+            mDrawerLayout.closeDrawers();
         });
     }
 

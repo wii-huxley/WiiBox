@@ -1,9 +1,15 @@
 package com.huxley.wii.wiibox.mvp.loginRegister.login;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +31,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
     private FloatingActionButton fabRegister;
     private boolean isInputPassword;
     private boolean isInputUsername;
+    public CardView cv;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -53,6 +60,7 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
         et_username = $(R.id.et_username);
         bt_go = $(R.id.bt_go);
         fabRegister = $(R.id.fabRegister);
+        cv = $(R.id.cv);
     }
 
     private void initListener() {
@@ -78,7 +86,42 @@ public class LoginFragment extends BaseFragment implements LoginContact.View{
                 }
             }
         });
-        fabRegister.setOnClickListener(view -> ((LoginRegisterActivity)getActivity()).jumpRegisterUI(fabRegister));
+        fabRegister.setOnClickListener(view -> animateRevealClose());
+    }
+
+    public void animateRevealShow() {
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cv, cv.getWidth(), fabRegister.getTop() + fabRegister.getHeight() / 2, fabRegister.getWidth() / 2, cv.getWidth());
+        mAnimator.setDuration(300);
+        mAnimator.setInterpolator(new AccelerateInterpolator());
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                cv.setVisibility(View.VISIBLE);
+            }
+        });
+        mAnimator.start();
+    }
+
+    public void animateRevealClose() {
+        Animator mAnimator = ViewAnimationUtils.createCircularReveal(cv, cv.getWidth(), fabRegister.getTop() + fabRegister.getHeight() / 2, cv.getWidth(), fabRegister.getWidth() / 2)
+                .setDuration(300);
+        mAnimator.setInterpolator(new AccelerateInterpolator());
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                cv.setVisibility(View.INVISIBLE);
+                ((LoginRegisterActivity)getActivity()).jumpRegisterUI(fabRegister);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        mAnimator.start();
     }
 
     private void changeBtnState() {
