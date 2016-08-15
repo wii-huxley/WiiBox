@@ -16,7 +16,7 @@
         android:textAppearance="@style/BB_BottomBarItem_Shifting.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/bottomBarMe"
+        tools:text="我"
         tools:textColor="@color/color_333"
         android:scaleX="0"
         android:scaleY="0" />

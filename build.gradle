@@ -5,11 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha6'// beta1  ->  alpha6
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -19,8 +16,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        //Bmob的maven仓库地址--必填
-//        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
 //

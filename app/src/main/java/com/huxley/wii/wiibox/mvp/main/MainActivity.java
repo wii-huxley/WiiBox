@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
+import com.huxley.wii.wiibox.mvp.knowledge.KnowledgeFragment;
+import com.huxley.wii.wiibox.mvp.knowledge.KnowledgePresenter;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfoEvent;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
@@ -91,6 +93,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fragments[2] = translateFragments;
         new TranslatePresenter((TranslateFragment) translateFragments[0]);
 
+        BaseFragment[] knowledgeFragments = new BaseFragment[1];
+        knowledgeFragments[0] = KnowledgeFragment.newInstance();
+        fragments[3] = knowledgeFragments;
+        new KnowledgePresenter((KnowledgeFragment) knowledgeFragments[0]);
+
         mDrawerLayout = $(R.id.drawer_layout);
 
         navigationView = $(R.id.nav_view);
@@ -144,6 +151,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.navTranslate:
                 changePage(2);
+                break;
+            case R.id.navKnowledge:
+                changePage(3);
                 break;
 
             case R.id.navCode:

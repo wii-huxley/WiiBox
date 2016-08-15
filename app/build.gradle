@@ -127,6 +127,7 @@ android {
                     'src/main/res/layouts/tieba',
                     'src/main/res/layouts/login',
                     'src/main/res/layouts/user',
+                    'src/main/res/layouts/knowledge',
                     'src/main/res/layouts',
                     'src/main/res/drawables/icon',
                     'src/main/res/drawables/layerlist',
@@ -179,6 +180,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'hanks.xyz:htextview-library:0.1.5'
     compile 'com.cleveroad:audiowidget:0.9.2'
+    compile 'com.zzhoujay.markdown:markdown:0.0.10'
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0'
     androidTestCompile 'org.testng:testng:6.9.6'

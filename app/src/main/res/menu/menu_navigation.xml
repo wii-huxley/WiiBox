@@ -29,6 +29,10 @@
             android:id="@id/navTranslate"
             android:icon="@drawable/ic_translate"
             android:title="@string/translate_title" />
+        <item
+            android:id="@id/navKnowledge"
+            android:icon="@drawable/ic_knowledge"
+            android:title="@string/knowledge_title" />
     </group>
 
     <item android:title="@string/home_more">

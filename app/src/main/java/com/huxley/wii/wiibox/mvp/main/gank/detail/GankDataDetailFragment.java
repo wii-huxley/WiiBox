@@ -71,7 +71,6 @@ public class GankDataDetailFragment extends BaseRecyclerViewFragment<Object> imp
                         return 0;
                 }
             }
-
             @Override
             public int getItemViewType(int position, Object gankInfo) {
                 if (gankInfo instanceof String) {
