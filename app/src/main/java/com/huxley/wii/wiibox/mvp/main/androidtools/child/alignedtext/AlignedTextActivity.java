@@ -20,7 +20,7 @@ public class AlignedTextActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-            toolbar.setTitle("StepView");
+            toolbar.setTitle("AlignedText");
             toolbar.setNavigationIcon(R.drawable.ic_back);
             setSupportActionBar(toolbar);
             toolbar.setNavigationOnClickListener(v -> finish());

@@ -2,6 +2,7 @@ package com.huxley.wii.wiibox.mvp.knowledge.knowledgedetail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.Constant;
@@ -33,7 +34,9 @@ public class KnowledgeDetailActivity extends BaseActivity {
     }
 
     private void initView() {
-        UIHelper.createToolbar(this, knowledgeBean.name);
+        Toolbar toolbar = UIHelper.createToolbar(this, knowledgeBean.name);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         KnowledgeDetailFragment mKnowledgeDetailFragment = (KnowledgeDetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContent);
         if (mKnowledgeDetailFragment == null) {

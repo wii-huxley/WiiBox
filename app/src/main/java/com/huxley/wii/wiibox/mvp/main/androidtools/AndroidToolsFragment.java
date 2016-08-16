@@ -4,7 +4,6 @@ package com.huxley.wii.wiibox.mvp.main.androidtools;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import com.huxley.wii.wiitools.base.BaseFragment;
  */
 public class AndroidToolsFragment extends BaseFragment implements TagFlowLayout.OnTagClickListener {
 
-    private String[] mVals = {"相册", "五子棋", "扫雷", "ExpandingPager", "TagFlowLayout", "treeview",
+    private String[] mVals = {"相册", "五子棋", "扫雷", "treeview", "ExpandingPager", "TagFlowLayout",
             "索引", "NavigationTabBar", "stepView", "alignedText", "BlurView", "html-image-switch"};
     private TagFlowLayout mFlowLayout;
 

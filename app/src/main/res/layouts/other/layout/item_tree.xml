@@ -22,11 +22,6 @@
         android:textColor="@color/wii_color_700"
         android:layout_toRightOf="@id/ivIcon"
         android:textSize="@dimen/sp_14"
-        android:singleLine="true"
+        android:lines="1"
         tools:text="weii"/>
-
-    <View style="@style/line_horizontal"
-        android:layout_alignParentBottom="true"
-          android:layout_toRightOf="@id/ivIcon"
-        />
 </RelativeLayout>
