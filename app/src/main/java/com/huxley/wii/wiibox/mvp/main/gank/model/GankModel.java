@@ -41,7 +41,7 @@ public class GankModel {
         if (SP.Gank.hasHistory()) {
             read = (String) SP.Gank.read(Constant.Key.HISTORY_LIST, "");
         }
-        return Observable.just(GsonUtils.get().fromJson(read, DataInfo.class))
+        return Observable.just(GsonUtils.get().toObject(read, DataInfo.class))
                 .flatMap(dataInfo -> {
                     setDataInfo(dataInfo);
                     return Observable.from(dataInfo.datas);

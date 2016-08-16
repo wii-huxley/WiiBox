@@ -35,8 +35,7 @@ public class CodekkActivity extends BaseActivity {
 
     private void init() {
 
-        Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.codekk_title);
+        Toolbar toolbar = UIHelper.createToolbar(this, R.string.codekk_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 

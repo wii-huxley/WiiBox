@@ -1,4 +1,4 @@
-package com.huxley.wii.wiibox.mvp.main.androidtools.child.treeview;
+package com.huxley.wii.wiibox.mvp.knowledge.model;
 
 import android.content.Context;
 import android.view.View;
@@ -14,11 +14,11 @@ import com.huxley.wii.wiibox.common.widget.treeview.bean.Node;
 import java.util.List;
 
 /**
- * Created by huxley on 16/6/24.
+ * Created by LeiJin01 on 2016/8/16.
  */
-public class SimpleTreeListAdapter<T> extends TreeListViewAdapter {
+public class KnowledgeAdapter<T> extends TreeListViewAdapter {
 
-    public SimpleTreeListAdapter(ListView tree, Context context, List<T> datas, int defaultExpandLevel) throws IllegalAccessException {
+    public KnowledgeAdapter(ListView tree, Context context, List datas, int defaultExpandLevel) throws IllegalAccessException {
         super(tree, context, datas, defaultExpandLevel);
     }
 
@@ -44,8 +44,9 @@ public class SimpleTreeListAdapter<T> extends TreeListViewAdapter {
         return convertView;
     }
 
+
     private class ViewHolder{
         ImageView mIcon;
-        TextView mText;
+        TextView  mText;
     }
 }

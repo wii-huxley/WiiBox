@@ -38,7 +38,7 @@ public class WiiApp extends WiiApplication {
 
     private void initKey() {
         String key = FileUtils.readAssets(this, "key.json");
-        mKeyInfo = GsonUtils.get().fromJson(key, KeyInfo.class);
+        mKeyInfo = GsonUtils.get().toObject(key, KeyInfo.class);
     }
 
 }

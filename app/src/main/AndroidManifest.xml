@@ -104,6 +104,7 @@
         <activity android:name=".mvp.main.androidtools.child.blurview.BlurViewActivity"/>
         <activity android:name=".mvp.main.androidtools.child.blurview.WeatherActivity"/>
         <activity android:name=".mvp.loginRegister.LoginRegisterActivity"/>
+        <activity android:name=".mvp.knowledge.knowledgedetail.KnowledgeDetailActivity"/>
     </application>
 
 </manifest>

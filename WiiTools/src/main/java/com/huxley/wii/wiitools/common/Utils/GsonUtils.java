@@ -2,7 +2,11 @@ package com.huxley.wii.wiitools.common.Utils;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ *
  * Created by huxley on 16/7/28.
  */
 
@@ -30,10 +34,17 @@ public class GsonUtils {
         return mGson.toJson(obj);
     }
 
-    public<D> D fromJson (String jsonString, Class<D> dataClass) {
+    public<D> D toObject(String jsonString, Class<D> dataClass) {
         if (StringUtil.isEmpty(jsonString)) {
             return null;
         }
         return mGson.fromJson(jsonString, dataClass);
+    }
+
+    public <D> List<D> toList(String jsonString) {
+        if (StringUtil.isEmpty(jsonString)) {
+            return new ArrayList<>();
+        }
+        return (List) (new Gson()).fromJson(jsonString, List.class);
     }
 }

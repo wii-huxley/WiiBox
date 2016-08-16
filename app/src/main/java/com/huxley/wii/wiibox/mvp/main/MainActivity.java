@@ -16,6 +16,7 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.helper.UIHelper;
 import com.huxley.wii.wiibox.mvp.knowledge.KnowledgeFragment;
 import com.huxley.wii.wiibox.mvp.knowledge.KnowledgePresenter;
+import com.huxley.wii.wiibox.mvp.knowledge.model.KnowledgeModel;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfo;
 import com.huxley.wii.wiibox.mvp.loginRegister.model.UserInfoEvent;
 import com.huxley.wii.wiibox.mvp.main.androidtools.AndroidToolsFragment;
@@ -96,7 +97,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         BaseFragment[] knowledgeFragments = new BaseFragment[1];
         knowledgeFragments[0] = KnowledgeFragment.newInstance();
         fragments[3] = knowledgeFragments;
-        new KnowledgePresenter((KnowledgeFragment) knowledgeFragments[0]);
+        new KnowledgePresenter((KnowledgeFragment) knowledgeFragments[0], new KnowledgeModel());
 
         mDrawerLayout = $(R.id.drawer_layout);
 

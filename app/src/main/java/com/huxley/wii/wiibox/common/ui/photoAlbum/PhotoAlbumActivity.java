@@ -12,7 +12,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,27 +64,19 @@ public class PhotoAlbumActivity extends BaseActivity implements View.OnClickList
 
     private void initDirPopupWindow() {
         mDirPopupWindow = new ListImageDirPopupWindow(this, mFolderBeans);
-        mDirPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                lightOn();
-            }
-        });
-        mDirPopupWindow.setOnDirSelectListener(new ListImageDirPopupWindow.OnDirSelectListener() {
-            @Override
-            public void onSelected(FolderBean folderBean) {
-                mCurrentDir = new File(folderBean.dir);
-                mImgs = new ArrayList<>(Arrays.asList(mCurrentDir.list(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String filename) {
-                        return filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png");
-                    }
-                })));
-                mPhotoListAdapter.upData(mImgs, mCurrentDir.getAbsolutePath());
-                mDirCount.setText(String.valueOf(mImgs.size()));
-                mDirName.setText(folderBean.name);
-                mDirPopupWindow.dismiss();
-            }
+        mDirPopupWindow.setOnDismissListener(this::lightOn);
+        mDirPopupWindow.setOnDirSelectListener(folderBean -> {
+            mCurrentDir = new File(folderBean.dir);
+            mImgs = new ArrayList<>(Arrays.asList(mCurrentDir.list(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String filename) {
+                    return filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png");
+                }
+            })));
+            mPhotoListAdapter.upData(mImgs, mCurrentDir.getAbsolutePath());
+            mDirCount.setText(String.valueOf(mImgs.size()));
+            mDirName.setText(folderBean.name);
+            mDirPopupWindow.dismiss();
         });
     }
 
@@ -162,12 +153,8 @@ public class PhotoAlbumActivity extends BaseActivity implements View.OnClickList
                     if (parentFile.list() == null) {
                         continue;
                     }
-                    int picSize = parentFile.list(new FilenameFilter() {
-                        @Override
-                        public boolean accept(File dir, String filename) {
-                            return filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png");
-                        }
-                    }).length;
+                    int picSize = parentFile.list((dir, filename) -> filename.endsWith(".jpg") ||
+                            filename.endsWith(".jpeg") || filename.endsWith(".png")).length;
                     folderBean.count = picSize;
                     mFolderBeans.add(folderBean);
                     if (picSize > mMaxCount) {

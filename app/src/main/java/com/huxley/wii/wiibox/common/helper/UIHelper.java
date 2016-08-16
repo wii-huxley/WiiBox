@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
 import com.huxley.wii.wiibox.mvp.dytt.DyttActivity;
 import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
 import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
+import com.huxley.wii.wiibox.mvp.knowledge.knowledgedetail.KnowledgeDetailActivity;
+import com.huxley.wii.wiibox.mvp.knowledge.model.KnowledgeBean;
 import com.huxley.wii.wiibox.mvp.loginRegister.LoginRegisterActivity;
 import com.huxley.wii.wiibox.mvp.main.MainActivity;
 import com.huxley.wii.wiibox.mvp.main.androidtools.child.alignedtext.AlignedTextActivity;
@@ -68,14 +71,38 @@ public class UIHelper {
         }
     }
 
-    public static Toolbar createToolbar(AppCompatActivity activity, View rootView) {
+    public static Toolbar createToolbar(AppCompatActivity activity, View rootView, String title) {
         Toolbar toolbar = ButterKnife.findById(rootView, R.id.toolbar);
+        if (title != null) {
+            toolbar.setTitle(title);
+        }
         (activity).setSupportActionBar(toolbar);
         return toolbar;
     }
 
-    public static Toolbar createToolbar(AppCompatActivity activity) {
+    public static Toolbar createToolbar(AppCompatActivity activity, View rootView, @StringRes int titleRes) {
+        Toolbar toolbar = ButterKnife.findById(rootView, R.id.toolbar);
+        if (titleRes != 0) {
+            toolbar.setTitle(titleRes);
+        }
+        (activity).setSupportActionBar(toolbar);
+        return toolbar;
+    }
+
+    public static Toolbar createToolbar(AppCompatActivity activity, String title) {
         Toolbar toolbar = ButterKnife.findById(activity, R.id.toolbar);
+        if (title != null) {
+            toolbar.setTitle(title);
+        }
+        (activity).setSupportActionBar(toolbar);
+        return toolbar;
+    }
+
+    public static Toolbar createToolbar(AppCompatActivity activity, @StringRes int titleRes) {
+        Toolbar toolbar = ButterKnife.findById(activity, R.id.toolbar);
+        if (titleRes != 0) {
+            toolbar.setTitle(titleRes);
+        }
         (activity).setSupportActionBar(toolbar);
         return toolbar;
     }
@@ -206,6 +233,16 @@ public class UIHelper {
     public static void startLoginActivity(Activity activity, ActivityOptionsCompat optionsCompat) {
         if (activity != null) {
             ActivityCompat.startActivity(activity, new Intent(activity, LoginRegisterActivity.class), optionsCompat.toBundle());
+        }
+    }
+
+    public static void startKnowledgeDetailActivity(Context context, KnowledgeBean knowledgeBean) {
+        if (context != null) {
+            Intent intent = new Intent(context, KnowledgeDetailActivity.class);
+            if (knowledgeBean != null) {
+                intent.putExtra(Constant.Key.DATA, knowledgeBean);
+            }
+            context.startActivity(intent);
         }
     }
 }

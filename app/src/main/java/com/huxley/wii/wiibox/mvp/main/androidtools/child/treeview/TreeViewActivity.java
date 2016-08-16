@@ -1,6 +1,5 @@
 package com.huxley.wii.wiibox.mvp.main.androidtools.child.treeview;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -45,7 +44,7 @@ public class TreeViewActivity extends BaseActivity implements AdapterView.OnItem
     private void initView() {
         mTree = $(R.id.lvInfo);
         try {
-            mTree.setAdapter(mAdapter = new SimpleTreeListAdapter<FileBean>(mTree, this, mDatas, 1));
+            mTree.setAdapter(mAdapter = new SimpleTreeListAdapter<>(mTree, this, mDatas, 1));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -86,11 +85,8 @@ public class TreeViewActivity extends BaseActivity implements AdapterView.OnItem
                 .setTitle("add Node")
                 .setView(et)
                 .setNegativeButton("cancel", null)
-                .setPositiveButton("sure", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mAdapter.addExtraNode(position, et.getText().toString());
-                    }
+                .setPositiveButton("sure", (dialog, which) -> {
+                    mAdapter.addExtraNode(position, et.getText().toString());
                 }).show();
 
         return true;

@@ -105,8 +105,7 @@ public class GankFragment extends BaseRecyclerViewFragment<GankInfo> implements 
     }
 
     private void initView() {
-        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
-        toolbar.setTitle(R.string.gank_title);
+        UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView, R.string.gank_title);
     }
 
     private void initListener() {

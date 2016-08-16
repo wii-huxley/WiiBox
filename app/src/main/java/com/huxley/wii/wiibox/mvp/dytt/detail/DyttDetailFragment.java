@@ -71,7 +71,7 @@ public class DyttDetailFragment extends BaseFragment implements DyttDetailContra
         ivPhoto = $(R.id.ivPhoto);
         llContent = $(R.id.llContent);
 
-        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
+        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView, null);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> getActivity().finishAfterTransition());
 

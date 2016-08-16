@@ -53,8 +53,7 @@ public class Ting56Activity extends BaseActivity {
         mPresenter = new Ting56SearchPresenter(mTing56SearchFragment);
         contentTing56Search.setVisibility(View.GONE);
 
-        Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.ting56_title);
+        Toolbar toolbar = UIHelper.createToolbar(this, R.string.ting56_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 

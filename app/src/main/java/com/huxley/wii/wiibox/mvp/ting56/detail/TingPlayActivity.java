@@ -34,8 +34,7 @@ public class TingPlayActivity extends BaseActivity {
     }
 
     private void initView() {
-        Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(title);
+        Toolbar toolbar = UIHelper.createToolbar(this, title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> finish());
 

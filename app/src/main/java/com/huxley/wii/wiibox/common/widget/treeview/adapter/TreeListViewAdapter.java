@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -14,6 +13,7 @@ import com.huxley.wii.wiibox.common.widget.treeview.utils.TreeHelper;
 import java.util.List;
 
 /**
+ *
  * Created by huxley on 16/6/24.
  */
 public abstract class TreeListViewAdapter<T> extends BaseAdapter {
@@ -31,20 +31,16 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
         mAllNodes = TreeHelper.getSortedNodes(datas, defaultExpandLevel);
         mVisibleNodes = TreeHelper.filterVisibleNodes(mAllNodes);
         mTree = tree;
-        mTree.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                expandOrCollapse(position);
-                if (mListener != null) {
-                    mListener.onClick((Node) getItem(position), position);
-                }
+        mTree.setOnItemClickListener((parent, view, position, id) -> {
+            expandOrCollapse(position);
+            if (mListener != null) {
+                mListener.onClick((Node) getItem(position), position);
             }
         });
     }
 
     /**
      * 点击收缩或展开
-     * @param position
      */
     private void expandOrCollapse(int position) {
         Node n = mVisibleNodes.get(position);

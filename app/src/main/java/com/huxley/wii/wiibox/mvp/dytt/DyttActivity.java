@@ -55,8 +55,7 @@ public class DyttActivity extends BaseActivity {
         mDyttSearchPresenter = new DyttSearchPresenter(mDyttSearchFragment);
         contentDyttSearch.setVisibility(View.GONE);
 
-        Toolbar toolbar = UIHelper.createToolbar(this);
-        toolbar.setTitle(R.string.dytt_title);
+        Toolbar toolbar = UIHelper.createToolbar(this, R.string.dytt_title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> finish());
 

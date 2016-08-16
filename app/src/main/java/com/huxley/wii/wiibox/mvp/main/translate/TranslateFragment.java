@@ -46,8 +46,7 @@ public class TranslateFragment extends BaseFragment implements TranslateContract
     }
 
     private void initView() {
-        Toolbar toolbar = UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView);
-        toolbar.setTitle(R.string.translate_title);
+        UIHelper.createToolbar((AppCompatActivity) getActivity(), rootView, R.string.translate_title);
 
         et_translate_content = $(R.id.et_translate_content);
         btn_baidu_translate = $(R.id.btn_baidu_translate);
