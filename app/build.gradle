@@ -163,6 +163,7 @@ dependencies {
     compile project(':stepview')
     compile project(':WiiTools')
     compile project(':circualreveal')
+    compile project(':weiboSDK')
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/jsoup-1.9.2.jar')
     compile files('libs/BmobSDK_3.5.1_20160719.jar')

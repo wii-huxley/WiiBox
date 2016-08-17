@@ -36,9 +36,9 @@
                 android:id="@id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_height_size"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:title="@string/user_title"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:id="@+id/llContent"
             android:layout_width="match_parent"
@@ -59,17 +60,102 @@
                 android:padding="@dimen/dp_10_p">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/user_name_photo"
-                    android:textSize="@dimen/sp_14"
-                    android:textColor="@color/wii_color_700"/>
+                    android:textColor="@color/wii_color_700"
+                    android:textSize="@dimen/sp_14"/>
 
                 <ImageView
                     android:id="@+id/ivPhoto"
                     android:layout_width="@dimen/dp_56_p"
                     android:layout_height="@dimen/dp_56_p"/>
             </LinearLayout>
+
+            <View style="@style/line_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10_p">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/user_name_weibo"
+                    android:textColor="@color/wii_color_700"
+                    android:textSize="@dimen/sp_14"/>
+
+                <Button
+                    android:id="@+id/btnWeibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30_p"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/slr_bg_btn"
+                    android:textColor="@drawable/slr_tv_clr"
+                    android:text="@string/user_apply_auth"
+                    android:textSize="@dimen/sp_12"/>
+            </LinearLayout>
+
+            <View style="@style/line_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10_p">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/user_name_qq"
+                    android:textColor="@color/wii_color_700"
+                    android:textSize="@dimen/sp_14"/>
+
+                <Button
+                    android:id="@+id/btnQQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30_p"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/slr_bg_btn"
+                    android:textColor="@drawable/slr_tv_clr"
+                    android:text="@string/user_apply_auth"
+                    android:textSize="@dimen/sp_12"/>
+            </LinearLayout>
+
+            <View style="@style/line_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10_p">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/user_name_weixin"
+                    android:textColor="@color/wii_color_700"
+                    android:textSize="@dimen/sp_14"/>
+
+                <Button
+                    android:id="@+id/btnWeixin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30_p"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/slr_bg_btn"
+                    android:textColor="@drawable/slr_tv_clr"
+                    android:text="@string/user_apply_auth"
+                    android:textSize="@dimen/sp_12"/>
+            </LinearLayout>
+
+            <View style="@style/line_horizontal"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

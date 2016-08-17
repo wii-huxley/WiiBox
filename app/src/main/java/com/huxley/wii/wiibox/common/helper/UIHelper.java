@@ -36,6 +36,7 @@ import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
 import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
 import com.huxley.wii.wiibox.mvp.ting56.Ting56Activity;
 import com.huxley.wii.wiibox.mvp.ting56.detail.TingPlayActivity;
+import com.huxley.wii.wiibox.mvp.user.UserActivity;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import butterknife.ButterKnife;
@@ -243,6 +244,12 @@ public class UIHelper {
                 intent.putExtra(Constant.Key.DATA, knowledgeBean);
             }
             context.startActivity(intent);
+        }
+    }
+
+    public static void startUserActivity(Activity activity) {
+        if (activity != null) {
+            activity.startActivity(new Intent(activity, UserActivity.class));
         }
     }
 }

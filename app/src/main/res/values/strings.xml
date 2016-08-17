@@ -14,9 +14,16 @@
     <string name="user_name_nickname">昵称</string>
     <string name="user_name_email">邮箱</string>
     <string name="user_name_phone">手机</string>
-    <string name="user_name_weibo">微博</string>
-    <string name="user_name_qq">QQ</string>
-    <string name="user_name_weixin">微信</string>
+    <string name="user_name_weibo">新浪微博认证</string>
+    <string name="user_name_qq">QQ认证</string>
+    <string name="user_name_weixin">微信认证</string>
+    <string name="user_apply_auth">申请认证</string>
+    <string name="user_auth_canceled">取消授权</string>
+    <string name="user_auth_failed">授权失败</string>
+    <string name="user_auth_success">授权成功</string>
+    <string name="user_is_auth">已授权认证</string>
+    <string name="user_weibo_token_to_string_format_1">Token：%1$s \n有效期：%2$s</string>
+    <string name="user_weibo_token_has_existed">Token 仍在有效期内，无需再次登录。</string>
 
     <!-- 应用名 -->
     <string name="app_name">WiiBox</string>

@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (userInfo == null) {
                 UIHelper.startLoginActivity(this, optionsCompat);
             } else {
-//                UIHelper
+                UIHelper.startUserActivity(this);
             }
         });
     }

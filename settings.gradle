@@ -1,1 +1,3 @@
 include ':app', ':PhotoView', ':FinestWebView', ':stepview', ':wiitools', ':wiitools', ':WiiTools', ':circualreveal'
+
+include ':weiboSDK'
