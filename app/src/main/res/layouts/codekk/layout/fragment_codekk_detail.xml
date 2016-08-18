@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.sufficientlysecure.htmltextview.HtmlTextView
+    android:id="@+id/tvContent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/dp_10_p"
+    android:paddingLeft="@dimen/dp_10_p"
+    android:paddingRight="@dimen/dp_10_p"
+    android:textAppearance="@android:style/TextAppearance.Small"
+    android:textColor="@color/wii_color_700"
+    android:textSize="@dimen/sp_16"/>

@@ -43,8 +43,8 @@
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" >
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
         <service
@@ -60,54 +60,64 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_wii"/>
         </service>
 
-        <activity android:name=".mvp.splash.SplashActivity"
+        <activity
+            android:name=".page.splash.SplashActivity"
             android:theme="@style/LaunchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.main.MainActivity"/>
-        <activity android:name=".mvp.main.gank.detail.GankDataDetailActivity"
-            android:parentActivityName=".mvp.main.MainActivity">
+        <activity android:name=".page.main.MainActivity"/>
+        <activity
+            android:name=".page.main.gank.detail.GankDataDetailActivity"
+            android:parentActivityName=".page.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".mvp.main.MainActivity"/>
+                android:value=".page.main.MainActivity"/>
         </activity>
         <activity android:name=".common.ui.PhotoActivity"/>
-        <activity android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity android:name=".common.ui.photoAlbum.PhotoAlbumActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.gobang.GobangActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.expandingPager.InfoActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.tagFlowLayout.CategoryActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.treeview.TreeViewActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.NavigationTabBarActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.HorizontalNtbActivity"
+        <activity android:name=".page.main.androidtools.gobang.GobangActivity"/>
+        <activity android:name=".page.main.androidtools.expandingPager.ExpandingPagerActivity"/>
+        <activity android:name=".page.main.androidtools.expandingPager.InfoActivity"/>
+        <activity android:name=".page.main.androidtools.tagFlowLayout.CategoryActivity"/>
+        <activity android:name=".page.main.androidtools.treeview.TreeViewActivity"/>
+        <activity android:name=".page.main.androidtools.navigationTabBar.NavigationTabBarActivity"/>
+        <activity
+            android:name=".page.main.androidtools.navigationTabBar.HorizontalNtbActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.TopHorizontalNtbActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.HorizontalCoordinatorNtbActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.VerticalNtbActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.navigationTabBar.SamplesNtbActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.stepview.StepViewActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.alignedtext.AlignedTextActivity"/>
-        <activity android:name=".mvp.ting56.detail.TingPlayActivity"/>
-        <activity android:name=".mvp.dytt.DyttActivity"/>
-        <activity android:name=".mvp.dytt.detail.DyttDetailActivity"/>
-        <activity android:name=".mvp.ting56.Ting56Activity"/>
-        <activity android:name=".mvp.codekk.CodekkActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.blurview.BlurredViewBasicActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.blurview.BlurViewActivity"/>
-        <activity android:name=".mvp.main.androidtools.child.blurview.WeatherActivity"/>
-        <activity android:name=".mvp.loginRegister.LoginRegisterActivity"/>
-        <activity android:name=".mvp.user.UserActivity"/>
-        <activity android:name=".mvp.knowledge.knowledgedetail.KnowledgeDetailActivity"/>
+        <activity android:name=".page.main.androidtools.navigationTabBar.TopHorizontalNtbActivity"/>
+        <activity android:name=".page.main.androidtools.navigationTabBar.HorizontalCoordinatorNtbActivity"/>
+        <activity android:name=".page.main.androidtools.navigationTabBar.VerticalNtbActivity"/>
+        <activity android:name=".page.main.androidtools.navigationTabBar.SamplesNtbActivity"/>
+        <activity android:name=".page.main.androidtools.stepview.StepViewActivity"/>
+        <activity android:name=".page.main.androidtools.alignedtext.AlignedTextActivity"/>
+        <activity android:name=".page.ting56.detail.TingPlayActivity"/>
+        <activity android:name=".page.dytt.DyttActivity"/>
+        <activity android:name=".page.dytt.detail.DyttDetailActivity"/>
+        <activity android:name=".page.ting56.Ting56Activity"/>
+        <activity android:name=".page.codekk.CodekkActivity"/>
+        <activity android:name=".page.main.androidtools.blurview.BlurredViewBasicActivity"/>
+        <activity android:name=".page.main.androidtools.blurview.BlurViewActivity"/>
+        <activity android:name=".page.main.androidtools.blurview.WeatherActivity"/>
+        <activity android:name=".page.loginRegister.LoginRegisterActivity"/>
+        <activity android:name=".page.user.UserActivity"/>
+        <activity android:name=".page.knowledge.detail.KnowledgeDetailActivity"/>
+        <activity android:name=".page.codekk.detail.CodekkDetailActivity"/>
+        <activity android:name=".page.main.androidtools.windmill.WindmillActivity"/>
+        <activity android:name=".page.main.androidtools.bezier.BezierActivity"/>
     </application>
+
 </manifest>

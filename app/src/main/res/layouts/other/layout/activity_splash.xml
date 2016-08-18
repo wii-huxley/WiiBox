@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/wii_color_700"
-    tools:context=".mvp.splash.SplashActivity">
+    tools:context=".page.splash.SplashActivity">
 
     <com.huxley.wii.wiibox.common.widget.MinionView
         android:layout_width="wrap_content"

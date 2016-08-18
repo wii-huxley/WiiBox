@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.cleveroad.audiowidget.AudioWidget;
 import com.huxley.wii.wiibox.common.utils.SP;
-import com.huxley.wii.wiibox.mvp.ting56.model.Ting56Model;
+import com.huxley.wii.wiibox.page.ting56.model.Ting56Model;
 import com.huxley.wii.wiitools.common.Utils.L;
 import com.huxley.wii.wiitools.common.Utils.StringUtil;
 

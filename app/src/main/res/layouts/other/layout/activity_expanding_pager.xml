@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/png_icon"
     android:clipChildren="false"
-    tools:context=".mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity">
+    tools:context=".page.main.androidtools.expandingPager.ExpandingPagerActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

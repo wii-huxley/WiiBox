@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mvp.main.androidtools.child.treeview.TreeViewActivity">
+    tools:context=".page.main.androidtools.treeview.TreeViewActivity">
 
     <ListView
         android:id="@id/lvInfo"

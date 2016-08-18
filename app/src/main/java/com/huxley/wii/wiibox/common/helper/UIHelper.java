@@ -16,27 +16,28 @@ import com.huxley.wii.wiibox.R;
 import com.huxley.wii.wiibox.common.Constant;
 import com.huxley.wii.wiibox.common.ui.PhotoActivity;
 import com.huxley.wii.wiibox.common.ui.photoAlbum.PhotoAlbumActivity;
-import com.huxley.wii.wiibox.mvp.codekk.CodekkActivity;
-import com.huxley.wii.wiibox.mvp.dytt.DyttActivity;
-import com.huxley.wii.wiibox.mvp.dytt.detail.DyttDetailActivity;
-import com.huxley.wii.wiibox.mvp.dytt.model.DyttListBean;
-import com.huxley.wii.wiibox.mvp.knowledge.knowledgedetail.KnowledgeDetailActivity;
-import com.huxley.wii.wiibox.mvp.knowledge.model.KnowledgeBean;
-import com.huxley.wii.wiibox.mvp.loginRegister.LoginRegisterActivity;
-import com.huxley.wii.wiibox.mvp.main.MainActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.alignedtext.AlignedTextActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.blurview.BlurViewActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.expandingPager.ExpandingPagerActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.gobang.GobangActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.navigationTabBar.NavigationTabBarActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.stepview.StepViewActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.tagFlowLayout.CategoryActivity;
-import com.huxley.wii.wiibox.mvp.main.androidtools.child.treeview.TreeViewActivity;
-import com.huxley.wii.wiibox.mvp.main.gank.detail.GankDataDetailActivity;
-import com.huxley.wii.wiibox.mvp.main.gank.model.GankInfo;
-import com.huxley.wii.wiibox.mvp.ting56.Ting56Activity;
-import com.huxley.wii.wiibox.mvp.ting56.detail.TingPlayActivity;
-import com.huxley.wii.wiibox.mvp.user.UserActivity;
+import com.huxley.wii.wiibox.page.codekk.CodekkActivity;
+import com.huxley.wii.wiibox.page.codekk.detail.CodekkDetailActivity;
+import com.huxley.wii.wiibox.page.dytt.DyttActivity;
+import com.huxley.wii.wiibox.page.dytt.detail.DyttDetailActivity;
+import com.huxley.wii.wiibox.page.dytt.model.DyttListBean;
+import com.huxley.wii.wiibox.page.knowledge.detail.KnowledgeDetailActivity;
+import com.huxley.wii.wiibox.page.knowledge.model.KnowledgeBean;
+import com.huxley.wii.wiibox.page.loginRegister.LoginRegisterActivity;
+import com.huxley.wii.wiibox.page.main.MainActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.alignedtext.AlignedTextActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.blurview.BlurViewActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.expandingPager.ExpandingPagerActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.gobang.GobangActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.navigationTabBar.NavigationTabBarActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.stepview.StepViewActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.tagFlowLayout.CategoryActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.treeview.TreeViewActivity;
+import com.huxley.wii.wiibox.page.main.gank.detail.GankDataDetailActivity;
+import com.huxley.wii.wiibox.page.main.gank.model.GankInfo;
+import com.huxley.wii.wiibox.page.ting56.Ting56Activity;
+import com.huxley.wii.wiibox.page.ting56.detail.TingPlayActivity;
+import com.huxley.wii.wiibox.page.user.UserActivity;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import butterknife.ButterKnife;
@@ -250,6 +251,15 @@ public class UIHelper {
     public static void startUserActivity(Activity activity) {
         if (activity != null) {
             activity.startActivity(new Intent(activity, UserActivity.class));
+        }
+    }
+
+    public static void startCodekkDetailActivity(Activity activity, String id, String name) {
+        if (activity != null) {
+            Intent intent = new Intent(activity, CodekkDetailActivity.class);
+            intent.putExtra(Constant.Key.ID, id);
+            intent.putExtra(Constant.Key.NAME, name);
+            activity.startActivity(intent);
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.huxley.wii.wiibox.http.api;
 
-import com.huxley.wii.wiibox.mvp.codekk.model.CodekkHomeListBean;
-import com.huxley.wii.wiibox.mvp.codekk.model.CodekkProjectBean;
-import com.huxley.wii.wiibox.mvp.codekk.model.CodekkSearchListBean;
-import com.huxley.wii.wiibox.mvp.codekk.model.ResultBean;
+import com.huxley.wii.wiibox.page.codekk.model.CodekkHomeListBean;
+import com.huxley.wii.wiibox.page.codekk.model.CodekkProjectBean;
+import com.huxley.wii.wiibox.page.codekk.model.CodekkSearchListBean;
+import com.huxley.wii.wiibox.page.codekk.model.ResultBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

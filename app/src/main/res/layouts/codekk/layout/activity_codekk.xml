@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".mvp.codekk.CodekkActivity">
+    tools:context=".page.codekk.CodekkActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -21,9 +21,16 @@
             <include layout="@layout/wii_layout_toolbar"/>
         </android.support.design.widget.AppBarLayout>
 
-        <fragment
-            android:id="@+id/layout_codekk"
-            android:name="com.huxley.wii.wiibox.mvp.codekk.CodekkFragment"
+        <FrameLayout
+            android:id="@id/fragmentContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_5_p"
+            android:layout_marginLeft="@dimen/dp_5_p"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <FrameLayout
+            android:id="@+id/fragmentSearchContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/dp_5_p"

@@ -22,6 +22,7 @@ public interface Constant {
         String URL            = "url";
         String NAME           = "name";
         String DATE           = "date";
+        String ID             = "id";
     }
 
     interface RequestCode {

@@ -1,7 +1,7 @@
 package com.huxley.wii.wiibox.http.api;
 
 
-import com.huxley.wii.wiibox.mvp.main.translate.model.BaiduTranslateInfo;
+import com.huxley.wii.wiibox.page.main.translate.model.BaiduTranslateInfo;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

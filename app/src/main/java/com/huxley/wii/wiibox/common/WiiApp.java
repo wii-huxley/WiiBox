@@ -1,5 +1,7 @@
 package com.huxley.wii.wiibox.common;
 
+import android.content.Context;
+
 import com.huxley.wii.wiibox.beans.KeyInfo;
 import com.huxley.wii.wiitools.base.WiiApplication;
 import com.huxley.wii.wiitools.common.Utils.FileUtils;
@@ -58,5 +60,10 @@ public class WiiApp extends WiiApplication {
 
     public static WiiApp getInstance(){
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
     }
 }
