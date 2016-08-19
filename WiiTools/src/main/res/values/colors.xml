@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 三角形搭配 -->
+    <!-- 主色调 -->
+    <color name="wii_color_primary_base">@color/color_blue_500</color>
+    <color name="wii_color_primary_variant_1">#4083b6</color>
+    <color name="wii_color_primary_variant_2">#0B5E9E</color>
+    <color name="wii_color_primary_variant_3">#58B3F9</color>
+    <color name="wii_color_primary_variant_4">#83C6F9</color>
+    <!-- 辅助色 -->
+    <color name="wii_color_secondary_base">#FFC413</color>
+    <color name="wii_color_secondary_variant_1">#BF9E3B</color>
+    <color name="wii_color_secondary_variant_2">#A67E06</color>
+    <color name="wii_color_secondary_variant_3">#FFD34E</color>
+    <color name="wii_color_secondary_variant_4">#FFDF7D</color>
+    <!-- 强调色 -->
+    <color name="wii_color_accent_base">#FF5613</color>
+    <color name="wii_color_accent_variant_1">#BF603B</color>
+    <color name="wii_color_accent_variant_2">#A63406</color>
+    <color name="wii_color_accent_variant_3">#FF814E</color>
+    <color name="wii_color_accent_variant_4">#FFA27D</color>
 
-    <color name="wii_color_50">@color/color_brown_50</color>
-    <color name="wii_color_100">@color/color_brown_100</color>
-    <color name="wii_color_300">@color/color_brown_300</color>
-    <color name="wii_color_500">@color/color_brown_500</color>
-    <color name="wii_color_700">@color/color_brown_700</color>
-    <color name="wii_color_900">@color/color_brown_900</color>
+
+    <color name="wii_color_50">@color/color_blue_50</color>
+    <color name="wii_color_100">@color/color_blue_100</color>
+    <color name="wii_color_300">@color/color_blue_300</color>
+    <color name="wii_color_400">@color/color_blue_400</color>
+    <color name="wii_color_500">@color/color_blue_500</color>
+    <color name="wii_color_700">@color/color_blue_700</color>
+    <color name="wii_color_900">@color/color_blue_900</color>
     <color name="wii_color_light_300">@color/color_amber_300</color>
     <color name="wii_color_light_400">@color/color_amber_400</color>
     <color name="wii_color_dark">@color/color_grey_400</color>

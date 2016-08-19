@@ -79,4 +79,13 @@
     <!-- knowledge -->
     <string name="knowledge_title">知识宝典</string>
     <string name="knowledge_prompt_loading">\n\t加载中…</string>
+
+    <!-- bezier -->
+    <string name="bezier_title">贝塞尔曲线</string>
+    <string name="bezier_second_order">二阶</string>
+    <string name="bezier_third_order">三阶</string>
+    <string name="bezier_start_point">起始点</string>
+    <string name="bezier_end_point">终止点</string>
+    <string name="bezier_auxiliary_point">控制点</string>
+
 </resources>

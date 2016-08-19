@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="WiiTheme.Activity" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/wii_color_500</item>
+        <item name="colorPrimaryDark">@color/wii_color_700</item>
+        <item name="colorAccent">@color/wii_color_light_400</item>
+    </style>
+
+    <style name="WiiTHeme.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
+    </style>
+
+    <style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_more</item>
+    </style>
+
+    <style name="Theme.BaseActivity" parent="WiiTheme.Activity">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+    </style>
+</resources>

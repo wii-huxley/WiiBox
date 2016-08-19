@@ -4,6 +4,7 @@ package com.huxley.wii.wiitools.base;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 
 import com.huxley.wii.wiitools.common.Utils.L;
 
@@ -36,11 +38,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //写死竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         create(savedInstanceState);
 
         mIntent = getIntent();
         mInflater = getLayoutInflater();
         view = mInflater.inflate(getLayoutId(), null);
+
+        if (view != null && Build.VERSION.SDK_INT >= 14) {
+            L.i("------------------------ " + view);
+            view.setFitsSystemWindows(true);
+        }
 
         //设置contentView
         setContentView(view);

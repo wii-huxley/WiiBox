@@ -26,6 +26,7 @@ import com.huxley.wii.wiibox.page.knowledge.model.KnowledgeBean;
 import com.huxley.wii.wiibox.page.loginRegister.LoginRegisterActivity;
 import com.huxley.wii.wiibox.page.main.MainActivity;
 import com.huxley.wii.wiibox.page.main.androidtools.alignedtext.AlignedTextActivity;
+import com.huxley.wii.wiibox.page.main.androidtools.bezier.BezierActivity;
 import com.huxley.wii.wiibox.page.main.androidtools.blurview.BlurViewActivity;
 import com.huxley.wii.wiibox.page.main.androidtools.expandingPager.ExpandingPagerActivity;
 import com.huxley.wii.wiibox.page.main.androidtools.gobang.GobangActivity;
@@ -260,6 +261,12 @@ public class UIHelper {
             intent.putExtra(Constant.Key.ID, id);
             intent.putExtra(Constant.Key.NAME, name);
             activity.startActivity(intent);
+        }
+    }
+
+    public static void startBezierActivity(Activity activity) {
+        if (activity != null) {
+            activity.startActivity(new Intent(activity, BezierActivity.class));
         }
     }
 }

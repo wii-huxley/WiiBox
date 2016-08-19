@@ -130,6 +130,7 @@ android {
                     'src/main/res/layouts/login',
                     'src/main/res/layouts/user',
                     'src/main/res/layouts/knowledge',
+                    'src/main/res/layouts/bezier',
                     'src/main/res/layouts',
                     'src/main/res/drawables/icon',
                     'src/main/res/drawables/layerlist',

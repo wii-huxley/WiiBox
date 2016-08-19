@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/wii_color_50"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.huxley.wii.wiibox.page.main.androidtools.bezier.view.BezierView
+        android:id="@+id/bezierView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <CheckBox
+        android:id="@+id/cbOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15_p"
+        android:layout_marginStart="@dimen/dp_15_p"
+        android:checked="true"
+        android:text="@string/bezier_second_order"/>
+</FrameLayout>

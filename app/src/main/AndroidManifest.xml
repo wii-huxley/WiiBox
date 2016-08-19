@@ -117,7 +117,8 @@
         <activity android:name=".page.knowledge.detail.KnowledgeDetailActivity"/>
         <activity android:name=".page.codekk.detail.CodekkDetailActivity"/>
         <activity android:name=".page.main.androidtools.windmill.WindmillActivity"/>
-        <activity android:name=".page.main.androidtools.bezier.BezierActivity"/>
+        <activity android:name=".page.main.androidtools.bezier.BezierActivity"
+            android:theme="@style/Theme.BaseActivity"/>
     </application>
 
 </manifest>
